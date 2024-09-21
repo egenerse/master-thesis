@@ -75,7 +75,7 @@
   body
 
   pagebreak()
-  bibliography("/thesis.bib")
+  bibliography("/proposal.bib")
   pagebreak()
   transparency_ai_tools_layout(transparency_ai_tools)
 }

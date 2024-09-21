@@ -1,11 +1,11 @@
-#import "/utils/todo.typ": TODO
-
 = Schedule
-#TODO[ // Remove this block
-  *Thesis Schedule*
-  - When will the thesis Start
-  - Create a rough plan for your thesis (separate the time in iterations with a length of 2-4 weeks)
-  - Each iteration should contain several smaller work items - Again keep it high-level and make to keep your plan realistic
-  - Make sure the work-items are measurable and deliverable, they should describe features that are vertically integrated
-  - Do not include thesis writing or presentation tasks
-]
+#table(
+  columns: 3,
+  [*Iteration*],  [*Tasks*],  [*Duration*],
+  [1], [UI Consistency Review, Initial Redesign], [3 weeks],
+  [2], [Implement and Test New UI Components], [3 weeks],
+  [3], [Bug Fixes: Resizing and Alignment Issues], [3 weeks],
+  [4], [Usability Testing and User Feedback], [2 weeks],
+  [5], [Final Implementation and Testing], [3 weeks],
+  [6], [Thesis Writing and Final Presentation Preparation], [4 weeks]
+)
