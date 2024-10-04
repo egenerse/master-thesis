@@ -1,3 +1,85 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a7f97b485195b0de8567d8ef042b29a66ad0b4955edfea84711d7108906f9073
-size 12464
+<svg width="641" height="471" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#ffffff"><defs><style>
+  text {
+    fill: #212529;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+  }
+
+  marker, text {
+    fill-opacity: 1;
+  }
+
+  * {
+    overflow: visible;
+  }
+</style></defs><svg x="15" y="165" width="80" height="140" class="Student" fill="#ffffff"><g><rect width="100%" height="100%" fill="none"></rect><g stroke="black" stroke-width="2"><circle cx="40" cy="25" r="15" stroke="black" fill="white" class="sc-iGgWBj fYmGgq"></circle><line x1="40" y1="40" x2="40" y2="80" stroke="black" class="sc-imWYAI kESMEa"></line><line x1="10" y1="50" x2="70" y2="50" stroke="black" class="sc-imWYAI kESMEa"></line><line x1="40" y1="80" x2="10" y2="110" stroke="black" class="sc-imWYAI kESMEa"></line><line x1="40" y1="80" x2="70" y2="110" stroke="black" class="sc-imWYAI kESMEa"></line></g><text x="40" y="130" dominant-baseline="middle" text-anchor="middle" font-weight="bold" pointer-events="none">Student</text></g></svg><svg x="175" y="15" width="270" height="440" class="Apollon UML Editor" fill="#ffffff"><g><rect width="100%" height="100%" stroke="black" fill="white" class="sc-fqkvVR uHYUy"></rect><text x="50%" y="16" dominant-baseline="middle" text-anchor="middle" font-weight="bold" pointer-events="none">Apollon UML Editor</text></g></svg><svg x="225" y="55" width="180" height="50" class="Create UML Diagram" fill="#ffffff"><g><ellipse cx="50%" cy="50%" rx="50%" ry="50%" stroke="black" fill="white" class="sc-kAyceB ldFMTf"></ellipse><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-weight="bold" pointer-events="none">Create UML Diagram</text></g></svg><svg x="245" y="235" width="130" height="40" class="Edit Elements" fill="#ffffff"><g><ellipse cx="50%" cy="50%" rx="50%" ry="50%" stroke="black" fill="white" class="sc-kAyceB ldFMTf"></ellipse><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-weight="bold" pointer-events="none">Edit Elements</text></g></svg><svg x="245" y="115" width="140" height="40" class="Add Elements" fill="#ffffff"><g><ellipse cx="50%" cy="50%" rx="50%" ry="50%" stroke="black" fill="white" class="sc-kAyceB ldFMTf"></ellipse><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-weight="bold" pointer-events="none">Add Elements</text></g></svg><svg x="235" y="175" width="160" height="40" class="Connect Elements" fill="#ffffff"><g><ellipse cx="50%" cy="50%" rx="50%" ry="50%" stroke="black" fill="white" class="sc-kAyceB ldFMTf"></ellipse><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-weight="bold" pointer-events="none">Connect Elements</text></g></svg><svg x="235" y="295" width="140" height="40" class="Delete Element" fill="#ffffff"><g><ellipse cx="50%" cy="50%" rx="50%" ry="50%" stroke="black" fill="white" class="sc-kAyceB ldFMTf"></ellipse><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-weight="bold" pointer-events="none">Delete Element</text></g></svg><svg x="215" y="395" width="200" height="40" class="Collaborate on Diagram" fill="#ffffff"><g><ellipse cx="50%" cy="50%" rx="50%" ry="50%" stroke="black" fill="white" class="sc-kAyceB ldFMTf"></ellipse><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-weight="bold" pointer-events="none">Collaborate on Diagram</text></g></svg><svg x="275" y="345" width="70" height="40" class="Export" fill="#ffffff"><g><ellipse cx="50%" cy="50%" rx="50%" ry="50%" stroke="black" fill="white" class="sc-kAyceB ldFMTf"></ellipse><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-weight="bold" pointer-events="none">Export</text></g></svg><svg x="545" y="175" width="80" height="140" class="Collaborator" fill="#ffffff"><g><rect width="100%" height="100%" fill="none"></rect><g stroke="black" stroke-width="2"><circle cx="40" cy="25" r="15" stroke="black" fill="white" class="sc-iGgWBj fYmGgq"></circle><line x1="40" y1="40" x2="40" y2="80" stroke="black" class="sc-imWYAI kESMEa"></line><line x1="10" y1="50" x2="70" y2="50" stroke="black" class="sc-imWYAI kESMEa"></line><line x1="40" y1="80" x2="10" y2="110" stroke="black" class="sc-imWYAI kESMEa"></line><line x1="40" y1="80" x2="70" y2="110" stroke="black" class="sc-imWYAI kESMEa"></line></g><text x="40" y="130" dominant-baseline="middle" text-anchor="middle" font-weight="bold" pointer-events="none">Collaborator</text></g></svg><svg x="95" y="80" width="130" height="155" class="" fill="#ffffff"><g><path id="textpath-d9a20793-4bab-45b1-843f-062aacc0f0b1" d="
+        M 0 145
+        L 130 -10
+    "></path><text dominant-baseline="middle" text-anchor="middle" font-weight="bold" pointer-events="none" dy="20px"><textPath xlink:href="#textpath-d9a20793-4bab-45b1-843f-062aacc0f0b1" startOffset="50%"></textPath></text><polyline points="0 155,130 0" stroke-width="1" stroke="black" fill="none" class="sc-aXZVg eMElBf"></polyline></g></svg><svg x="95" y="135" width="150" height="100" class="" fill="#ffffff"><g><path id="textpath-dd90e4d5-146c-4a7e-a5c9-2b61bba51b0e" d="
+        M 0 90
+        L 150 -10
+    "></path><text dominant-baseline="middle" text-anchor="middle" font-weight="bold" pointer-events="none" dy="20px"><textPath xlink:href="#textpath-dd90e4d5-146c-4a7e-a5c9-2b61bba51b0e" startOffset="50%"></textPath></text><polyline points="0 100,150 0" stroke-width="1" stroke="black" fill="none" class="sc-aXZVg eMElBf"></polyline></g></svg><svg x="95" y="195" width="140" height="40" class="" fill="#ffffff"><g><path id="textpath-2ee616b3-ac34-45c9-8453-95fa94c5fabe" d="
+        M 0 30
+        L 140 -10
+    "></path><text dominant-baseline="middle" text-anchor="middle" font-weight="bold" pointer-events="none" dy="20px"><textPath xlink:href="#textpath-2ee616b3-ac34-45c9-8453-95fa94c5fabe" startOffset="50%"></textPath></text><polyline points="0 40,140 0" stroke-width="1" stroke="black" fill="none" class="sc-aXZVg eMElBf"></polyline></g></svg><svg x="95" y="235" width="150" height="20" class="" fill="#ffffff"><g><path id="textpath-a0f5340f-f365-4d36-99a2-22836a2e2ce9" d="
+        M 0 -10
+        L 150 10
+    "></path><text dominant-baseline="middle" text-anchor="middle" font-weight="bold" pointer-events="none" dy="20px"><textPath xlink:href="#textpath-a0f5340f-f365-4d36-99a2-22836a2e2ce9" startOffset="50%"></textPath></text><polyline points="0 0,150 20" stroke-width="1" stroke="black" fill="none" class="sc-aXZVg eMElBf"></polyline></g></svg><svg x="95" y="235" width="140" height="80" class="" fill="#ffffff"><g><path id="textpath-54137336-98db-421b-a370-c3fd903b8e96" d="
+        M 0 -10
+        L 140 70
+    "></path><text dominant-baseline="middle" text-anchor="middle" font-weight="bold" pointer-events="none" dy="20px"><textPath xlink:href="#textpath-54137336-98db-421b-a370-c3fd903b8e96" startOffset="50%"></textPath></text><polyline points="0 0,140 80" stroke-width="1" stroke="black" fill="none" class="sc-aXZVg eMElBf"></polyline></g></svg><svg x="95" y="235" width="180" height="130" class="" fill="#ffffff"><g><path id="textpath-1c3e8f5c-d636-4883-b59e-a4f260a68720" d="
+        M 0 -10
+        L 180 120
+    "></path><text dominant-baseline="middle" text-anchor="middle" font-weight="bold" pointer-events="none" dy="20px"><textPath xlink:href="#textpath-1c3e8f5c-d636-4883-b59e-a4f260a68720" startOffset="50%"></textPath></text><polyline points="0 0,180 130" stroke-width="1" stroke="black" fill="none" class="sc-aXZVg eMElBf"></polyline></g></svg><svg x="95" y="235" width="120" height="180" class="" fill="#ffffff"><g><path id="textpath-9018938d-0f44-457e-bc81-d45a241c658e" d="
+        M 0 -10
+        L 120 170
+    "></path><text dominant-baseline="middle" text-anchor="middle" font-weight="bold" pointer-events="none" dy="20px"><textPath xlink:href="#textpath-9018938d-0f44-457e-bc81-d45a241c658e" startOffset="50%"></textPath></text><polyline points="0 0,120 180" stroke-width="1" stroke="black" fill="none" class="sc-aXZVg eMElBf"></polyline></g></svg><svg x="405" y="80" width="140" height="165" class="" fill="#ffffff"><g><path id="textpath-21984e36-9949-4ce3-b59b-a0bc2162cafb" d="
+        M 140 155
+        L 0 -10
+    "></path><text dominant-baseline="middle" text-anchor="middle" font-weight="bold" pointer-events="none" dy="20px" transform="
+            translate(70, 82.5)
+            rotate(180)
+            translate(-70, -82.5)
+          "><textPath xlink:href="#textpath-21984e36-9949-4ce3-b59b-a0bc2162cafb" startOffset="50%"></textPath></text><polyline points="140 165,0 0" stroke-width="1" stroke="black" fill="none" class="sc-aXZVg eMElBf"></polyline></g></svg><svg x="385" y="135" width="160" height="110" class="" fill="#ffffff"><g><path id="textpath-3c4d9f67-feb5-49b5-b86a-8aa16ad7cf04" d="
+        M 160 100
+        L 0 -10
+    "></path><text dominant-baseline="middle" text-anchor="middle" font-weight="bold" pointer-events="none" dy="20px" transform="
+            translate(80, 55)
+            rotate(180)
+            translate(-80, -55)
+          "><textPath xlink:href="#textpath-3c4d9f67-feb5-49b5-b86a-8aa16ad7cf04" startOffset="50%"></textPath></text><polyline points="160 110,0 0" stroke-width="1" stroke="black" fill="none" class="sc-aXZVg eMElBf"></polyline></g></svg><svg x="395" y="195" width="150" height="50" class="" fill="#ffffff"><g><path id="textpath-7d570d34-05aa-4188-b1f3-1c9f159a2b75" d="
+        M 150 40
+        L 0 -10
+    "></path><text dominant-baseline="middle" text-anchor="middle" font-weight="bold" pointer-events="none" dy="20px" transform="
+            translate(75, 25)
+            rotate(180)
+            translate(-75, -25)
+          "><textPath xlink:href="#textpath-7d570d34-05aa-4188-b1f3-1c9f159a2b75" startOffset="50%"></textPath></text><polyline points="150 50,0 0" stroke-width="1" stroke="black" fill="none" class="sc-aXZVg eMElBf"></polyline></g></svg><svg x="375" y="245" width="170" height="10" class="" fill="#ffffff"><g><path id="textpath-d906fa04-a2a0-43c0-86c1-601d0fe01735" d="
+        M 170 -10
+        L 0 0
+    "></path><text dominant-baseline="middle" text-anchor="middle" font-weight="bold" pointer-events="none" dy="20px" transform="
+            translate(85, 5)
+            rotate(180)
+            translate(-85, -5)
+          "><textPath xlink:href="#textpath-d906fa04-a2a0-43c0-86c1-601d0fe01735" startOffset="50%"></textPath></text><polyline points="170 0,0 10" stroke-width="1" stroke="black" fill="none" class="sc-aXZVg eMElBf"></polyline></g></svg><svg x="345" y="245" width="200" height="120" class="" fill="#ffffff"><g><path id="textpath-4f596c61-6e1a-43ee-9816-8ea885291d07" d="
+        M 200 -10
+        L 0 110
+    "></path><text dominant-baseline="middle" text-anchor="middle" font-weight="bold" pointer-events="none" dy="20px" transform="
+            translate(100, 60.00000000000001)
+            rotate(180)
+            translate(-100, -60.00000000000001)
+          "><textPath xlink:href="#textpath-4f596c61-6e1a-43ee-9816-8ea885291d07" startOffset="50%"></textPath></text><polyline points="200 0,0 120" stroke-width="1" stroke="black" fill="none" class="sc-aXZVg eMElBf"></polyline></g></svg><svg x="415" y="245" width="130" height="170" class="" fill="#ffffff"><g><path id="textpath-d70747d0-4b6e-4d1a-b2ea-e809c34071dc" d="
+        M 130 -10
+        L 0 160
+    "></path><text dominant-baseline="middle" text-anchor="middle" font-weight="bold" pointer-events="none" dy="20px" transform="
+            translate(65, 85)
+            rotate(180)
+            translate(-65, -85)
+          "><textPath xlink:href="#textpath-d70747d0-4b6e-4d1a-b2ea-e809c34071dc" startOffset="50%"></textPath></text><polyline points="130 0,0 170" stroke-width="1" stroke="black" fill="none" class="sc-aXZVg eMElBf"></polyline></g></svg><svg x="375" y="245" width="170" height="70" class="" fill="#ffffff"><g><path id="textpath-046200e8-e009-4839-a2d1-85f6f9f86706" d="
+        M 170 -10
+        L 0 60
+    "></path><text dominant-baseline="middle" text-anchor="middle" font-weight="bold" pointer-events="none" dy="20px" transform="
+            translate(85, 35)
+            rotate(180)
+            translate(-85, -35)
+          "><textPath xlink:href="#textpath-046200e8-e009-4839-a2d1-85f6f9f86706" startOffset="50%"></textPath></text><polyline points="170 0,0 70" stroke-width="1" stroke="black" fill="none" class="sc-aXZVg eMElBf"></polyline></g></svg></svg>
