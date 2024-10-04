@@ -1,14 +1,34 @@
-#import "/utils/todo.typ": TODO
-
 = Objective
 
-The objectives of this thesis are to enhance the overall functionality and usability of the Apollon UML Diagram Editor, with a specific focus on broadening its availability and improving user experience across both web and iOS platforms. The detailed objectives include:
 
-- Enhancing UI/UX Consistency and Usability: Develop a uniform and intuitive user interface that provides a seamless experience across web and iOS applications. This includes standardizing interactive elements and workflows to ensure consistency and ease of use, regardless of the platform.
+== Enhance UI/UX  <obj-4-1-1>
 
-- Fixing Bugs Affecting User Experience: Identify and rectify existing bugs in the software that negatively impact user interactions and performance on both web and iOS versions of the tool.
+=== Rearranging the Application Bar for Web 
+To improve the user experience on the web platform, the application bar will be reorganized to enhance usability. The layout will be adapted to improve access to core functions and providing a cleaner design.
 
-- Implementing New Features to Improve Usability: Introduce innovative features that enhance the functionality and usability of the Apollon UML Diagram Editor. These features should meet the specific needs of users on both platforms, making diagramming more efficient and enhancing user interactions.
+=== Refining the UI Design for iOS
+For iOS, the UI will be adjusted to accommodate touch-based interactions, improving the user experience on mobile and tablet devices. Elements will be optimized for smaller screens, ensuring seamless interactions.
 
-- Increasing User Adoption Through Usability Testing and Feedback: Conduct comprehensive usability testing across both the web and iOS platforms to gather actionable feedback from users. This feedback will inform further refinements and promote wider adoption of the tool among students and educators, enhancing its effectiveness as an educational resource.
+== Fix Bugs Impacting User Experience
 
+===  Identifying and Prioritizing Critical Bugs
+This subsection focuses on the process of bug identification and prioritization. Bugs that hinder critical features, such as adding new element, editing, or resizing the canvas, will be identified and fixed to ensure smooth operation.
+
+=== Monitoring and Addressing Recurring Issues
+To ensure long-term stability, tests will be created to prevent regression after bug fixes. This will help maintain a reliable user experience across future updates of both the web and iOS versions of the tool.
+
+== Introduce New Features for Improved Usability
+
+=== Advanced Diagram Editing Tools
+New tools will be introduced to make diagram creation more efficient, such as shortcut features and enhanced diagram manipulation capabilities. These tools will be designed to meet the needs of both novice and advanced users.
+
+=== Platform-Specific Enhancements
+Features that cater specifically to the strengths of web and iOS platforms will be developed. For example, web-based users may benefit from better keyboard shortcuts, while iOS users may have access to gesture-based interactions.
+
+== Establish a User Feedback Loop
+
+===  Gathering Usability Data from Real Users
+Surveys, interviews, and usability tests will be conducted to gather feedback on the current state of the editor. The focus will be on both students and educators to ensure the tool meets their needs.
+
+=== Iterative Improvement Based on Feedback
+The gathered feedback will be analyzed, and further refinements will be made to the UI, functionality, and performance of the tool. This iterative process will help improve user adoption and satisfaction across both platforms.
