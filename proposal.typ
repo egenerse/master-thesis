@@ -9,6 +9,7 @@
   degree: degree,
   program: program,
   supervisor: supervisor,
+  advisors: advisors,
   author: author,
   startDate: startDate,
   submissionDate: submissionDate,
