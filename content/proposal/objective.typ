@@ -1,5 +1,6 @@
 = Objective
 
+The objectives of the proposed thesis are as follows 
 
 == Enhance UI/UX  <obj-4-1-1>
 
