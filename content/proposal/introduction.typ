@@ -1,6 +1,5 @@
-#import "/utils/todo.typ": TODO
-
-
 = Introduction
 
- The Apollon UML Diagram Editor is an open-source tool developed with React, TypeScript, and Redux, facilitates the efficient creation and manipulation of UML diagrams on the web. Unified Modeling Language (UML) diagrams are vital in software development for representing system architectures and workflows, providing a standard for visualizing complex designs in both academic and professional settings @waykar2013. Apollon also offers an iOS application built with Swift, allowing diagram management on mobile devices. This thesis aims to enhance Apollon's UI, fix bugs, and introduce features that improve usability across platforms.
+The Apollon UML Diagram Editor is an open-source tool that facilitates the creation and management of UML diagrams, widely used in software development for visualizing system architectures and processes. Built with React, TypeScript, and Redux, Apollon offers both web and mobile platforms, with the mobile version developed using Swift for iOS. UML diagrams provide a standardized way to represent complex systems, supporting clear communication in academic and professional environments @waykar2013. However, the current version of Apollon faces low adoption rates due to its unintuitive user interface and several usability challenges.
+
+This thesis seeks to resolve these issues by focusing on improving the user interface, fixing critical bugs, and introducing features that streamline the diagramming process. Beyond enhancing usability, the project will also focus on improving code quality by integrating modern technologies and libraries. These efforts aim to create a consistent and user-friendly experience across both web and mobile platforms. Feedback from real users will guide the development process, ensuring that the improvements meet their needs and encourage broader adoption of the tool.

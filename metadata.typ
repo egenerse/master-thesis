@@ -1,5 +1,5 @@
 // Enter your thesis data here:
-#let titleEnglish = "Enhancing the Usability and User Experience of the Apollon UML Diagram Editor"
+#let titleEnglish = "Enhancing the Usability and User Experience of the Apollon"
 #let titleGerman = "Verbesserung der Benutzerfreundlichkeit und Nutzererfahrung des Apollon UML-Diagrammeditors"
 #let degree = "Master"
 #let program = "Information Systems"
