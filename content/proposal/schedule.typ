@@ -16,53 +16,7 @@
   [12], [Thesis Writing and Final Presentation Preparation], [], [Ege Nerse - Belemir Kürün], [4 weeks]
 )
 
-#import "@preview/timeliney:0.1.0"
-
-#timeliney.timeline(
-  show-grid: true,
-  {
-    import timeliney: *
-
-    headerline(group(([Oct], 2)), group(([Nov], 2)), group(([Dec], 2)), group(([Jan], 2)), group(([Feb], 2)), group(([Mar], 2)), group(([Apr], 2)))
-
-    taskgroup(title: [*Redesign*], {
-      task("Initial Web redesign", (1, 2.5), style: (stroke: 2pt + gray))
-      task("Initial iOS redesign", (1, 2.5), style: (stroke: 2pt + gray))
-    })
-
-    taskgroup(title: [*Bug Fixing*], {
-      task("Web Bug Fixes", (2.5, 4.5), style: (stroke: 2pt + gray))
-      task("iOS Bug Fixes", (2.5, 4.5), style: (stroke: 2pt + gray))
-    })
-
-    taskgroup(title: [*Feedback and Feature Implementation*], {
-
-      task("Web Feedback Collection", (4.5, 5), style: (stroke: 2pt + gray))
-      task("iOS Feedback Collection", (4.5, 5), style: (stroke: 2pt + gray))
-
-      task("Web Feature Implementation", (5, 7), style: (stroke: 2pt + gray))
-      task("iOS Feature Implementation", (5, 7), style: (stroke: 2pt + gray))
-    })
-
-    taskgroup(title: [*Feedback Collection & Iteration*], {
-      task("Web Feedback Collection II", (7, 7.5), style: (stroke: 2pt + gray))
-      task("iOS Feedback Collection II", (7, 7.5), style: (stroke: 2pt + gray))
-      task("Further Web Development", (7.5, 9.0), style: (stroke: 2pt + gray))
-      task("Further Ios Development", (7.5, 9.0), style: (stroke: 2pt + gray))
-    })
-
-    taskgroup(title: [*Feedback Collection & Final Implementation*], {
-      task("Web Feedback Collection III", (9.0, 9.5), style: (stroke: 2pt + gray))
-      task("iOS Feedback Collection III", (9.0, 9.5), style: (stroke: 2pt + gray))
-      task("Final Implementation for Apollon Web", (9.5, 11.0), style: (stroke: 2pt + gray))
-      task("Final Implementation for Apollon Ios", (9.5, 11.0), style: (stroke: 2pt + gray))
-    })
-
-    taskgroup(title: [*Finalization and Documentation*], {
-      task("Finalization & Documentation", (11.0, 13), style: (stroke: 2pt + gray))
-    })
-
-
-
-  }
-)
+#figure(
+  image("../../figures/MastersThesisProposalTimeline.png", width: 110%),
+  caption: [Thesis Timeline],
+) <MastersThesisProposalTimeline>

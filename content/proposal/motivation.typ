@@ -18,5 +18,5 @@ An example of an area that needs improvement can be seen in the diagram @renameA
 
 To ensure a consistent user experience, both the iOS and web applications should align in terms of usability, features, and interface design. Creating this seamless experience across platforms will make the tool more familiar and comfortable for students, regardless of the device they are using. By enhancing both the web and iOS versions, students can benefit from an efficient and accessible UML diagramming tool across multiple environments.
 
-A well-designed user experience (UX) and interface are essential in educational technology, as they encourage students to engage more with the platform (Su, 2015). With a more intuitive interface, students can focus on learning UML concepts without being hindered by technical difficulties.
+A well-designed user experience (UX) and interface are essential in educational technology, as they encourage students to engage more with the platform @su15107923. With a more intuitive interface, students can focus on learning UML concepts without being hindered by technical difficulties.
 
