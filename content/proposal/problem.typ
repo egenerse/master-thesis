@@ -11,8 +11,8 @@ Several factors contribute to this problem. First, Apollon’s user interface is
   caption: [Diagram Selection Apollon Web Application],
 ) <DiagramSelectionWeb>
 
-Similarly, the iOS application, while available for mobile devices and tablets, also presents several usability challenges. The current design requires users to click multiple times to perform basic actions, such as moving and editing elements, which limits the flexibility and efficiency of the tool. Additionally, as shown in the given figure, subcomponents are not clickable because they are blocked by their parent component, further complicating interactions @ComponentDiagramIos. Compared to other UML diagramming applications, Apollon is less adaptable and not open to easy customization.
 
+The 2023 study in the Journal of Educational Technology & Society emphasizes the importance of multi-platform accessibility for enhancing educational outcomes [mobileEduTech2023]. This need for accessibility extends beyond the web tool to the iOS application, which is critical for ensuring a seamless user experience across all devices. However, the iOS application presents its own set of usability challenges. For instance, the current design requires users to engage in multiple interactions for basic tasks such as moving and editing elements, which significantly hampers the tool's flexibility and efficiency. Additionally, as highlighted in the component diagram, subcomponents are not clickable because they are obscured by their parent components, complicating user interactions further [@ComponentDiagramIos]. Unlike other UML diagramming applications, Apollon lacks adaptability and is not easily customizable, underscoring a pressing need for improvements to the iOS interface to match the intuitive access provided on other platforms.
 #figure(
   image("../../figures/ComponentDiagramIOS.png", width: 80%),
   caption: [Component Diagram Drag Example Ios Application],
