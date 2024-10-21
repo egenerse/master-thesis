@@ -3,6 +3,7 @@
 
 = Motivation
 
+
 A well-designed user experience (UX) and interface are essential in educational technology, as they encourage students to engage more with the platform @su15107923. With a more intuitive interface, students can focus on learning UML concepts without being hindered by technical difficulties. Fowler, emphasizes that UML serves not just as a design tool but also as a communication medium, facilitating clearer understanding among students and educators alike @fowler2003uml. That's why we need to enhance the Apollon User Interface and reach as many students as possible to make communication easier.
 
 To improve the Apollon UML Diagram Editor and increase its usage among students, we will focus on making the platform more user-friendly by fixing bugs, gathering feedback, and introducing new features. These improvements will follow Nielsen's usability heuristics, particularly principles like visibility of system status, ensuring clear feedback during actions such as dragging and dropping elements; error prevention, reducing the likelihood of mistakes during diagramming by implementing features like snapping points; and flexibility and efficiency of use, allowing experienced users to utilize shortcuts for a faster workflow @nielsen1993usability. By adhering to these guidelines, the editor will become more intuitive, promoting a smoother diagramming experience for students.
