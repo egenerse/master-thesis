@@ -8,7 +8,7 @@ Set up a monorepo structure to include the web application, library, server appl
 *Iteration 2 (3 weeks: 13.12.2024 - 02.01.2025):*
 Implement inline editing for class diagram elements and introduce shortcuts for common actions to improve usability and visibility, as detailed in Section 4.3. Customize path creation to enhance diagramming flexibility. Make key features, such as creating new diagrams, importing/exporting files, and accessing collaboration mode, visible on the main screen. Conduct usability testing for the implemented features to ensure smooth interactions and address potential user pain points.
 
-*Iteration 3 (2 weeks: 27.12.2024 - 16.01.2025):*
+*Iteration 3 (2 weeks: 03.01.2025 - 16.01.2025):*
 Use Capacitor to wrap the unified codebase into native apps for iOS and Android, as described in Section 4.2. Add touch gesture support for mobile browsers and apps to enable smooth interactions. Refine mobile layouts for a touch-friendly interface and resolve inconsistencies between web and mobile applications. Perform cross-platform testing to verify consistent functionality and user experience across web and mobile platforms.
 
 *Iteration 4 (3 weeks: 17.01.2025 - 06.02.2025):*
