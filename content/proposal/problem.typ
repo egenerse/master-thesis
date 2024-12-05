@@ -2,19 +2,18 @@
 
 = Problem
 
-A significant issue with the current state of the Apollon UML Diagram Editor is that many students are either unaware of its existence or choose not to use it. As a result, students frequently opt for other tools and websites to create their UML diagrams, leading to inconsistencies in the tools and diagram formats used across projects. This lack of usage suggests that Apollon may not be adequately promoted or user-friendly enough to attract widespread usage among students.
+The Apollon UML Diagram Editor has several major problems that limit its usability and maintainability. Firstly, the outdated class-based React codebase is hard to debug, difficult to read, and prone to mistakes. Secondly, features like canvas resizing and collaboration are unreliable, often leading to misplaced diagrams and inconsistent updates. Lastly, the mobile interface is not user-friendly, with oversized sidebars reducing workspace and touch interactions being poorly implemented. These issues make the tool less appealing to users and challenging to improve.
 
-Several factors contribute to this problem. First, Apollon’s user interface is not intuitive or accessible enough, which can cause confusion and frustration for new users. Shneiderman et al. highlight that software tools lacking in usability and adaptability are often abandoned by users, who find them too frustrating and inefficient for regular use @shneiderman2016designing. The authors argue that ensuring software is easy to use and adaptable to various user needs is essential for widespread adoption and satisfaction. As shown in @DiagramSelectionWeb, the diagram selection is hidden under the file tab, making it difficult for students to locate and navigate essential features. This challenge is more pronounced when compared to alternative tools with which students are more familiar @Ferreira2024.
+For instance, as shown in @renameActivityDiagram, the diagram selection feature is hidden under the file tab in the current Apollon web application, complicating access to basic functionality. This unintuitive design frustrates users, reducing their ability to efficiently complete tasks and leading them to prefer alternative tools @Ferreira2024.
+
 
 #figure(
-  image("../../figures/DiagramWebApollon.png", width: 80%),
-  caption: [Diagram Selection Apollon Web Application],
-) <DiagramSelectionWeb>
+  image("../../figures/RenameElementActivitiyDiagram.svg", width: 70%),
+  caption: [Activity Diagram Demonstrating User Workflow in Apollon],
+) <renameActivityDiagram>
 
-
-The 2023 study in the Journal of Educational Technology & Society emphasizes the importance of multi-platform accessibility for enhancing educational outcomes @mobileEduTech2023. This need for accessibility extends beyond the web tool to the iOS application, which is critical for ensuring a seamless user experience across all devices. However, the iOS application presents its own set of usability challenges. For instance, the current design requires users to engage in multiple interactions for basic tasks such as moving and editing elements, which significantly hampers the tool's flexibility and efficiency. Additionally, as highlighted in the component diagram, subcomponents are not clickable because they are obscured by their parent components, complicating user interactions further [@ComponentDiagramIos]. Unlike other UML diagramming applications, Apollon lacks adaptability and is not easily customizable, underscoring a pressing need for improvements to the iOS interface to match the intuitive access provided on other platforms.
-
+Another problem is the lack of multi-platform accessibility. A 2023 study highlights the importance of accessibility for better educational outcomes @mobileEduTech2023. Mobile users face challenges as there is no Android app, and the iOS app has issues such as inconsistent element movement, as shown in @ClassDiagramIos. Additionally, mobile browsers are not optimized for touch interactions, making them inconvenient for creating UML diagrams. These limitations highlight the need for better design to ensure seamless and efficient use across devices.
 #figure(
-  image("../../figures/ComponentDiagramIOS.png", width: 80%),
-  caption: [Component Diagram Drag Example Ios Application],
-) <ComponentDiagramIos>
+  image("../../figures/classDiagramBug.png", width: 80%),
+  caption: [Example of a Rendering Bug in the Apollon iOS Application],
+) <ClassDiagramIos>

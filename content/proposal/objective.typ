@@ -1,31 +1,28 @@
 = Objective
 
-The objectives of the proposed thesis are as follows.
+As outlined, this thesis focuses on reengineering the Apollon UML Diagram Editor with the following goals:
 
-== Enhance UI/UX  <obj-4-1>
 
-The user experience on the web platform will be improved by reorganizing the application toolbar to enhance usability. Access to core functions will be streamlined, and the layout will be simplified to provide a cleaner design.
+*1.Rewrite the codebase using the latest React standards* to improve maintainability and scalability.
 
-For iOS devices, the interface will be adjusted to better accommodate touch-based interactions, enhancing the user experience on mobile and tablet devices. Elements will be optimized for smaller screens, ensuring seamless interactions.
+*2.Enhance accessibility across web and mobile platforms* for consistent usability.
 
-== Fix Bugs Impacting User Experience
+*3.Improve user experience in usability and visibility* by streamlining workflows and enhancing feature accessibility.
 
-This section will focus on the identification and prioritization of significant bugs that impact usability in both the web and iOS versions of the tool. Issues such as adding new elements, editing, or resizing the canvas, which are common to both platforms, will be systematically addressed. For the iOS application, specific problems include translation errors, drag-and-drop functionalities, difficulties in selecting elements, and visibility issues with methods and attributes in the edit view. These issues currently prevent the application from being effectively used by students.
+== Rewrite the Codebase Using Latest React Standards
 
-For the web version, similar usability concerns that disrupt the smooth creation and management of diagrams will also be identified and resolved. This comprehensive approach ensures that both platforms provide a seamless user experience.
+The first phase focuses on reengineering the codebase by switching to functional components and the latest React standards. This will make the system easier to maintain, scale, and debug, creating a strong base for future updates. Adopting a function-based structure will replace the limitations of the current class-based design and allow for smoother development.
 
-To ensure long-term stability and prevent the recurrence of these issues, rigorous testing protocols will be implemented. These tests will be designed to detect and address any regressions that occur after the initial bug fixes, maintaining a reliable user experience through future updates of both the web and iOS versions of the tool.
+React Flow will be used to manage diagram components and interactions, simplifying complex tasks and improving the user experience. The updated codebase will follow modern React practices to ensure consistency and clarity.
 
-== Introduce New Features for Improved Usability
+== Enhance Accessibility Across Web and Mobile Platforms
 
-New tools will be introduced to make diagram creation more efficient, such as shortcut features and enhanced diagram manipulation capabilities. These tools will be designed to meet the needs of both novice and advanced users.
+This goal focuses on improving accessibility by using Capacitor to create a unified codebase for both web and native applications. Capacitor wraps the web app to function as native apps for iOS and Android, eliminating the need for separate codebases. This simplifies maintenance and ensures a consistent experience across all devices.
 
-Features that cater specifically to the strengths of web and iOS platforms will be developed. For example, web-based users may benefit from better keyboard shortcuts, while iOS users may have access to gesture-based interactions.
+The project will add touch gestures, including drag-and-drop and hand gestures, to improve usability for mobile users and web browsers. These features will make interactions smoother and create a better user experience, allowing users to work easily on mobile devices.
 
-After the initial bug fixes, we will carefully review feedback from students to determine which new features are most needed for creating UML diagrams on both the web and iOS platforms. This feedback will guide us in choosing the most important tools to add or improve. By focusing on what students find most useful, we can ensure that the new features make diagram creation easier and more efficient for everyone, regardless of whether they use the web or iOS version.
+== Improve User Experience in Usability and Visibility
 
-== Establish a User Feedback Loop
+This phase focuses on making the editor more intuitive by simplifying workflows and improving the accessibility of key features. Enhancements will include shortcuts for common tasks, enabling experienced users to perform actions quickly. Inline editing for diagram elements will replace unnecessary popups, reducing friction and improving efficiency. These changes aim to provide a smoother, more user-friendly experience for both novice and advanced users.
 
-Surveys, interviews, and usability tests will be conducted to gather feedback on the current state of the editor. The focus will be on both students and educators to ensure the tool meets their needs.
-
-The gathered feedback will be analyzed, and further refinements will be made to the UI, functionality, and performance of the tool. This iterative process will help improve user adoption and satisfaction across both platforms.
+To enhance visibility, customization options for path creation will be introduced, allowing for more expressive and flexible diagramming. Key features such as creating new diagrams, importing/exporting files, and accessing collaboration mode will be made prominently visible on the main screen. These adjustments ensure that essential functionalities are easily discoverable and accessible, reducing the learning curve and improving overall usability.
