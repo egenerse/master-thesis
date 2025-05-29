@@ -1,3 +1,5 @@
+#import "/utils/todo.typ": TODO
+
 = Objective
 
 As outlined, this thesis focuses on reengineering the Apollon UML Diagram Editor with the following goals:

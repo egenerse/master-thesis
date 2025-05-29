@@ -1,3 +1,5 @@
+#import "/layout/fonts.typ": *
+
 #let acknowledgement(body) = {
   set page(
     margin: (left: 30mm, right: 30mm, top: 40mm, bottom: 40mm),
@@ -5,20 +7,19 @@
     number-align: center,
   )
 
-  let body-font = "New Computer Modern"
-  let sans-font = "New Computer Modern Sans"
-
   set text(
-    font: body-font, 
+    font: fonts.body, 
     size: 12pt, 
     lang: "en"
   )
 
-  set par(leading: 1em)
-
+  set par(
+    leading: 1em, 
+    justify: true
+  )
   
   // --- Acknowledgements ---
-  align(left, text(font: sans-font, 2em, weight: 700,"Acknowledgements"))
+  align(left, text(font: fonts.sans, 2em, weight: 700,"Acknowledgements"))
   v(15mm)
 
   body

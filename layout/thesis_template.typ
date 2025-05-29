@@ -5,6 +5,8 @@
 #import "/layout/transparency_ai_tools.typ": transparency_ai_tools as transparency_ai_tools_layout
 #import "/layout/abstract.typ": *
 #import "/utils/print_page_break.typ": *
+#import "/layout/fonts.typ": *
+#import "/utils/diagram.typ": in-outline
 
 #let thesis(
   title: "",
@@ -65,15 +67,12 @@
 
   set page(
     margin: (left: 30mm, right: 30mm, top: 40mm, bottom: 40mm),
-    numbering: "1",
+    numbering: none,
     number-align: center,
   )
 
-  let body-font = "New Computer Modern"
-  let sans-font = "New Computer Modern Sans"
-
   set text(
-    font: body-font, 
+    font: fonts.body, 
     size: 12pt, 
     lang: "en"
   )
@@ -82,16 +81,18 @@
 
   // --- Headings ---
   show heading: set block(below: 0.85em, above: 1.75em)
-  show heading: set text(font: body-font)
+  show heading: set text(font: fonts.body)
   set heading(numbering: "1.1")
   // Reference first-level headings as "chapters"
   show ref: it => {
     let el = it.element
     if el != none and el.func() == heading and el.level == 1 {
-      [Chapter ]
-      numbering(
-        el.numbering,
-        ..counter(heading).at(el.location())
+      link(
+        el.location(),
+        [Chapter #numbering(
+          el.numbering,
+          ..counter(heading).at(el.location())
+        )]
       )
     } else {
       it
@@ -108,9 +109,13 @@
   show figure: set text(size: 0.85em)
   
   // --- Table of Contents ---
+  show outline.entry.where(level: 1): it => {
+    v(15pt, weak: true)
+    strong(it)
+  }
   outline(
     title: {
-      text(font: body-font, 1.5em, weight: 700, "Contents")
+      text(font: fonts.body, 1.5em, weight: 700, "Contents")
       v(15mm)
     },
     indent: 2em
@@ -121,7 +126,9 @@
   pagebreak()
 
 
-  // Main body.
+    // Main body. Reset page numbering.
+  set page(numbering: "1")
+  counter(page).update(1)
   set par(justify: true, first-line-indent: 2em)
 
   body
@@ -129,18 +136,27 @@
   // List of figures.
   pagebreak()
   heading(numbering: none)[List of Figures]
+  show outline: it => { // Show only the short caption here
+    in-outline.update(true)
+    it
+    in-outline.update(false)
+  }
   outline(
     title:"",
     target: figure.where(kind: image),
   )
 
   // List of tables.
-  pagebreak()
-  heading(numbering: none)[List of Tables]
-  outline(
-    title: "",
-    target: figure.where(kind: table)
-  )
+  context[
+    #if query(figure.where(kind: table)).len() > 0 {
+      pagebreak()
+      heading(numbering: none)[List of Tables]
+      outline(
+        title: "",
+        target: figure.where(kind: table)
+      )
+    }
+  ]
 
   // Appendix.
   pagebreak()

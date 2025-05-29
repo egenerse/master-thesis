@@ -1,16 +1,16 @@
 # thesis-template-typst
 This repository provides a comprehensive Typst template for writing your Bachelor's or Master's thesis at the CIT School of TUM (Technical University of Munich). It includes two types of documents: a proposal template and a thesis template, both specifically designed for students in the field of Informatics. For more information about writing a thesis at the CIT School, please visit the [official CIT website](https://www.cit.tum.de/en/cit/studies/students/thesis-completing-your-studies/informatics/).
 
-**Note:** This is only a template. You have to adapt the template to your thesis and discuss the structure of your thesis with your supervisor!
+> [!IMPORTANT]
+> This is only a template. You have to adapt the template to your thesis and discuss the structure of your thesis with your supervisor!
 
---- 
+
 ## Guidelines 
+> [!TIP]
+> __Please thorougly read our guidelines and hints on [confluence](https://confluence.ase.in.tum.de/display/EduResStud/How+to+thesis)!__ (TUM Login Required) 
 
-__Please thorougly read our guidelines and hints on [confluence](https://confluence.ase.in.tum.de/display/EduResStud/How+to+thesis)!__ (TUM Login Required) 
 
----
 ## Installation
-
 For detailed installation instructions, please refer to the [official installation guide](https://github.com/typst/typst). Here, we provide basic steps for installing Typst's CLI:
 
 - You can get sources and pre-built binaries from the [releases page](https://github.com/typst/typst/releases).
@@ -19,7 +19,17 @@ For detailed installation instructions, please refer to the [official installati
 
 Nix and Docker users, please refer to the official installation guide for detailed instructions.
 
+> [!NOTE]
+> [Git LFS](https://git-lfs.com/) is required in this repository to handle large files, such as figures. Make sure to install it before cloning the repository.
+
 ## Usage
+
+### Use this repository as a template
+You can use this repository as a template for your thesis. To do this, follow these steps:
+1. Click on the green "Use this template" button at the top right of this page.
+2. Select "Create a new repository" and fill in the required information.
+3. Clone the new repository to your local machine using `git clone <repository-url>`.
+
 ### Set thesis metadata 
 Fill in your thesis details in the [`metadata.typ`](/metadata.typ) file: 
 * Degree (Bachelor or Master)
@@ -102,7 +112,8 @@ If you prefer an integrated IDE-like experience with autocompletion and instant 
 3. Click on "File" on the top left menu, then "Upload File".
 4. Select all .typ and .bib files along with the figures provided in this template repository.
 
-**Note:** You can select multiple files to import. The editor will import and arrange all the files accordingly. Always ensure you have all the necessary .typ, .bib, and figures files you need for your document.
+> [!Note]
+> You can select multiple files to import. The editor will import and arrange all the files accordingly. Always ensure you have all the necessary `.typ`, `.bib`, and figures files you need for your document.
 
 ## Working with VS Code
 If you prefer to have a more integrated experience with your favorite code editor, you can use the Typst VS Code extension. The extension provides syntax highlighting, autocompletion, and error checking for Typst files. You can install the extension from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=nvarner.typst-lsp).
@@ -111,7 +122,49 @@ If you prefer to have a more integrated experience with your favorite code edito
 2. Set the correct file (`thesis.typ` or `proposal.typ`) as the main file. This can be done by opening the respective file and running the command `Typst: Pin the main file to the currently opened document`. Just hit `CMD + Shift + P` and search for the command.
 
 
+## Working with GitHub Copilot
+
+GitHub Copilot can significantly enhance your thesis workflow, especially for proposal review and development. As a student, you can access GitHub Copilot for free through GitHub Education.
+
+### Getting GitHub Copilot (Free for Students)
+
+1. Visit [GitHub Education](https://education.github.com/pack) and sign up for the GitHub Student Developer Pack using your university email
+2. After verification, you'll get free access to GitHub Copilot
+3. Install the GitHub Copilot extension:
+   - Open VS Code
+   - Go to Extensions (or press `Cmd+Shift+X` on Mac)
+   - Search for "GitHub Copilot"
+   - Click "Install"
+4. After installation, you'll need to sign in to your GitHub account in VS Code
+
+### Thesis Proposal Review Assistant
+
+This template includes custom Copilot instructions specifically designed to help evaluate thesis proposals against academic standards. The instructions help Copilot provide detailed feedback on:
+
+- Structure and completeness of all required sections
+- Scientific rigor and citation quality
+- Diagram and figure requirements
+- Writing quality and style issues
+
+These custom instructions are located in `.github/copilot-instructions.md`. You can modify or remove this file if you prefer different Copilot behavior.
+
+### Using Copilot for Proposal Review
+
+For the best thesis proposal feedback experience:
+
+1. Open Copilot Chat by clicking the Copilot icon or use `Ctrl+Cmd+I` on Mac
+2. In the chat use the "Ask" mode (default) and select "Claude 3.7 Sonnet Thinking" as your model for comprehensive academic feedback (you might need to enable this in your GitHub settings)
+3. Ask questions such as:
+   - "Do you have any feedback for my proposal?"
+   - "Review my problem description section for academic rigor"
+   - "Check if my citations follow proper academic standards"
+4. Also try out the "Agent" mode for applying the feedback directly to your document. This mode can help you make changes based on Copilot's suggestions.
+
+> [!NOTE]
+> Remember to acknowledge AI assistance in your transparency statement if you used GitHub Copilot extensively for your thesis work.
+
 ---
+
 ## Further Resources
 
 - [Typst Documentation](https://typst.app/docs/)
