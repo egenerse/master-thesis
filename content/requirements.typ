@@ -1,90 +1,61 @@
 #import "/utils/todo.typ": TODO
 
 = Requirements
-#TODO[
-  This chapter follows the Requirements Analysis Document Template in @bruegge2004object. Important: Make sure that the whole chapter is independent of the chosen technology and development platform. The idea is that you illustrate concepts, taxonomies and relationships of the application domain independent of the solution domain! Cite @bruegge2004object several times in this chapter.
 
-]
+This chapter follows the structure from the Requirements Analysis Document in [@krusche2018artemis]. We begin by describing how Apollon currently works and what problems exist. Then we present the proposed improvements and list the functional and non-functional requirements for the new system.
 
-== Overview
-#TODO[
-  Provide a short overview about the purpose, scope, objectives and success criteria of the system that you like to develop.
-]
+== Current System
 
-== Existing System
-#TODO[
-  This section is only required if the proposed system (i.e. the system that you develop in the thesis) should replace an existing system.
-]
+Apollon is an open-source UML diagram editor used within Artemis, a learning platform for software engineering courses. The existing version of Apollon provides a wide range of diagram types and allows users to visually model software systems. It is integrated into Artemis and used by students during exercises and exams.
+
+However, the current version suffers from several issues. The codebase is written in outdated React class components, making it hard to maintain or extend. There is no shared structure between the standalone editor, the Artemis integration, and the mobile version. Collaboration is based on an earlier implementation using Yjs, but the update handling logic is deeply embedded in the library, limiting flexibility. Only an iOS mobile version exists, and it is buggy and not suitable for general use. Android was never supported.
 
 == Proposed System
-#TODO[
-  If you leave out the section “Existing system”, you can rename this section into “Requirements”.
-]
+
+This thesis proposes a reengineering of Apollon using modern functional React, React Flow, and Capacitor. The new system will be organized as a monorepo that includes the core diagramming library, a standalone editor, and mobile applications for both iOS and Android. Collaboration mode will be refactored to move WebSocket logic out of the library, allowing different platforms to handle connections independently. Full compatibility with Artemis will be maintained throughout.
 
 === Functional Requirements
-#TODO[
-  List and describe all functional requirements of your system. Also mention requirements that you were not able to realize. The short title should be in the form “verb objective”
 
-  - FR1 Short Title: Short Description. 
-  - FR2 Short Title: Short Description. 
-  - FR3 Short Title: Short Description.
-]
+*FR1. Artemis Compatibility*
+The new Apollon must fully support Artemis integration. This includes keeping the current diagram JSON format and all API interactions unchanged to ensure it works as a drop-in replacement.
 
-=== Quality Attributes
-#TODO[
-  List and describe all quality attributes of your system. All your quality attributes should fall into the URPS categories mentioned in @bruegge2004object. Also mention requirements that you were not able to realize.
+*FR2. Unified Monorepo Structure*
+Apollon will be restructured into a monorepo containing the core library, the standalone web editor, and the mobile distribution. Each part must share code and follow consistent design principles.
 
-  - QA1 Category: Short Description. 
-  - QA2 Category: Short Description. 
-  - QA3 Category: Short Description.
+*FR3. Mobile Application Support*
+Apollon must support deployment to both iOS and Android devices using Capacitor. Mobile interactions such as touch-based drag-and-drop, tap-to-edit, and resizing must be smooth and responsive.
 
-]
+*FR4. WebSocket Refactoring*
+WebSocket connections for collaborative editing must be managed from the web application layer instead of the shared library. This enables better control and modular integration into host systems like Artemis.
 
-=== Constraints
+*FR5. Collaboration Traffic Limit*
+To maintain performance and avoid WebSocket overload, updates sent during collaborative sessions must not exceed 200KB per transmission.
 
-#TODO[
-  List and describe all pseudo requirements of your system. Also mention requirements that you were not able to realize.
+*FR6. Diagram Functionality*
+The system must allow users to create, delete, move, connect, and modify diagram elements. All existing functionality in Apollon must be preserved in the new version.
 
-  - C1 Category: Short Description. 
-  - C2 Category: Short Description. 
-  - C3 Category: Short Description.
+*FR7. Full Diagram Type Support*
+All UML and modeling diagram types currently supported by Apollon (e.g., Class Diagrams, Activity Diagrams, Use Case Diagrams, Component Diagrams, etc.) must be available in the new system without loss of features.
 
-]
+*FR8. Consistent Feature Set Across Platforms*
+The standalone web app, the mobile version, and the Artemis integration must expose the same diagramming features to provide a uniform experience.
 
-== System Models
-#TODO[
-  This section includes important system models for the requirements.
-]
+=== Non-functional Requirements
 
-=== Scenarios
-#TODO[
-  If you do not distinguish between visionary and demo scenarios, you can remove the two subsubsections below and list all scenarios here.
+*NFR1. Usability*
+The application must follow established usability principles such as Nielsen’s heuristics [@nielsen1995usability]. Features must be easy to find and use, especially for students new to UML modeling.
 
-  *Visionary Scenarios*
-  Describe 1-2 visionary scenario here, i.e. a scenario that would perfectly solve your problem, even if it might not be realizable. Use free text description.
+*NFR2. Maintainability*
+The system should be easy to extend and refactor. The new codebase must use modular, function-based components with clearly separated logic to reduce developer onboarding time.
 
-  *Demo Scenarios*
-  Describe 1-2 demo scenario here, i.e. a scenario that you can implement and demonstrate until the end of your thesis. Use free text description.
-]
+*NFR3. Scalability*
+The system must support multiple large diagrams in collaboration mode without noticeable slowdowns. Diagram rendering and update propagation must remain responsive even in group settings.
 
-=== Use Case Model
-#TODO[
-  This subsection should contain a UML Use Case Diagram including roles and their use cases. You can use colors to indicate priorities. Think about splitting the diagram into multiple ones if you have more than 10 use cases. *Important:* Make sure to describe the most important use cases using the use case table template (./tex/use-case-table.tex). Also describe the rationale of the use case model, i.e. why you modeled it like you show it in the diagram.
+*NFR4. Performance*
+The app must open diagrams and render elements quickly. Actions like dragging, zooming, and editing must feel responsive on both web and mobile platforms.
 
-]
+*NFR5. Accessibility*
+The mobile version must support gesture navigation, drag-and-drop interactions, and optimized layouts for smaller screens. Keyboard navigation and screen reader support are recommended for inclusivity.
 
-=== Analysis Object Model
-#TODO[
-  This subsection should contain a UML Class Diagram showing the most important objects, attributes, methods and relations of your application domain including taxonomies using specification inheritance (see @bruegge2004object). Do not insert objects, attributes or methods of the solution domain. *Important:* Make sure to describe the analysis object model thoroughly in the text so that readers are able to understand the diagram. Also write about the rationale how and why you modeled the concepts like this.
-
-]
-
-=== Dynamic Model
-#TODO[
-  This subsection should contain dynamic UML diagrams. These can be a UML state diagrams, UML communication diagrams or UML activity diagrams.*Important:* Make sure to describe the diagram and its rationale in the text. *Do not use UML sequence diagrams.*
-]
-
-=== User Interface
-#TODO[
-  Show mockups of the user interface of the software you develop and their connections / transitions. You can also create a storyboard. *Important:* Describe the mockups and their rationale in the text.
+Let me know if you also want the models or diagrams mentioned in the structure you gave, or if you’d like me to add the “Use Case Prioritization” part as in the example thesis.
 ]

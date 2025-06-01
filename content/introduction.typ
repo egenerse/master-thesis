@@ -1,17 +1,21 @@
 #import "/utils/todo.typ": TODO
 
 = Introduction
+
 #TODO[
   Introduce the topic of your thesis, e.g. with a little historical overview.
 ]
 
-In the realm of software engineering education, tools that support the creation and understanding of system designs play a pivotal role. One such tool is Apollon, an open-source UML diagram editor integrated into Artemis, a platform used for interactive learning and automatic assessment in software engineering courses. Apollon allows students to create, edit, and visualize UML diagrams, helping them better grasp complex object-oriented concepts and communicate their designs effectively.
+Understanding and designing software systems is important for both education and solving real-world problems. UML diagram tools help developers and students plan, explain, and improve complex systems. One such tool is Apollon, an open-source UML editor integrated into Artemis, a platform used in programming courses for interactive learning and automatic assessment. Apollon allows students to create and edit diagrams, helping them understand software design and communicate their ideas more clearly.
 
-While Apollon has been instrumental in academic environments, it faces significant usability and maintainability challenges. The current implementation relies on an outdated class-based React architecture, making the codebase difficult to extend and debug. Moreover, the user interface exhibits unintuitive workflows and inconsistencies across platforms, which hinder both novice and advanced users. The absence of a robust mobile experience further limits accessibility in increasingly mobile-centric learning contexts.
+Although Apollon is helpful, it has several technical and usability issues. The current code is based on an outdated React structure using class components, which makes it hard to maintain and update. The user interface is sometimes confusing and hides important features, making the tool less efficient for students.
 
-This thesis addresses these limitations through a comprehensive reengineering of Apollon’s frontend using modern functional React and React Flow, alongside Capacitor to unify the experience across web and native mobile platforms. The goal is to improve usability, accessibility, and developer experience, creating a tool that better supports students in learning UML and software modeling.
+Mobile support has been another major problem. Apollon only offers an iOS app, which is buggy and has rendering issues when moving elements. There has never been official support for Android phones or tablets, and the mobile browser version is not optimized for touch, which limits accessibility for many users.
 
-By simplifying interactions, enhancing the visibility of key features, and ensuring consistent functionality across devices, this thesis aims to redefine the user experience of Apollon. The redesigned tool will not only streamline the learning process for students but also serve as a maintainable and scalable foundation for future development within educational software ecosystems.
+This thesis aims to solve these problems by rebuilding Apollon using modern functional React, React Flow for diagram handling, and Capacitor to support both iOS and Android with a shared codebase. These changes will improve the tool’s usability, make it more consistent across devices, and simplify development and maintenance.
+
+By improving Apollon’s design, interaction, and mobile support, this work helps students create diagrams more easily and prepares them to work on real-world software projects that require clear system design and collaboration.
+
 
 == Problem
 #TODO[
@@ -64,50 +68,56 @@ We explain each objective in detail below and state the responsibilities of each
 
 The first objective is to replace the outdated class-based React architecture with modern *functional components* using *React Flow* as the core rendering and layout library. This change improves maintainability, simplifies development, and creates a more flexible foundation for future improvements.
 
-- **Collaboration Mode with Yjs**
-  We implement real-time collaborative editing using Yjs. This includes fixing issues such as freezing and infinite render loops when adding certain elements (e.g., packages).
+- *Collaboration Mode with Yjs*  
+  We implement real-time collaborative editing using Yjs. This includes fixing issues such as freezing and infinite render loops when adding certain elements (e.g., packages).  
   → _Implemented by Ege Nerse_
 
-- **State Management with Zustand**
-  We introduce Zustand to manage global application state in a cleaner and more scalable way.
+- *State Management with Zustand*  
+  We introduce Zustand to manage global application state in a cleaner and more scalable way.  
   → _Implemented by Ege Nerse_
 
-- **New Node Structure**
-  We redesign the internal structure of diagram nodes to better separate logic, rendering, and data. This structure simplifies editing, styling, and future extensibility.
+- *New Node Structure*  
+  We redesign the internal structure of diagram nodes to better separate logic, rendering, and data. This structure simplifies editing, styling, and future extensibility.  
   → _Implemented by Ege Nerse_
 
-- **New Edge Structure**
-  We restructure how edges are handled and rendered to avoid diagonal connectors and ensure clean, UML-compliant lines.
+- *New Edge Structure*  
+  We restructure how edges are handled and rendered to avoid diagonal connectors and ensure clean, UML-compliant lines.  
   → _Implemented by Belemir Kürün_
 
-- **Artemis Integration**
-  We ensure full compatibility with Artemis by keeping the existing JSON format and API endpoints unchanged. This allows Apollon to function as a drop-in replacement without requiring changes to Artemis itself.
+- *Artemis Integration*  
+  We ensure full compatibility with Artemis by keeping the existing JSON format and API endpoints unchanged. This allows Apollon to function as a drop-in replacement without requiring changes to Artemis itself.  
   → _Implemented by both Ege Nerse and Belemir Kürün_
 
 === Enhance Accessibility for Web and Mobile Users
 
 The second objective is to ensure Apollon works seamlessly on all major platforms by building native mobile apps using *Capacitor* and optimizing the interface for smaller touch-based screens.
 
-- **Capacitor Integration and Distribution**
-  We wrap the web-based React app into native iOS and Android applications using Capacitor, maintaining a shared codebase.
+- *Capacitor Integration and Distribution*  
+  We wrap the web-based React app into native iOS and Android applications using Capacitor, maintaining a shared codebase.  
   → _Implemented by Belemir Kürün_
 
-- **Mobile Touch and Drag Support**
-  We improve drag-and-drop interaction on mobile devices and optimize the layout to provide a better touch experience, including gesture handling and layout adjustments.
+- *Mobile Touch and Drag Support*  
+  We improve drag-and-drop interaction on mobile devices and optimize the layout to provide a better touch experience, including gesture handling and layout adjustments.  
   → _Implemented by Ege Nerse_
 
-- **Deployment**
-  We prepare production builds for both web and mobile platforms, including Docker-based deployment for the web and packaging for the App Store and Google Play.
+- *Deployment*  
+  We prepare production builds for both web and mobile platforms, including Docker-based deployment for the web and packaging for the App Store and Google Play.  
   → _Implemented by Belemir Kürün_
 
 === Improve the Usability and Visibility of the Application
 
 The third objective focuses on making Apollon easier to use, especially for students who are new to UML diagramming. This includes improving layout, reducing clutter, and introducing features that make common actions quicker and more intuitive.
 
-- **Sidebar Simplification and Shortcuts**
-  We simplify the sidebar layout to improve focus and space usage, especially on mobile devices. We also add keyboard shortcuts for frequent actions to speed up the editing process.
+- *Sidebar Simplification and Shortcuts*  
+  We simplify the sidebar layout to improve focus and space usage, especially on mobile devices. We also add keyboard shortcuts for frequent actions to speed up the editing process.  
   → _Implemented by Belemir Kürün_
 
-- **Infinite Canvas and User Map**
-  We add an infinite canvas and minimap that help users navigate large diagrams more easily, especially in project settings or exams with complex models.
+- *Infinite Canvas and User Map*  
+  We add an infinite canvas and minimap that help users navigate large diagrams more easily, especially in project settings or exams with complex models.  
   → _Implemented by Ege Nerse_
+
+== Outline
+#TODO[
+  Describe the outline of your thesis
+]
+
