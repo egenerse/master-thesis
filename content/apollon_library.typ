@@ -30,22 +30,84 @@ We restructured the Apollon project into a monorepo that includes three main sub
 
 
 #figure(
-  image("../figures/ApollonOverview.png", width: 90%),
+  image("../figures/ApollonOverviewDetailed.png", width: 90%),
   caption: [System overview of the new Apollon architecture.]
 )
 
-== New Node Structure
+== Node Structure
 
 #align(left)[
   #text(size: 10pt)[Ege Nerse]
 ]
 
-== New Edge Structure
+
+The internal data model for UML elements in Apollon has been redesigned to make it simpler, faster, and easier to maintain. This change affects how classes, methods, and attributes are stored and rendered in the application.
+
+=== Previous Structure
+
+In the older version of Apollon, every concept—like a class, an attribute, or a method—was treated as a separate UML element. These elements had a shared structure with a `type` field such as `"Class"`, `"ClassAttribute"`, or `"ClassMethod"`.
+
+A class element stored its method and attribute IDs:
+```json
+{
+  "id": "0e87...",
+  "type": "Class",
+  "attributes": ["e0c4..."],
+  "methods": ["1804..."]
+}```
+Each method and attribute also existed as a separate object with a reference to its parent:
+```json
+{
+  "id": "e0c4...",
+  "type": "ClassAttribute",
+  "owner": "0e87..."
+}
+```
+This model gave developers flexibility but introduced complexity. Managing updates across multiple related nodes was difficult and error-prone.
+
+#figure(
+  image("../figures/OldNodeType.png", width: 90%),
+  caption: [Node types in Old Apollon]
+)
+=== New Structure
+
+In the redesigned version, Apollon uses a flat node structure inspired by React Flow. Each class node stores its attributes and methods inside its own data field. Stereotypes are also introduced in another field:
+
+#figure(
+  image("../figures/NewNodeType.png", width: 90%),
+  caption: [New Node structure in Apollon Reengineering]
+)
+
+== Edge Structure
 
 #align(left)[
   #text(size: 10pt)[Belemir Kürün]
 ]
 
+
+In the previous version of Apollon, edge rendering was stable and functional, but it had limitations in terms of visual clarity. The main issue was the presence of diagonal edges between elements, which made UML diagrams harder to read and deviated from typical modeling standards. Additionally, the older system supported only four connection ports (top, bottom, left, right) on each node, which restricted flexibility in edge routing.
+
+In the reengineered Apollon, we adopted a hybrid edge rendering approach that combines techniques from both the old system and modern features of *React Flow*. Specifically:
+
+- We use *Step Edges* from React Flow to generate clean, orthogonal paths between distant nodes.
+- When nodes are positioned closer than a defined threshold, we fall back to rendering a *Straight Edge* using logic adapted from the old Apollon implementation.
+
+This hybrid method avoids the creation of awkward diagonal lines and improves the visual clarity of the diagrams.
+#figure(
+  image("../figures/DiagonalEdge.png", width: 90%),
+  caption: [Diagonal Edge between two class nodes in Old Apollon version]
+)
+We also increased the number of ports per node to allow finer control over where edges connect. This gives users more layout flexibility and helps avoid overlapping edges in dense diagrams.
+
+#figure(
+  image("../figures/OldEdgePort.png", width: 90%),
+  caption: [Edge handlers in Old Apollon version]
+)
+
+#figure(
+  image("../figures/NewEdgePort.png", width: 90%),
+  caption: [Edge handlers in New Apollon version which is increased]
+)
 
 
 == New State Management
@@ -59,3 +121,11 @@ We restructured the Apollon project into a monorepo that includes three main sub
 #align(left)[
   #text(size: 10pt)[Ege Nerse]
 ]
+
+== Usability Improvements
+
+#align(left)[
+  #text(size: 10pt)[Belemir Kürün and Ege Nerse]
+]
+
+*Mention canvas, shortcuts, new sidebar, and maybe lines for checking the allignment however it is a future work.*
