@@ -6,13 +6,13 @@
   Introduce the topic of your thesis, e.g. with a little historical overview.
 ]
 
-Understanding and designing software systems is important for both education and solving real-world problems. UML diagram tools help developers and students plan, explain, and improve complex systems. One such tool is Apollon, an open-source UML editor integrated into Artemis, a platform used in programming courses for interactive learning and automatic assessment. Apollon allows students to create and edit diagrams, helping them understand software design and communicate their ideas more clearly.
+Designing and understanding software systems is essential for both effective education and addressing real-world technological challenges. UML diagram tools help developers and students plan, explain, and improve complex systems. One such tool is Apollon, an open-source UML editor integrated into Artemis, a platform used in programming courses for interactive learning and automatic assessment. Apollon allows students to create and edit diagrams, helping them understand software design and communicate their ideas more clearly.
 
 Although Apollon is helpful, it has several technical and usability issues. The current code is based on an outdated React structure using class components, which makes it hard to maintain and update. The user interface is sometimes confusing and hides important features, making the tool less efficient for students.
 
-Mobile support has been another major problem. Apollon only offers an iOS app, which is buggy and has rendering issues when moving elements. There has never been official support for Android phones or tablets, and the mobile browser version is not optimized for touch, which limits accessibility for many users.
+Mobile support has been another major problem. The only native mobile support available was an iOS app, which was buggy and had rendering issues when moving elements. There was no native application for Android devices at all. Additionally, the mobile browser version was not optimized for touch interactions, making it difficult to use on phones and tablets and significantly limiting accessibility for many users.
 
-This thesis aims to solve these problems by rebuilding Apollon using modern functional React, React Flow for diagram handling, and Capacitor to support both iOS and Android with a shared codebase. These changes will improve the tool’s usability, make it more consistent across devices, and simplify development and maintenance.
+This thesis aims to solve these problems by reengineering Apollon using modern functional React, React Flow for diagram handling, and Capacitor to support both iOS and Android with a shared codebase. These changes will improve the tool’s usability, make it more consistent across devices, and simplify development and maintenance.
 
 By improving Apollon’s design, interaction, and mobile support, this work helps students create diagrams more easily and prepares them to work on real-world software projects that require clear system design and collaboration.
 
@@ -24,9 +24,7 @@ By improving Apollon’s design, interaction, and mobile support, this work help
 
 Apollon has several technical and usability problems that affect both students and developers. The tool still uses old React class components, which makes the code hard to read, update, and maintain. Developers struggle to add new features or fix bugs because the structure is outdated and complex. This slows down progress and causes more errors over time.
 
-The user interface also creates confusion. For example, the diagram selection feature stays hidden under the file tab, which makes it hard to find. Many students cannot locate basic actions quickly, and this reduces efficiency. Apollon does not offer a smooth or modern user experience, which leads some students to choose other tools.
-
-The collaboration mode shows serious problems. When users try to add certain elements, such as a package, the app sometimes freezes or gets stuck in an infinite render loop. This makes collaboration unreliable, especially during real-time group work.
+The rendering logic has serious problems. When users try to add certain elements, such as a package, the app sometimes freezes or gets stuck in an infinite render loop. This makes Apollon Standalone unreliable and causing frustration to users.
 
 On mobile devices, the problems become worse. The app does not support drag-and-drop properly, making it hard to create or move elements. The sidebar takes up too much space, which limits the working area on smaller screens. These issues make it uncomfortable for students to use Apollon on phones or tablets.
 
@@ -41,11 +39,11 @@ Together, these problems reduce Apollon’s usability, break core features, and 
 
 Clear and reliable diagramming tools help students express their understanding of software systems in exercises, exams, and projects. When a tool works smoothly, students can focus on the actual content—like designing class structures or modeling system behavior—rather than struggling with the interface. By improving Apollon’s usability and making it easier to navigate, students will complete their modeling tasks more quickly and with fewer mistakes.
 
-Better interaction design also supports learning. When students can find and use features without confusion, they build confidence in using modeling tools. This experience prepares them for future academic work and industry tools. Following usability principles, such as Nielsen’s heuristics—which promote visibility, flexibility, and efficiency—helps reduce the learning curve and improves how students perform during assessments [@nielsen1995usability].
+Better interaction design also supports learning. When students can find and use features without confusion, they build confidence in using modeling tools. This experience prepares them for future academic work and industry tools. Following usability principles, such as Nielsen’s heuristics—which promote visibility, flexibility, and efficiency—helps reduce the learning curve and improves how students perform during assessments @nielsen1995usability.
 
-Improving mobile access brings additional advantages. Many students want to review or finish exercises on tablets or phones, especially before exams or while working in teams. A mobile-friendly version of Apollon allows them to sketch ideas or revise diagrams on the go. Studies show that mobile accessibility increases engagement and flexibility in education [@tre2023mobile]. This allows students to integrate Apollon into their daily learning routine, not just during scheduled lab sessions.
+Improving mobile access brings additional advantages. Many students want to review or finish exercises on tablets or phones, especially before exams. A mobile-friendly version of Apollon allows them to sketch ideas or revise diagrams on the go. Studies show that mobile accessibility increases engagement and flexibility in education @tre2023mobile. This allows students to integrate Apollon into their daily learning routine, not just during scheduled lab sessions.
 
-Finally, better support for collaboration helps students work together on group projects. A stable and responsive collaboration mode allows team members to co-create diagrams in real time, reducing miscommunication and helping them organize their ideas visually. These improvements make group assignments easier to manage and more productive.
+Finally, better support for collaboration helps students work together on group projects. A stable and responsive collaboration mode allows team members to co-create diagrams in real time, reducing miscommunication and helping them organize their ideas visually.
 
 In short, the changes proposed in this thesis aim to support students in achieving better results in exercises, preparing more efficiently for exams, and working more effectively on group projects—all through a smoother, more accessible diagramming experience.
 
@@ -69,7 +67,7 @@ We explain each objective in detail below and state the responsibilities of each
 The first objective is to replace the outdated class-based React architecture with modern *functional components* using *React Flow* as the core rendering and layout library. This change improves maintainability, simplifies development, and creates a more flexible foundation for future improvements.
 
 - *Collaboration Mode with Yjs*  
-  We implement real-time collaborative editing using Yjs. This includes fixing issues such as freezing and infinite render loops when adding certain elements (e.g., packages).  
+  We implement real-time collaborative editing using Yjs. This includes fixing rendering issues.
   → _Implemented by Ege Nerse_
 
 - *State Management with Zustand*  
@@ -120,4 +118,25 @@ The third objective focuses on making Apollon easier to use, especially for stud
 #TODO[
   Describe the outline of your thesis
 ]
+
+== Outline
+
+This thesis begins with an overview of related modeling tools and collaboration approaches, followed by the identification of requirements based on the limitations of the previous Apollon system.
+
+Chapter 2, *Related Work*, briefly discusses existing diagramming tools and previous research related to collaborative modeling.
+
+Chapter 3, *Requirements*, outlines the core functional and non-functional requirements derived from our analysis.
+
+Chapter 4, *Apollon Reengineering*, presents the restructuring of Apollon into a unified monorepo that includes the core library, standalone webapp, and collaboration server. It covers design updates such as a new node and edge structure, state management using Zustand, collaboration via Yjs, and improvements to mobile usability through Capacitor. Testing feedback and deployment aspects are also described.
+
+Chapter 5, *Artemis Integration*, details the integration process of the reengineered Apollon library into Artemis. It includes how we preserved compatibility with existing workflows in exercises, exams, and quizzes, while migrating to the new system.
+
+Chapter 6, *Summary and Future Work*, concludes the thesis by reflecting on the project outcomes and outlining possible directions for future development.
+
+This is a team thesis by Belemir Kürün and Ege Nerse. Reengineering tasks in Chapter 4 were divided between the authors, while integration tasks in Chapter 5 were completed collaboratively. Author responsibilities are highlighted in each relevant section, with a summary shown below.
+
+
+
+
+
 

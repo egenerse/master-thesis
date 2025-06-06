@@ -5,10 +5,11 @@
 In this section, we explain the reengineering of the Apollon library. We begin by describing the new system design and the monorepo structure, which brings together the standalone version, library, and web application. Then, we detail the new node and edge structure that improves rendering and usability. Afterwards, we explain the newly introduced state management with Zustand and the updated collaboration mode powered by Yjs.
 
 == Library
+
 === System Design
 
 #align(left)[
-  #text(size: 10pt)[Belemir Kürün and Ege Nerse]
+  #text(size: 10pt)[Ege Nerse]
 ]
 
 We restructured the Apollon project into a monorepo that includes three main subsystems: the Apollon library, the web application (standalone), and a lightweight backend server for collaboration. This architecture improves modularity and makes development, testing, and deployment easier.
