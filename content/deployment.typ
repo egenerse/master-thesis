@@ -5,7 +5,6 @@
   #text(size: 10pt)[Belemir Kürün]
 ]
 
-
 To ensure that the reengineered version of Apollon is available reliably in production environments, we deployed the system using a reverse proxy configuration centered around modular services. The application consists of three subsystems: the Apollon webapp, a backend server responsible for WebSocket-based collaboration and RESTful API endpoints, and a persistent database for storing models. These components are containerized and managed using Docker Compose.
 
 == Caddy Reverse Proxy

@@ -7,7 +7,7 @@
 
 Apollon is developed as a reusable diagramming library, but its primary consumer is the Artemis platform. Within Artemis, Apollon is used in modeling exercises, exams, and quizzes, both for individual and team-based student participation. Because of its deep integration, one of the key objectives of this thesis was to ensure a smooth migration from the old version of Apollon to the newly reengineered version without breaking any existing Artemis functionalities.
 
-== Artemis Integration System Design
+== Artemis Integration Plan
 
 We began by analyzing how Artemis uses Apollon and identifying the components that depend on the Apollon Editor interface and Apollon model types. As a result, we created a high-level integration diagram that illustrates the key modules within Artemis that consume Apollon.
 

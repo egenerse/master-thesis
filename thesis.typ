@@ -20,12 +20,8 @@
 )
 
 #include "/content/introduction.typ"
-#include "/content/background.typ"
 #include "/content/related_work.typ"
 #include "/content/requirements.typ"
-#include "/content/apollon_library.typ"
+#include "/content/apollon_reengineering.typ"
 #include "/content/artemis_integration.typ"
-#include "/content/mobile_app.typ"
-#include "/content/deployment.typ"
-#include "/content/evaluation.typ"
 #include "/content/summary.typ"
