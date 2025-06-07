@@ -67,17 +67,13 @@ In short, the changes proposed in this thesis aim to support students in achievi
   Describe the research goals and/or research questions and how you address them by summarizing what you want to achieve in your thesis, e.g. developing a system and then evaluating it.
 ]
 
-The goal of this thesis is to modernize and improve the Apollon UML Diagram Editor by reengineering its codebase, enhancing accessibility across platforms, and simplifying the user experience. These improvements aim to help students create UML diagrams more effectively during programming exercises, exams, and software design projects.
+To guide the implementation process, a series of proofs of concept (POCs) were conducted to evaluate the viability of various frameworks and libraries. These included experiments with Angular, React, React Flow, and Capacitor, focusing on rendering strategies, mobile support, and usability. The results indicated that a React-based architecture, using React Flow for diagramming and Capacitor for mobile packaging, offered the most flexible and scalable foundation.
 
-Before implementation began, a series of proofs of concept (POCs) were conducted to evaluate the viability of various frameworks and libraries. These included experiments with Angular, React, React Flow, and Capacitor to assess core rendering strategies, mobile support, and usability. These POCs confirmed that a React-based architecture with React Flow for diagramming and Capacitor for mobile packaging offered the most flexible and scalable solution.
-
-To achieve the goals of the project, we define the following three main objectives:
+Based on these findings, the project defines the following three main objectives:
 
 1. *Reengineer the Apollon codebase using modern React technologies and create a reusable library interface*
 2. *Enhance accessibility for both web and mobile users*
 3. *Improve the overall usability and visibility of the application*
-
-We explain each objective in detail below and state the responsibilities of each author.
 
 === Reengineer the Apollon Codebase Using Modern React
 
@@ -89,10 +85,8 @@ The first objective is to replace the outdated class-based React architecture wi
 - *Creation of the `ApollonEditor` Interface Class*  
   Similar to the original Apollon, our implementation includes a core class—`ApollonEditor`—that serves as the main integration layer between the library and external consumers (e.g., the standalone web app or Artemis). It follows the same pattern of injecting the React application into a target HTML element. The class exposes a stable API for consuming applications, including methods such as `subscribeToModelChange`, `getModel`, `setModel`, `exportAsSVG`, and `sendBroadcastMessage`. While users can interact directly with the canvas to modify diagrams through touch or mouse events, the `ApollonEditor` class enables external systems to programmatically control, observe, or synchronize diagram state—providing a clean interface for embedding and extending the tool.
 
-
-
 - *Collaboration Mode with Yjs*  
-  We implement real-time collaborative editing using Yjs, including fixes for shared-state rendering consistency.
+  We implement real-time collaborative editing using Yjs, synchronized with the local Zustand state. Zustand maintains the latest diagram state for rendering, while Yjs handles document synchronization across users through WebSocket-driven updates. Changes in the diagram trigger applyUpdate to propagate edits, ensuring consistency between local and shared states.
 
 - *State Management with Zustand*  
   We replace Redux and Saga with Zustand for simpler, modular, and more performant global state handling.
@@ -104,7 +98,7 @@ The first objective is to replace the outdated class-based React architecture wi
   We replace legacy edge rendering with clean, straight, UML-compliant connectors that eliminate awkward diagonals and improve diagram readability.
 
 - *Artemis Integration*  
-  We maintain compatibility with Artemis by preserving the original JSON schema and API endpoints, ensuring the new Apollon version can be used without changes to the LMS.
+  We aim to maintain a high level of compatibility with Artemis by preserving most API endpoints and aligning the new Apollon version closely with the original. While the JSON format has been updated, efforts were made to minimize integration friction and ensure a smooth transition within the LMS.
 
 === Enhance Accessibility for Web and Mobile Users
 
