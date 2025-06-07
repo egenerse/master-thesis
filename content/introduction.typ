@@ -68,11 +68,15 @@ In short, the changes proposed in this thesis aim to support students in achievi
   Describe the research goals and/or research questions and how you address them by summarizing what you want to achieve in your thesis, e.g. developing a system and then evaluating it.
 ]
 
+== Objectives
+
 The goal of this thesis is to modernize and improve the Apollon UML Diagram Editor by reengineering its codebase, enhancing accessibility across platforms, and simplifying the user experience. These improvements aim to help students create UML diagrams more effectively during programming exercises, exams, and software design projects.
 
-To achieve this, we define the following three main objectives:
+Before implementation began, a series of proofs of concept (POCs) were conducted to evaluate the viability of various frameworks and libraries. These included experiments with Angular, React, React Flow, and Capacitor to assess core rendering strategies, mobile support, and usability. These POCs confirmed that a React-based architecture with React Flow for diagramming and Capacitor for mobile packaging offered the most flexible and scalable solution.
 
-1. *Reengineer the Apollon codebase using modern React technologies*
+To achieve the goals of the project, we define the following three main objectives:
+
+1. *Reengineer the Apollon codebase using modern React technologies and create a reusable library interface*
 2. *Enhance accessibility for both web and mobile users*
 3. *Improve the overall usability and visibility of the application*
 
@@ -80,55 +84,60 @@ We explain each objective in detail below and state the responsibilities of each
 
 === Reengineer the Apollon Codebase Using Modern React
 
-The first objective is to replace the outdated class-based React architecture with modern *functional components* using *React Flow* as the core rendering and layout library. This change improves maintainability, simplifies development, and creates a more flexible foundation for future improvements.
+The first objective is to replace the outdated class-based React architecture with modern *functional components*, using *React Flow* as the core rendering and layout engine. This transformation improves maintainability, supports modular development, and creates a solid foundation for future extensions. While modernizing the internals, we preserved a key architectural idea from the original Apollon: exposing the diagram editor through a central class interface that can be embedded into any host application.
+
+- *Proofs of Concept and Technology Evaluation*  
+  We explored alternative approaches with Angular and evaluated diagramming libraries. The final design is based on React Flow and functional React after testing custom node rendering, edge handling, and drag/drop behavior.
+
+- *Creation of the `ApollonEditor` Interface Class*  
+  Similar to the original Apollon, our implementation includes a core class—`ApollonEditor`—that serves as the main integration layer between the library and external consumers (e.g., the standalone web app or Artemis). It follows the same pattern of injecting the React application into a target HTML element. The class exposes a stable API for consuming applications, including methods such as `subscribeToModelChange`, `getModel`, `setModel`, `exportAsSVG`, and `sendBroadcastMessage`. While users can interact directly with the canvas to modify diagrams through touch or mouse events, the `ApollonEditor` class enables external systems to programmatically control, observe, or synchronize diagram state—providing a clean interface for embedding and extending the tool.
+
+
 
 - *Collaboration Mode with Yjs*  
-  We implement real-time collaborative editing using Yjs. This includes fixing rendering issues.
-  → _Implemented by Ege Nerse_
+  We implement real-time collaborative editing using Yjs, including fixes for shared-state rendering consistency.
 
 - *State Management with Zustand*  
-  We introduce Zustand to manage global application state in a cleaner and more scalable way.  
-  → _Implemented by Ege Nerse_
+  We replace Redux and Saga with Zustand for simpler, modular, and more performant global state handling.
 
 - *New Node Structure*  
-  We redesign the internal structure of diagram nodes to better separate logic, rendering, and data. This structure simplifies editing, styling, and future extensibility.  
-  → _Implemented by Ege Nerse_
+  We redesign diagram nodes to separate rendering logic, metadata, and interaction behavior—making styling and extensibility significantly easier.
 
 - *New Edge Structure*  
-  We restructure how edges are handled and rendered to avoid diagonal connectors and ensure clean, UML-compliant lines.  
-  → _Implemented by Belemir Kürün_
+  We replace legacy edge rendering with clean, straight, UML-compliant connectors that eliminate awkward diagonals and improve diagram readability.
 
 - *Artemis Integration*  
-  We ensure full compatibility with Artemis by keeping the existing JSON format and API endpoints unchanged. This allows Apollon to function as a drop-in replacement without requiring changes to Artemis itself.  
-  → _Implemented by both Ege Nerse and Belemir Kürün_
+  We maintain compatibility with Artemis by preserving the original JSON schema and API endpoints, ensuring the new Apollon version can be used without changes to the LMS.
 
 === Enhance Accessibility for Web and Mobile Users
 
-The second objective is to ensure Apollon works seamlessly on all major platforms by building native mobile apps using *Capacitor* and optimizing the interface for smaller touch-based screens.
+The second objective is to ensure Apollon works seamlessly across major platforms by using *Capacitor* to package the React app into native applications and optimizing the interface for touch-based interactions.
 
 - *Capacitor Integration and Distribution*  
-  We wrap the web-based React app into native iOS and Android applications using Capacitor, maintaining a shared codebase.  
-  → _Implemented by Belemir Kürün_
+  We generate native iOS and Android apps from the web-based codebase using Capacitor, enabling unified development and consistent UX.
 
 - *Mobile Touch and Drag Support*  
   We improve drag-and-drop interaction on mobile devices and optimize the layout to provide a better touch experience, including gesture handling and layout adjustments.  
-  → _Implemented by Ege Nerse_
 
 - *Deployment*  
   We prepare production builds for both web and mobile platforms, including Docker-based deployment for the web and packaging for the App Store and Google Play.  
-  → _Implemented by Belemir Kürün_
 
 === Improve the Usability and Visibility of the Application
 
-The third objective focuses on making Apollon easier to use, especially for students who are new to UML diagramming. This includes improving layout, reducing clutter, and introducing features that make common actions quicker and more intuitive.
+The third objective focuses on creating a clean, intuitive interface that supports students with minimal prior experience in UML modeling. This involves simplifying layout, improving canvas interactions, and reducing friction during usage.
 
-- *Sidebar Simplification and Shortcuts*  
-  We simplify the sidebar layout to improve focus and space usage, especially on mobile devices. We also add keyboard shortcuts for frequent actions to speed up the editing process.  
-  → _Implemented by Belemir Kürün_
+- *Initial Sidebar and Interaction Features*  
+  Allowing users to drag elements onto the canvas in both desktop and mobile contexts. This feature was first validated during the POCs and became central to the interaction model of the application.
 
-- *Infinite Canvas and User Map*  
-  We add an infinite canvas and minimap that help users navigate large diagrams more easily, especially in project settings or exams with complex models.  
-  → _Implemented by Ege Nerse_
+- *Sidebar Simplification*  
+  We redesign the sidebar for clarity and space efficiency, allowing users to focus on the canvas without unnecessary clutter. 
+
+- *Keyboard Shortcuts and Interaction Speedups*  
+  We add shortcut keys and micro-interaction optimizations to reduce the time needed to perform common modeling tasks.
+
+- *Infinite Canvas and Customizable Minimap*  
+  We leverage React Flow’s built-in support for an infinite canvas, which allows users to scroll and explore large diagrams more freely—an improvement over the fixed-size canvas in the original Apollon. For enhanced navigation, we also customize React Flow’s minimap feature by rendering simplified SVG versions of our custom nodes, making it more intuitive and visually aligned with the main canvas.
+
 
 == Outline
 #TODO[
