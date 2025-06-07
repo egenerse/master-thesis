@@ -49,7 +49,6 @@ This combination of rendering bugs, mobile limitations, structural complexity, a
   Motivate scientifically why solving this problem is necessary. What kind of benefits do we have by solving the problem?
 ]
 
-
 Clear and reliable diagramming tools help students express their understanding of software systems in exercises, exams, and projects. When a tool works smoothly, students can focus on the actual content—like designing class structures or modeling system behavior—rather than struggling with the interface. By improving Apollon’s usability and responsiveness through a complete reengineering, students can complete their modeling tasks more quickly and with fewer mistakes.
 
 This thesis was motivated not only by usability concerns, but also by the opportunity to adopt modern software engineering practices that align better with how students learn and how professional tools operate. We replaced class-based components and outdated Redux structures with functional React, Zustand for state management, and React Flow for rendering interactive diagrams. These choices reduced architectural complexity while increasing flexibility and maintainability—essential factors in an educational tool expected to evolve over time.
@@ -67,8 +66,6 @@ In short, the changes proposed in this thesis aim to support students in achievi
 #TODO[
   Describe the research goals and/or research questions and how you address them by summarizing what you want to achieve in your thesis, e.g. developing a system and then evaluating it.
 ]
-
-== Objectives
 
 The goal of this thesis is to modernize and improve the Apollon UML Diagram Editor by reengineering its codebase, enhancing accessibility across platforms, and simplifying the user experience. These improvements aim to help students create UML diagrams more effectively during programming exercises, exams, and software design projects.
 
@@ -143,8 +140,6 @@ The third objective focuses on creating a clean, intuitive interface that suppor
 #TODO[
   Describe the outline of your thesis
 ]
-
-== Outline
 
 This thesis begins with an overview of related modeling tools and collaboration approaches, followed by the identification of requirements based on the limitations of the previous Apollon system.
 
