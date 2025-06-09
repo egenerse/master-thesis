@@ -42,26 +42,25 @@ Additionally, diagram aesthetics suffer due to the way edges are rendered. Inste
 
 Initial attempts to address these problems through refactoring showed limited results. Although improvements were made—such as replacing class components in the standalone web app with functional ones and introducing Redux Toolkit—many structural issues persisted, especially in the core diagramming library. The complexity, outdated design, and brittle codebase made meaningful improvements increasingly difficult.
 
-This combination of rendering bugs, mobile limitations, structural complexity, and visual defects justified a full reengineering effort. Through prototyping and technology evaluation—including React Flow for diagramming and Capacitor for mobile deployment—we identified a modern stack that not only resolves current issues but also provides a sustainable foundation for future development.
-
 
 
 == Motivation
-#TODO[
-  Motivate scientifically why solving this problem is necessary. What kind of benefits do we have by solving the problem?
-]
 
-Clear and reliable diagramming tools help students express their understanding of software systems in exercises, exams, and projects. When a tool works smoothly, students can focus on the actual content—like designing class structures or modeling system behavior—rather than struggling with the interface. By improving Apollon’s usability and responsiveness through a complete reengineering, students can complete their modeling tasks more quickly and with fewer mistakes.
 
-This thesis was motivated not only by usability concerns, but also by the opportunity to adopt modern software engineering practices that align better with how students learn and how professional tools operate. We replaced class-based components and outdated Redux structures with functional React, Zustand for state management, and React Flow for rendering interactive diagrams. These choices reduced architectural complexity while increasing flexibility and maintainability—essential factors in an educational tool expected to evolve over time.
+Clear and reliable diagramming tools help students express their understanding of software systems in exercises, exams, and projects. When the tool works smoothly, students can focus on the actual content—like designing class structures or modeling system behavior—without getting distracted by usability issues. By improving Apollon’s responsiveness and user experience through complete reengineering, students can complete modeling tasks faster and with fewer errors.
 
-Better interaction design also supports learning. The introduction of features like a simplified sidebar, clean UML-compliant edge rendering, infinite canvas, and minimap improves navigation and layout clarity. Students can now find and use features with less confusion, build confidence, and create cleaner diagrams. Following usability principles, such as Nielsen’s heuristics which promote visibility, flexibility, and efficiency helps reduce the learning curve and improves how students perform during assessments @nielsen1995usability.
+We first attempted to fix bugs in the existing iOS application and update the standalone web app. However, we quickly realized that the legacy architecture—built with class-based React components, outdated state management, and tightly coupled logic—made even small improvements hard to maintain. Each update required duplicate work across repositories and often introduced new bugs. These limitations revealed the need for a more sustainable solution and led us to reengineer the entire system from scratch.
 
-Improving mobile access brings additional advantages. Many students want to review or finish exercises on tablets or phones, especially before exams. Using Capacitor, we generated native iOS and Android applications from the same codebase, ensuring consistent behavior across platforms. A mobile-friendly version of Apollon allows students to sketch ideas or revise diagrams on the go. Studies show that mobile accessibility increases engagement and flexibility in education @tre2023mobile. This allows students to integrate Apollon into their daily learning routine, not just during scheduled lab sessions.
+This thesis is motivated not only by usability issues but also by the opportunity to apply modern software engineering practices that better reflect how students learn and how real-world tools operate. We rebuilt the system using functional React components, Zustand for state management, and React Flow for rendering interactive diagrams. These technologies reduce architectural complexity, improve maintainability, and enable faster feature development.
 
-Finally, better support for collaboration helps students work together on group projects. Through real-time synchronization with Yjs, team members can co-create diagrams without conflicts, reducing miscommunication and helping them organize their ideas visually and interactively.
+Improved interaction design directly enhances learning. Features like a simplified sidebar, UML-compliant edge rendering, infinite canvas, and minimap improve clarity and navigation. Students can now access features more easily, build diagrams more confidently, and experience less frustration during assessments. Following usability principles—such as Nielsen’s heuristics on visibility, flexibility, and efficiency—makes the tool more intuitive and user-friendly [@nielsen1995usability].
 
-In short, the changes proposed in this thesis aim to support students in achieving better results in exercises, preparing more efficiently for exams, and collaborating more effectively on group projects—all through a modern, smoother, and more accessible diagramming experience.
+We also prioritized mobile accessibility. Many students rely on tablets in their daily routines and often need to make quick updates to their diagrams while on the move. Instead of just improving the mobile browser experience, we adopted Capacitor to create native iOS and Android applications from a single codebase. This approach ensures consistent behavior across platforms. Studies confirm that mobile accessibility improves engagement and flexibility in education [@tre2023mobile].
+
+Finally, we improved real-time collaboration by integrating Yjs, a CRDT-based synchronization framework. CRDTs (Conflict-free Replicated Data Types) allow distributed systems to synchronize changes without conflicts, even in offline scenarios. With Yjs, students can collaboratively edit diagrams with consistent state and minimal latency, improving teamwork and visual communication.
+
+In short, we reengineered Apollon to help students create better diagrams, collaborate effectively, and work seamlessly across devices—all within a modern, maintainable architecture.
+
 
 
 == Objectives
