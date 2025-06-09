@@ -4,24 +4,21 @@
 // Describe each proven technology / concept shortly that is important to understand your thesis.
 // Point out why it is interesting for your thesis.
 
-Apollon is a UML diagram editor developed by the Chair of Applied Software Engineering at TUM. It supports a wide range of diagram types including class, activity, use case, component, and object diagrams. Apollon is used in both learning and modeling contexts to help users visualize software systems.
 
-== Apollon Library
+This chapter describes the technical context and early steps that led to the reengineering of Apollon. We explain initial efforts to update the current system and then detail how technology decisions were made through proof-of-concept experiments.
 
-The Apollon UML editor is available as an NPM package under the name `@ls1intum/apollon`. This package provides a React-based editor component that can be integrated into web applications. It allows users to create and export diagrams in SVG, PNG, and PDF formats and supports various UML types through configuration.
+== Initial Attempts to Refactor the Existing Standalone and iOS Application
 
-The Apollon library is integrated into the Artemis platform, where students use it to complete modeling exercises and exams. Instructors use the same integration for assessment purposes. The library communicates with Artemis using a JSON-based format that defines the diagram structure and content.
+At the beginning of this work, we focused on improving the existing Apollon standalone web app and mobile iOS repository. We attempted to modernize the old codebase, which relied heavily on class-based React components, legacy Redux, and custom observable side-effect handling. These technologies made the system difficult to maintain and debug. Our initial approach involved gradually introducing functional React components and React Hooks while replacing outdated Redux logic with the more maintainable Redux Toolkit.
 
-== Apollon Standalone
+During this process, we resolved several persistent bugs in the standalone version. At the same time, we investigated the iOS application, which existed in a separate repository. That mobile version had critical rendering issues, such as misaligned text and unstable drag behavior, making it nearly unusable on iOS devices. Maintaining two separate repositories — one for web and one for mobile — led to significant duplication and friction in development. Despite our efforts to update and synchronize the platforms, the architectural limitations of the existing code made continued patching unsustainable.
 
-In addition to its use within Artemis, Apollon is also offered as a standalone web application accessible at [apollon.ase.in.tum.de](https://apollon.ase.in.tum.de). This version allows students to create UML diagrams independently of Artemis. It is useful for preparing designs outside class, practicing for exams, or creating UML diagrams for reports and assignments.
+== Evaluating Technologies through Proof-of-Concept Experiments
 
-The standalone version is based on the same codebase as the library and offers the same core features in a browser-accessible interface.
+To determine a suitable long-term solution, we conducted a series of proof-of-concept (PoC) experiments. These prototypes compared different frontend frameworks, including Angular and modern React. The experiments explored various technical needs such as implementing a sidebar, enabling drag-and-drop elements, supporting infinite canvas behavior, and providing responsive design for mobile devices.
 
-== Collaboration Mode in Apollon
+We also tested Capacitor as a way to create cross-platform native applications from a single codebase. The results confirmed that we could use a unified React codebase to generate native apps for both iOS and Android while preserving full functionality on the web.
 
-Apollon also includes a collaboration mode that enables multiple users to edit the same diagram in real time. This feature is powered by **Yjs**, a shared editing framework based on operational transforms.
+Among the tested libraries, React Flow emerged as the most promising diagramming solution. Its modular architecture supports custom node and edge rendering, canvas zooming and panning, and intuitive user interaction through callbacks like `onNodesChange`, `onEdgesChange`, and `onNodeClick`. These features significantly reduced implementation complexity and enhanced flexibility for future development.
 
-The collaboration mode was first introduced in a previous thesis by Eugene Okafor [@okafor2022collaboration]. In that work, a patch-based synchronization system was implemented to ensure consistent updates between users. The system supports collaborative editing of diagram elements while maintaining a shared state and resolving conflicts during concurrent edits.
-
-This background is important for understanding the technical starting point of Apollon and how its existing architecture supports both individual and collaborative usage.
+Based on these findings, we decided to reengineer Apollon using React Flow and modern React technologies. This decision enabled a clean redesign of core components including custom layout logic, improved edge routing, mobile touch gestures, and robust state management. It also allowed seamless integration with Capacitor for mobile deployment. The resulting architecture provides a solid foundation for long-term maintainability, extensibility, and multi-platform support.

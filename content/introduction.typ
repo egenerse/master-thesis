@@ -6,23 +6,14 @@
   Introduce the topic of your thesis, e.g. with a little historical overview.
 ]
 
-Designing and understanding software systems is essential for both effective education and addressing real-world technological challenges. UML diagram tools help developers and students plan, explain, and improve complex systems. One such tool is Apollon, an open-source UML editor integrated into Artemis, a platform used in programming courses for interactive learning and automatic assessment. Apollon allows students to create and edit diagrams, helping them understand software design and communicate their ideas more clearly.
 
-Although Apollon is helpful, it has several technical and usability issues. The current code is based on an outdated React structure using class components, Redux, and Redux Saga, making the application hard to maintain and update. The user interface is sometimes confusing and hides important features, reducing its efficiency and making the learning curve steeper for students.
+Designing and understanding software systems supports both education and the development of real-world solutions. UML tools help students and developers structure, explain, and refine complex systems. Apollon offers an open-source UML diagram editor that enables users to model systems clearly and effectively. Students and instructors actively use Apollon within Artemis—a learning platform that delivers interactive education on programming exercises, quizzes, modeling tasks, and more.
 
-The mobile experience introduces further limitations. The only native mobile support was an iOS app, which suffered from rendering issues when moving elements. There was no native Android application, and the mobile browser version lacked proper support for touch interactions, making it impractical to use on phones and tablets—greatly limiting accessibility for many users.
+Apollon, however, includes several limitations. Its codebase relies on outdated React class components, which complicates maintenance and feature development. The interface hides key functionalities and creates a steep learning curve for new users. Mobile support remains limited. The old iOS app contained rendering bugs and lacked proper touch handling. No native Android app existed, and the mobile browser version failed to support intuitive interactions.
 
-These issues prompted a deep re-evaluation of Apollon’s architecture. Initially, small refactors were attempted to improve the existing codebase: fixing bugs, updating components, and replacing deprecated libraries. This began with converting the standalone web app from class-based React to modern functional components and React Hooks. Legacy Redux and side-effect handling patterns like Redux Observable were replaced with Redux Toolkit for clearer and more maintainable state logic. During this process, many persistent bugs were resolved.
+We initially tried to improve the current iOS repository and standalone application through incremental updates and bug fixes. However, these patches exposed deeper architectural issues that made sustainable improvements difficult. Instead of continuing with bugfixes and updates, we decided to reengineer Apollon entirely. To guide this process, we conducted a series of experiments to evaluate modern libraries and frameworks that could better support our goals.
 
-However, the underlying structure—especially in the core diagram library—remained highly complex and reliant on outdated concepts. This raised a critical question: should we continue patching the system or rewrite it from scratch?
-
-To answer this, we conducted several proof-of-concept (POC) experiments using both Angular and modern React. These explored interaction patterns like sidebar integration, draggable elements, and mobile responsiveness. Capacitor was also tested at this stage, confirming that we could generate native mobile apps from the new React codebase while maintaining a shared source. After evaluating the results, we chose to adopt React Flow, a flexible diagramming library that allows for custom nodes, edges, and infinite canvas features. It also provides a modern API with powerful event callbacks such as onNodesChange, onEdgesChange, and onNodeClick, which simplified development significantly.
-
-Following these successful trials, we began reengineering Apollon around React Flow and modern React architecture. This included custom node and edge logic, better layout systems, improved drag-and-drop usability, and full support for web and mobile platforms using Capacitor. The result is a more robust, extensible, and maintainable application that is prepared to meet the evolving needs of both students and developers.
-
-By improving Apollon’s design, interaction, and mobile support, this work helps students create diagrams more easily and prepares them to work on real-world software projects that require clear system design and collaboration.
-
-This thesis documents that transformation—from identifying limitations in the original tool to designing, developing, and integrating a fully modernized version of Apollon for broader and more effective use.
+This thesis documents that whole process of identifying limitations in the previous tool, designing the Apollon Reengineering library, developing, and integrating it with Artemis.
 
 
 == Problem
@@ -34,7 +25,18 @@ Apollon has several technical and usability problems that affect both students a
 
 The rendering logic is another major issue. For example, attempting to add elements such as a package lead to infinite render loops in development environment and freezes the application. These bugs create an unreliable experience, especially in the standalone web app, causing frustration for users.
 
-The situation worsens on mobile devices. The app does not support drag-and-drop interactions well, making it cumbersome to create or manipulate elements. The sidebar consumes too much space, restricting the canvas area, and the interface lacks touch optimizations. These factors make it impractical for students to use Apollon comfortably on phones or tablets.
+The situation worsens on mobile devices. The app does not support drag-and-drop interactions, in order to create new element user clicks the plus button and it is randomly put in the canvas. Afterwards user needs to click  left bottom icon for moving the element like it is shown in @componentDiagramiOS. Moving and Resizing elements are not very flexible.
+#figure(
+  image("../figures/ComponentDiagramIOS.png", width: 90%),
+  caption: [Translation bug of moving the class element in Apollon iOS App]
+) <componentDiagramiOS>
+
+Also moving elements causes bugs that texts are completely go somewhere else as we can see from @translationBugInIOSApp. Mobile browsers have totally different issues, sidebar consumes a lot of space that it gives few space to work on.
+
+#figure(
+  image("../figures/classDiagramBug.jpeg", width: 90%),
+  caption: [Translation bug of moving the class element in Apollon iOS App]
+) <translationBugInIOSApp>
 
 Additionally, diagram aesthetics suffer due to the way edges are rendered. Instead of clean lines, some connections appear with awkward diagonal shapes, distorting UML diagrams and reducing their readability and professionalism. These visual inconsistencies negatively affect the quality of diagrams submitted for exercises and assessments.
 
@@ -53,7 +55,7 @@ Clear and reliable diagramming tools help students express their understanding o
 
 This thesis was motivated not only by usability concerns, but also by the opportunity to adopt modern software engineering practices that align better with how students learn and how professional tools operate. We replaced class-based components and outdated Redux structures with functional React, Zustand for state management, and React Flow for rendering interactive diagrams. These choices reduced architectural complexity while increasing flexibility and maintainability—essential factors in an educational tool expected to evolve over time.
 
-Better interaction design also supports learning. The introduction of features like a simplified sidebar, clean UML-compliant edge rendering, infinite canvas, and minimap improves navigation and layout clarity. Students can now find and use features with less confusion, build confidence, and create cleaner diagrams. Following usability principles, such as Nielsen’s heuristics—which promote visibility, flexibility, and efficiency—helps reduce the learning curve and improves how students perform during assessments @nielsen1995usability.
+Better interaction design also supports learning. The introduction of features like a simplified sidebar, clean UML-compliant edge rendering, infinite canvas, and minimap improves navigation and layout clarity. Students can now find and use features with less confusion, build confidence, and create cleaner diagrams. Following usability principles, such as Nielsen’s heuristics which promote visibility, flexibility, and efficiency helps reduce the learning curve and improves how students perform during assessments @nielsen1995usability.
 
 Improving mobile access brings additional advantages. Many students want to review or finish exercises on tablets or phones, especially before exams. Using Capacitor, we generated native iOS and Android applications from the same codebase, ensuring consistent behavior across platforms. A mobile-friendly version of Apollon allows students to sketch ideas or revise diagrams on the go. Studies show that mobile accessibility increases engagement and flexibility in education @tre2023mobile. This allows students to integrate Apollon into their daily learning routine, not just during scheduled lab sessions.
 
@@ -149,6 +151,33 @@ Chapter 6, *Summary and Future Work*, concludes the thesis by reflecting on the 
 
 This is a team thesis by Belemir Kürün and Ege Nerse. Reengineering tasks in Chapter 4 were divided between the authors, while integration tasks in Chapter 5 were completed collaboratively. Author responsibilities are highlighted in each relevant section, with a summary shown below.
 
+#table(
+  columns: 2,
+  align: (left, center),
+
+
+[*Thesis Chapter*], [*Responsible*],
+[Chapter 1: Introduction], [Belemir Kürün, Ege Nerse],
+table.cell(colspan: 2)[Chapter 2: Background],
+[Section 2.1: iOS Application and Standalone Issues], [Belemir Kürün],
+[Section 2.2: Framework and Library Evaluation], [Ege Nerse],
+[Chapter 3: Related Work], [Belemir Kürün, Ege Nerse],
+[Chapter 4: Requirements], [Belemir Kürün, Ege Nerse],
+table.cell(colspan: 2)[Chapter 5: Apollon Reengineering],
+[5.1.1 System Design], [Ege Nerse],
+[5.1.2 Node Structure in Library], [Ege Nerse],
+[5.1.3 Edge Structure in Library], [Belemir Kürün],
+[5.1.4 New State Management], [Ege Nerse],
+[5.1.5 New Collaboration Mode], [Ege Nerse],
+[5.1.6 Usability Improvements Canvas and Minimap], [Ege Nerse],
+[5.1.6 Usability Improvements Shortcuts Implementation], [Belemir Kürün],
+[5.2.1 Usability Improvements], [Belemir Kürün & Ege Nerse],
+[5.2.2 Deployment of Apollon Standalone], [Belemir Kürün],
+[5.2.3 Testing Session], [Belemir Kürün & Ege Nerse],
+[Chapter 6: Artemis Integration], [Belemir Kürün & Ege Nerse],
+[Chapter 7: Summary], [Belemir Kürün & Ege Nerse],
+
+)
 
 
 
