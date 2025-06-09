@@ -112,11 +112,66 @@ We also increased the number of ports per node to allow finer control over where
 )
 
 
-=== New State Management
 
-#align(left)[
-  #text(size: 10pt)[Ege Nerse]
-]
+
+
+=== Zustand State Management in Apollon Editor
+In the current implementation of Apollon Editor, state management is handled using *Zustand*, a lightweight and scalable state-management library for React. The application maintains three distinct Zustand stores: `DiagramStore`, `MetadataStore`, and `PopoverStore`. Each store encapsulates a specific subset of the editor's state and provides manipulation functions (setters and updaters) accordingly.
+
+*The DiagramStore* is the primary store and manages the core structural and collaborative data of a diagram. It maintains the following state variables:
+
+```
+export type DiagramStore = {
+  nodes: Node[] // The graphical nodes representing elements in the UML diagram.
+  edges: Edge[] // The connections between nodes, forming the relationships in the diagram.
+    selectedElementIds: string[] //The identifier of the currently selected elements
+  diagramId: string // A unique identifier for each diagram instance.
+  assessments: Record<string, Assessment> // A mapping of element IDs to their corresponding assessment data, enabling evaluative feedback and grading.
+  ... // update functions for diagram state
+}
+```
+
+*The MetadataStore* holds metadata related to the current diagram and editor context:
+
+```
+export type MetadataStore = {
+  diagramTitle: string
+  diagramType: UMLDiagramType
+  mode: ApollonMode
+  readonly: boolean
+  ... // update functions for metadata
+}
+```
+
+These fields facilitate dynamic configuration and rendering of the editor based on the diagram type, title, and interaction mode 
+
+For example mode = Assessment and readonly = true, the editor will act in a SEE_FEEDBACK mode, where students can view their diagrams but cannot make changes. This is particularly useful for assessment scenarios where instructors provide feedback without allowing further modifications.
+
+*The PopoverStore* manages UI popover elements that assist users in editing, providing feedback, or accessing auxiliary functionalities:
+
+```
+export type PopoverStore = {
+  popoverElementId: string | null
+  popupEnabled: boolean
+  ... // update functions for popover
+}
+```
+
+This separation of popover-related state ensures a clear boundary between UI control logic and the structural data of the diagram.
+
+*Integration with Yjs and ReactFlow*
+
+Each instance of `ApollonEditor` is associated with its own *Yjs document*, which enables real-time collaborative editing. A new set of Zustand stores is instantiated and bound to each Yjs document. This coupling ensures that collaborative state changes are synchronized across clients.
+
+Furthermore, *ReactFlow*, the library responsible for diagram rendering, directly consumes the `nodes` and `edges` data from the `DiagramStore`. As a result, the Zustand store becomes the central hub for application state, bridging the rendering engine and collaborative infrastructure.
+
+ *Selector middlewares* and *Subscribers* are used to monitor and react to state changes. For example, a subscriber can be attached to `DiagramStore` using an `onModelChange` listener. This function is typically passed from the web application’s consumer layer and allows it to respond to updates in the underlying data model.
+Such updates can duplicates library diagram data into webapp diagram data via scheduled HTTP PUT requests to persist the latest diagram state to a backend server. In local development, these subscriptions are also used to synchronize state with the browser's local storage, ensuring persistence across sessions. This enables users to resume work on previously edited diagrams even after closing and reopening the browser.
+
+An *unsubscribe* callback function is also provided to detach listeners when subscriptions are no longer necessary, thus preventing memory leaks and reducing unnecessary computation.
+
+*Zustand devtools* is also used to enhance the development experience. Zustand provides a built-in middleware for logging state changes, which is particularly useful during debugging and testing phases. This middleware captures all actions dispatched to the store and logs them in the console, allowing developers to trace how state evolves over time. 
+
 
 === New Collaboration Mode
 
