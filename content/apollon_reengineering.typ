@@ -175,9 +175,44 @@ An *unsubscribe* callback function is also provided to detach listeners when sub
 
 === New Collaboration Mode
 
-#align(left)[
-  #text(size: 10pt)[Ege Nerse]
-]
+The collaboration architecture has undergone a significant transformation in the new system. Previously, state synchronization across clients was achieved by dispatching Redux actions and propagating the resulting patches to peers. Although this approach followed CRDT(Conflict-free Replicated Data Type) principles, it was tightly coupled with Redux’s action-reducer lifecycle and middleware. This design depended heavily on discrete and continuous action types, making it difficult to adapt to newer, more flexible state management tools like Zustand, and challenging to maintain as application complexity increased. 
+
+In the new design, we replaced old Redux and its patch-based propagation mechanism with a more cohesive and robust solution based on Yjs, a CRDT library, and Zustand for local state management. The key idea is to maintain a fully synchronized state between the local client’s Zustand store and a shared Yjs document (ydoc), even in the absence of a network connection or other active collaborators. If a user reconnects after being offline, the local state is automatically reconciled with the Yjs document, ensuring that all changes are captured and propagated correctly.
+
+Each client maintains its own instance of ydoc, which mirrors the Zustand store. Any changes to the local store are immediately reflected in ydoc, and vice versa. This bidirectional sync ensures consistency and enables offline editing capabilities. The library powering this system exposes two main functions for collaboration:
+sendBroadcastMessage(data: string)
+receiveBroadcastedMessage(data: string)
+
+These functions are used to propagate state changes to other clients and handle incoming updates, respectively.
+
+Initially, the internal synchronization class (YjsSyncClass) does not have a sendBroadcastMessage function set. Once provided, this function is invoked whenever ydoc is updated via the local store. If an update originates from a local state change (as opposed to a remote one), it is serialized and sent to other connected clients. This design ensures that every state change, even rapid ones like drag movements, is reliably broadcasted, unlike the old system where frequent updates could be throttled or dropped. Since we are using ReactFlow and snaptoGrid features for movements and resizes, all updates are discrete and do not require throttling, making the system more responsive and accurate.
+
+Synchronization Protocol
+When a new client joins (e.g., client C3 joins a session with existing clients C1 and C2), the following sequence occurs:
+- C3 sends a synchronization request to the server, which is broadcasted to C1 and C2.
+- C1 and C2 respond by broadcasting their latest ydoc state.
+- C3 receives these updates and merges them into its local ydoc.
+
+This bootstrapping ensures that the new client receives the most recent state from all participants.
+
+Once all clients are in sync, collaboration proceeds as follows:
+
+When a client (e.g., C1) makes a local change, the update is reflected in its ydoc.
+
+If sendBroadcastMessage is set, the serialized update is sent via an open WebSocket connection to other clients.
+
+Recipients (e.g., C2 and C3) decode the message using syncManager.handleReceivedData and apply the update to their local ydoc.
+
+Message Format and Handling
+All broadcasted data is transmitted in Base64-encoded format, making it easily serializable within JSON objects. Upon reception:
+
+The Base64 string is decoded into a Uint8Array.
+The first byte of the array indicates the message type: either a SYNC or an UPDATE.
+SYNC messages trigger the creation and broadcast of an UPDATE message containing the full state of the client's ydoc.
+UPDATE messages apply partial changes to the client's ydoc.
+
+To avoid infinite update loops, all incoming changes are tagged with their origin (local or remote). Clients subscribe to changes in their ydoc and propagate updates to the Zustand store only when necessary, ensuring a clear separation between internally generated and externally received updates.
+
 
 === Usability Improvements
 
