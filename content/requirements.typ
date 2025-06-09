@@ -2,7 +2,7 @@
 
 = Requirements
 
-This chapter follows the structure from the Requirements Analysis Document in [@krusche2018artemis]. We begin by describing how Apollon currently works and what problems exist. Then we present the proposed improvements and list the functional and non-functional requirements for the new system.
+This chapter follows the structure from the Requirements Analysis Document in @krusche2018artemis. We begin by describing how Apollon currently works and what problems exist. Then we present the proposed improvements and list the functional and non-functional requirements for the new system.
 
 == Current System
 
@@ -40,22 +40,19 @@ All UML and modeling diagram types currently supported by Apollon (e.g., Class D
 *FR8. Consistent Feature Set Across Platforms*
 The standalone web app, the mobile version, and the Artemis integration must expose the same diagramming features to provide a uniform experience.
 
-=== Non-functional Requirements
+=== Quality Attributes
 
-*NFR1. Usability*
-The application must follow established usability principles such as Nielsen’s heuristics [@nielsen1995usability]. Features must be easy to find and use, especially for students new to UML modeling.
+*QA1. Usability*
+The application must follow established usability principles such as Nielsen’s heuristics @nielsen1995usability. Features must be easy to find and use, especially for students new to UML modeling.
 
-*NFR2. Maintainability*
+*QA2. Maintainability*
 The system should be easy to extend and refactor. The new codebase must use modular, function-based components with clearly separated logic to reduce developer onboarding time.
 
-*NFR3. Scalability*
+*QA3. Scalability*
 The system must support multiple large diagrams in collaboration mode without noticeable slowdowns. Diagram rendering and update propagation must remain responsive even in group settings.
 
-*NFR4. Performance*
+*QA4. Performance*
 The app must open diagrams and render elements quickly. Actions like dragging, zooming, and editing must feel responsive on both web and mobile platforms.
 
-*NFR5. Accessibility*
+*QA5. Accessibility*
 The mobile version must support gesture navigation, drag-and-drop interactions, and optimized layouts for smaller screens. Keyboard navigation and screen reader support are recommended for inclusivity.
-
-Let me know if you also want the models or diagrams mentioned in the structure you gave, or if you’d like me to add the “Use Case Prioritization” part as in the example thesis.
-]

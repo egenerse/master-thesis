@@ -4,9 +4,8 @@
 
 In this section, we explain the reengineering of the Apollon library. We begin by describing the new system design and the monorepo structure, which brings together the standalone version, library, and web application. Then, we detail the new node and edge structure that improves rendering and usability. Afterwards, we explain the newly introduced state management with Zustand and the updated collaboration mode powered by Yjs.
 
-== Library
 
-=== System Design
+== System Design
 
 #align(left)[
   #text(size: 10pt)[Ege Nerse]
@@ -35,6 +34,9 @@ We restructured the Apollon project into a monorepo that includes three main sub
   image("../figures/ApollonOverviewDetailed.png", width: 90%),
   caption: [System overview of the new Apollon architecture.]
 )
+
+== Library
+In this section, we describe the redesigned architecture and key features of the new Apollon core library. This includes the updated node structure, enhanced edge logic, state management using Zustand, and real-time collaboration powered by Yjs. We also highlight several usability improvements made during the reengineering process.
 
 === Node Structure
 
@@ -113,8 +115,6 @@ We also increased the number of ports per node to allow finer control over where
 
 
 
-
-
 === Zustand State Management in Apollon Editor
 In the current implementation of Apollon Editor, state management is handled using *Zustand*, a lightweight and scalable state-management library for React. The application maintains three distinct Zustand stores: `DiagramStore`, `MetadataStore`, and `PopoverStore`. Each store encapsulates a specific subset of the editor's state and provides manipulation functions (setters and updaters) accordingly.
 
@@ -165,7 +165,8 @@ Each instance of `ApollonEditor` is associated with its own *Yjs document*, whic
 
 Furthermore, *ReactFlow*, the library responsible for diagram rendering, directly consumes the `nodes` and `edges` data from the `DiagramStore`. As a result, the Zustand store becomes the central hub for application state, bridging the rendering engine and collaborative infrastructure.
 
- *Selector middlewares* and *Subscribers* are used to monitor and react to state changes. For example, a subscriber can be attached to `DiagramStore` using an `onModelChange` listener. This function is typically passed from the web application’s consumer layer and allows it to respond to updates in the underlying data model.
+*Selector middlewares* and *Subscribers* are used to monitor and react to state changes. For example, a subscriber can be attached to `DiagramStore` using an `onModelChange` listener. This function is typically passed from the web application’s consumer layer and allows it to respond to updates in the underlying data model.
+
 Such updates can duplicates library diagram data into webapp diagram data via scheduled HTTP PUT requests to persist the latest diagram state to a backend server. In local development, these subscriptions are also used to synchronize state with the browser's local storage, ensuring persistence across sessions. This enables users to resume work on previously edited diagrams even after closing and reopening the browser.
 
 An *unsubscribe* callback function is also provided to detach listeners when subscriptions are no longer necessary, thus preventing memory leaks and reducing unnecessary computation.
@@ -223,6 +224,10 @@ To avoid infinite update loops, all incoming changes are tagged with their origi
 *Mention canvas, shortcuts, new sidebar, and maybe lines for checking the allignment however it is a future work.*
 
 == Standalone
+
+The standalone application provides a complete modeling environment built on top of the Apollon core library. It allows users to create and edit diagrams directly in the browser without requiring authentication or a user account. This lightweight interface makes it ideal for quick prototyping, experimentation, or educational use outside of larger systems like Artemis.
+
+In the following sections, we explain the usability improvements introduced in the new standalone version, describe the deployment setup using Caddy and reverse proxying, and summarize the feedback and recommendations collected from user testing sessions.
 
 === Usability Improvements
 
