@@ -23,7 +23,7 @@ This thesis documents that whole process of identifying limitations in the previ
 
 Apollon has several technical and usability problems that affect both students and developers. The tool still uses outdated React class components, Redux, and Saga for state and side-effect management, which makes the code hard to read, debug, and extend. Developers face difficulties when adding new features or fixing bugs because of the tightly coupled and complex architecture, slowing progress and introducing further errors.
 
-The rendering logic is another major issue. For example, attempting to add elements such as a package lead to infinite render loops in development environment and freezes the application. These bugs create an unreliable experience, especially in the standalone web app, causing frustration for users.
+The rendering logic is another major issue. For example, attempting to add elements such as a package lead to infinite render loops in development environment and freezes the application. These bugs create an unreliable experience, causing frustration for developers.
 
 The situation worsens on mobile devices. The app does not support drag-and-drop interactions, in order to create new element user clicks the plus button and it is randomly put in the canvas. Afterwards user needs to click  left bottom icon for moving the element like it is shown in @componentDiagramiOS. Moving and Resizing elements are not very flexible.
 #figure(
@@ -40,8 +40,7 @@ Also moving elements causes bugs that texts are completely go somewhere else as 
 
 Additionally, diagram aesthetics suffer due to the way edges are rendered. Instead of clean lines, some connections appear with awkward diagonal shapes, distorting UML diagrams and reducing their readability and professionalism. These visual inconsistencies negatively affect the quality of diagrams submitted for exercises and assessments.
 
-Initial attempts to address these problems through refactoring showed limited results. Although improvements were made—such as replacing class components in the standalone web app with functional ones and introducing Redux Toolkit—many structural issues persisted, especially in the core diagramming library. The complexity, outdated design, and brittle codebase made meaningful improvements increasingly difficult.
-
+Initial attempts to address these problems through refactoring showed limited results. Although improvements were made—such as replacing class components in the standalone web app with functional ones and introducing Redux Toolkit—many structural issues persisted, especially in the core diagramming library. The growing complexity, legacy design, and fragile architecture of the codebase made it progressively harder to implement improvements.
 
 
 == Motivation
@@ -57,7 +56,9 @@ Improved interaction design directly enhances learning. Features like a simplifi
 
 We also prioritized mobile accessibility. Many students rely on tablets in their daily routines and often need to make quick updates to their diagrams while on the move. Instead of just improving the mobile browser experience, we adopted Capacitor to create native iOS and Android applications from a single codebase. This approach ensures consistent behavior across platforms. Studies confirm that mobile accessibility improves engagement and flexibility in education [@tre2023mobile].
 
-Finally, we improved real-time collaboration by integrating Yjs, a CRDT-based synchronization framework. CRDTs (Conflict-free Replicated Data Types) allow distributed systems to synchronize changes without conflicts, even in offline scenarios. With Yjs, students can collaboratively edit diagrams with consistent state and minimal latency, improving teamwork and visual communication.
+We also enhanced developer experience by integrating Zustand’s devtool plugin, complementing existing tools like Redux DevTools. Developers can now observe state transitions, identify the functions triggering updates, and track resulting changes in real time—making the development process more transparent and efficient.
+
+Finally, we improved real-time collaboration by integrating Yjs, a CRDT-based synchronization framework. CRDTs (Conflict-free Replicated Data Types) allow distributed systems to synchronize changes without conflicts, even in offline scenarios. Yjs enables students to collaboratively edit diagrams in real time, ensuring consistent state and low latency, which enhances teamwork and productivity.
 
 In short, we reengineered Apollon to help students create better diagrams, collaborate effectively, and work seamlessly across devices—all within a modern, maintainable architecture.
 
@@ -93,7 +94,7 @@ The first objective is to replace the outdated class-based React architecture wi
   We replace Redux and Saga with Zustand for simpler, modular, and more performant global state handling.
 
 - *New Node Structure*  
-  We redesign diagram nodes to separate rendering logic, metadata, and interaction behavior—making styling and extensibility significantly easier.
+  We redesigned diagram nodes using React Flow’s custom node feature, enabling a clear separation of rendering logic, metadata, and interaction behavior. Each node is rendered with custom SVG elements for precise visual control. We also use React Flow’s custom handles to define and style connection points, along with built-in support for resizing.
 
 - *New Edge Structure*  
   We replace legacy edge rendering with clean, straight, UML-compliant connectors that eliminate awkward diagonals and improve diagram readability.
@@ -118,17 +119,20 @@ The second objective is to ensure Apollon works seamlessly across major platform
 
 The third objective focuses on creating a clean, intuitive interface that supports students with minimal prior experience in UML modeling. This involves simplifying layout, improving canvas interactions, and reducing friction during usage.
 
-- *Initial Sidebar and Interaction Features*  
-  Allowing users to drag elements onto the canvas in both desktop and mobile contexts. This feature was first validated during the POCs and became central to the interaction model of the application.
+- *Flexible Edge Connections*  
+In the new implementation, users can freely choose which handle on a node to connect from or to—without being constrained to the center of the edge. Handles appear as small circles on hover, allowing more intuitive and flexible edge creation. Unlike the previous approach, which required anchoring one end to the node’s center during creation (with extra steps needed to adjust it later).
 
-- *Sidebar Simplification*  
-  We redesign the sidebar for clarity and space efficiency, allowing users to focus on the canvas without unnecessary clutter. 
 
-- *Keyboard Shortcuts and Interaction Speedups*  
-  We add shortcut keys and micro-interaction optimizations to reduce the time needed to perform common modeling tasks.
+- *Mobile Touch Support and Canvas Interactions*  
+In the old system, mobile browser support was limited: once an element was dropped on the canvas, repositioning or editing it was difficult, especially on touch devices. The new implementation supports touch gestures, enabling users to drag elements after placing them and reposition them freely. Combined with an infinite canvas, this significantly improves interaction—users can now easily navigate and place elements anywhere on the canvas, making modeling more flexible and mobile-friendly.
 
-- *Infinite Canvas and Customizable Minimap*  
-  We leverage React Flow’s built-in support for an infinite canvas, which allows users to scroll and explore large diagrams more freely—an improvement over the fixed-size canvas in the original Apollon. For enhanced navigation, we also customize React Flow’s minimap feature by rendering simplified SVG versions of our custom nodes, making it more intuitive and visually aligned with the main canvas.
+- *Infinite Canvas*
+The original Apollon used a finite canvas that only expanded when elements were dropped at the edges, which often led to frustrating layout limitations. In the new system, we use React Flow’s infinite canvas, allowing users to pan and zoom freely across a much larger working area. This gives users more freedom in how they lay out their diagrams and contributes to a smoother modeling experience.
+
+- *Customizable Minimap*  
+We enhanced navigation by integrating a minimap that reflects the full diagram layout. Unlike the original implementation, the new minimap uses simplified versions of the same SVG elements used on the canvas, maintaining visual consistency. This helps users understand the overall structure of their diagrams at a glance and navigate more efficiently.
+
+
 
 
 == Outline
@@ -158,8 +162,9 @@ This is a team thesis by Belemir Kürün and Ege Nerse. Reengineering tasks in C
 [*Thesis Chapter*], [*Responsible*],
 [Chapter 1: Introduction], [Belemir Kürün, Ege Nerse],
 table.cell(colspan: 2)[Chapter 2: Background],
-[Section 2.1: iOS Application and Standalone Issues], [Belemir Kürün],
-[Section 2.2: Framework and Library Evaluation], [Ege Nerse],
+[Section 2.1: Refactoring the Standalone Web Application], [Ege Nerse],
+[Section 2.2: Solving the iOS Application Issues], [Belemir Kürün],
+[Section 2.3: Framework and Library Evaluation], [Ege Nerse],
 [Chapter 3: Related Work], [Belemir Kürün, Ege Nerse],
 [Chapter 4: Requirements], [Belemir Kürün, Ege Nerse],
 table.cell(colspan: 2)[Chapter 5: Apollon Reengineering],
