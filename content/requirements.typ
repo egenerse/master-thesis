@@ -8,11 +8,11 @@ This chapter follows the structure from the Requirements Analysis Document in @k
 
 Apollon is an open-source UML diagram editor used within Artemis, a learning platform for software engineering courses. The existing version of Apollon provides a wide range of diagram types and allows users to visually model software systems. It is integrated into Artemis and used by students during exercises and exams.
 
-However, the current version suffers from several issues. The codebase is written in outdated React class components, making it hard to maintain or extend. There is no shared structure between the standalone editor, the Artemis integration, and the mobile version. Collaboration is based on an earlier implementation using Yjs, but the update handling logic is deeply embedded in the library, limiting flexibility. Only an iOS mobile version exists, and it is buggy and not suitable for general use. Android was never supported.
+However, the current version suffers from several issues. The codebase is written in outdated React class components, making it hard to maintain or extend. The core of the library relies heavily on class components that connect to global state using the legacy connect API from Redux. Side effects are handled using Redux-Saga, adding another layer of complexity. This architecture makes the system difficult to understand, debug, and modernize. There is no shared structure between the standalone editor, the Artemis integration, and the mobile version. Collaboration was implemented using a patcher-based data sharing mechanism. Only an iOS mobile version exists, and it is buggy and not suitable for general use. Android was never supported.
 
 == Proposed System
 
-This thesis proposes a reengineering of Apollon using modern functional React, React Flow, and Capacitor. The new system will be organized as a monorepo that includes the core diagramming library, a standalone editor, and mobile applications for both iOS and Android. Collaboration mode will be refactored to move WebSocket logic out of the library, allowing different platforms to handle connections independently. Full compatibility with Artemis will be maintained throughout.
+This thesis proposes a reengineering of Apollon using modern functional React, React Flow, and Capacitor. The new system is structured as an npm workspace monorepo containing three main packages: the core diagramming library, a standalone web application, and a standalone server. The standalone web app is wrapped using Capacitor to produce mobile applications for both iOS and Android, enabling cross-platform deployment from a single codebase. Full compatibility with Artemis will be maintained throughout.
 
 === Functional Requirements
 
@@ -20,7 +20,7 @@ This thesis proposes a reengineering of Apollon using modern functional React, R
 The new Apollon must support Artemis integration and minimize the changes needed in Artemis. Updates in the library side should be reflected to Artemis side if needed, and feature loss should be minimal.
 
 *FR2. Unified Monorepo Structure*
-Apollon will be restructured into a monorepo containing the core library, the standalone web editor, and the mobile distribution. Each part must share code and follow consistent design principles.
+Apollon will use an npm workspace monorepo containing the core library, standalone web editor, and standalone server. Mobile apps will be built by wrapping the web editor with Capacitor, and all packages will share code and follow consistent design principles.
 
 *FR3. Mobile Application Support*
 Apollon must support deployment to both iOS and Android devices using Capacitor. Mobile interactions such as touch-based drag-and-drop, tap-to-edit, and resizing must be smooth and responsive.
@@ -31,8 +31,8 @@ The system must allow users to create, delete, move and modify diagram elements 
 *FR5. Full Diagram Type Support*
 All UML and modeling diagram types currently supported by Apollon (e.g., Class Diagrams, Activity Diagrams, Use Case Diagrams, Component Diagrams, etc.) must be available in the new system without loss of features.
 
-*FR6. WebSocket Refactoring*
-WebSocket connections for collaborative editing must be managed from the web application layer instead of the shared library like the current architecture. EVen though system design changes, websocket connection architecture should remain same.
+*FR6. Client-Side WebSocket Management for Collaborative Editing*
+The web application layer must handle WebSocket connections for real-time collaborative editing. The library should remain agnostic to WebSocket logic and instead provide simple, abstracted functions such as sendBroadcastMessage and receiveBroadcastedMessage. These functions enable the upper application layer to send and receive updates, ensuring seamless integration with the library's collaborative features.
 
 *FR7. Collaboration Traffic Limit*
 To maintain performance and avoid WebSocket overload, updates sent during collaborative sessions must not exceed 200KB per transmission.

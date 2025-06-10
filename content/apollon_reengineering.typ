@@ -7,11 +7,8 @@ In this section, we explain the reengineering of the Apollon library. We begin b
 
 == System Design
 
-#align(left)[
-  #text(size: 10pt)[Ege Nerse]
-]
 
-We restructured the Apollon project into a monorepo that includes three main subsystems: the Apollon library, the web application (standalone), and a lightweight backend server for collaboration. This architecture improves modularity and makes development, testing, and deployment easier.
+  We restructured the Apollon project into a monorepo that includes three main subsystems: the Apollon library, the web application, and a backend server for persistent data storage and collaboration. This architecture improves modularity and makes development, testing, and deployment easier.
 
 - *Apollon Library*:
   This is the core module that encapsulates all modeling-related functionalities. It handles rendering and layout using React Flow, defines UML data structures, manages interaction logic such as selection and editing, and provides utilities like export and import.
