@@ -149,11 +149,11 @@ We also increased the number of ports per node to allow finer control over where
 
 
 === Zustand State Management in Apollon Editor
-In the current implementation of Apollon Editor, state management is handled using *Zustand*, a lightweight and scalable state-management library for React. The application maintains three distinct Zustand stores: `DiagramStore`, `MetadataStore`, and `PopoverStore`. Each store encapsulates a specific subset of the editor's state and provides manipulation functions (setters and updaters) accordingly.
+State management is handled using *Zustand* in the new Apollon Editor. The application maintains three distinct Zustand stores: `DiagramStore`, `MetadataStore`, and `PopoverStore`. Each store encapsulates a specific subset of the editor's state and provides manipulation functions (setters and updaters) accordingly.
 
 *The DiagramStore* is the primary store and manages the core structural and collaborative data of a diagram. It maintains the following state variables:
 
-```
+```ts
 export type DiagramStore = {
   nodes: Node[] // The graphical nodes representing elements in the UML diagram.
   edges: Edge[] // The connections between nodes, forming the relationships in the diagram.
@@ -164,9 +164,11 @@ export type DiagramStore = {
 }
 ```
 
+React Flow expects each parent node to appear before any of its children in the node array. To ensure this ordering, we use the sortNodesTopologically function, which arranges the nodes according to their hierarchical relationships. This is especially important in UML diagrams, where maintaining the correct visual and logical structure of parent-child relationships is essential.
+
 *The MetadataStore* holds metadata related to the current diagram and editor context:
 
-```
+```ts
 export type MetadataStore = {
   diagramTitle: string
   diagramType: UMLDiagramType
@@ -176,13 +178,18 @@ export type MetadataStore = {
 }
 ```
 
-These fields facilitate dynamic configuration and rendering of the editor based on the diagram type, title, and interaction mode 
-
-For example mode = Assessment and readonly = true, the editor will act in a SEE_FEEDBACK mode, where students can view their diagrams but cannot make changes. This is particularly useful for assessment scenarios where instructors provide feedback without allowing further modifications.
-
-*The PopoverStore* manages UI popover elements that assist users in editing, providing feedback, or accessing auxiliary functionalities:
+The editor's behavior is determined by the combination of mode and readonly flags:
 
 ```
+mode = "Editing" → EDIT mode: users can freely modify the diagram.
+mode = "Assessment" and readonly = false → GIVE_FEEDBACK mode: instructors can provide feedback on student diagrams.
+mode = "Assessment" and readonly = true → SEE_FEEDBACK mode: students can view feedback but cannot make changes.
+```
+This logic is particularly useful in assessment scenarios where control over editability and feedback visibility is essential.
+
+*The PopoverStore* manages UI popover elements that assist users in editing, providing feedback, or seeing functionalities:
+
+```ts
 export type PopoverStore = {
   popoverElementId: string | null
   popupEnabled: boolean
@@ -192,11 +199,31 @@ export type PopoverStore = {
 
 This separation of popover-related state ensures a clear boundary between UI control logic and the structural data of the diagram.
 
-*Integration with Yjs and ReactFlow*
+*Zustand Integration with Yjs*
 
-Each instance of `ApollonEditor` is associated with its own *Yjs document*, which enables real-time collaborative editing. A new set of Zustand stores is instantiated and bound to each Yjs document. This coupling ensures that collaborative state changes are synchronized across clients.
+Each instance of ApollonEditor is backed by its own Yjs document, enabling real-time collaborative editing. To manage local state, a dedicated set of Zustand stores is created and bound directly to the Yjs document. This tight coupling ensures that all local and remote state changes remain consistent across multiple clients.
 
-Furthermore, *ReactFlow*, the library responsible for diagram rendering, directly consumes the `nodes` and `edges` data from the `DiagramStore`. As a result, the Zustand store becomes the central hub for application state, bridging the rendering engine and collaborative infrastructure.
+At the core of this integration is a bidirectional sync mechanism:
+From Zustand to Yjs:
+Many state-updating functions in the editor (e.g., onNodesChange) update the Zustand store first, and then explicitly perform a Yjs transaction via ydoc.transact(...). This ensures that changes—such as adding, updating, or deleting nodes—are propagated to the Yjs document in a controlled and observable way. For example, in onNodesChange, position or structural changes to nodes are wrapped in a Yjs transaction with the origin "store", ensuring both correctness and traceability across clients.
+
+From Yjs to Zustand:
+Incoming updates from other collaborators are observed by YjsSyncClass, which listens to the Yjs document for changes. If a change did not originate from "store" (i.e., it came from another user), corresponding updates are applied to the Zustand store. For instance, when the nodes map in the Yjs document changes, YjsSyncClass calls updateNodesFromYjs() on the local store. This updates the internal node state, preserving user selections and removing stale data.
+
+This feedback loop is carefully managed to prevent infinite update cycles: the use of transaction origins (like "store" and "remote") allows each side to distinguish between local and remote changes and act accordingly.
+
+#figure(
+  image("../figures/ZustandYjsSyncAvticityDiagram.png", width: 90%),
+  caption: [Zustnad and Yjs Synchronization Activity Diagram]
+)
+
+This layered design ensures: Real-time collaboration, safe and atomic updates, consistent state across all clients.
+
+
+
+*Zustand Integration with ReactFlow*
+
+ReactFlow the library responsible for diagram rendering, directly consumes the `nodes` and `edges` data from the `DiagramStore`. As a result, the Zustand store becomes the central hub for application state.
 
 *Selector middlewares* and *Subscribers* are used to monitor and react to state changes. For example, a subscriber can be attached to `DiagramStore` using an `onModelChange` listener. This function is typically passed from the web application’s consumer layer and allows it to respond to updates in the underlying data model.
 
