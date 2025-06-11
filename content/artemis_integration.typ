@@ -45,7 +45,20 @@ This change allows for cleaner internal data models while still supporting the f
 
 == Integration of Collaboration Mode
 
-*To be completed later.*
+In team exercises, collaboration is essential, and the underlying system must ensure that all team members can work on the same diagram in real-time.
+
+Previously, collaborative editing in Artemis was implemented using a patch-based mechanism. Each change in the Apollon diagram was captured as a "patch," which was then broadcast to other clients for incremental updates. While functional, this approach introduced complexity in managing and applying patches, especially when handling synchronization for newly connected users.
+
+In the updated system, we adopted a simplified collaboration mechanism that leverages Apollon's new capability to serialize the entire diagram model. Instead of sending incremental patch messages, the updated system transmits the complete diagram as a Base64-encoded string. This change significantly reduces the complexity of synchronization logic while preserving the core collaboration flow.
+
+The TeamSubmissionSyncComponent remains the central piece for handling real-time synchronization. It listens for updates in the Apollon model and ensures the UI reflects the latest state. When a client modifies the diagram, it sends the full model (as a Base64 string) to the broadcast server. The server, in turn, relays this message to other connected clients, who then deserialize and apply the updated model.
+
+To maintain compatibility with existing collaboration infrastructure, the communication flow remains unchanged: clients send messages to a broadcast server, and the server distributes these to other participants. Newly connected clients initiate a synchronization request, prompting peers to send them the current model — a mechanism aligned with the standalone web app's collaboration flow.
+
+From an implementation perspective, the patch message structure was updated by replacing the patches field with a model field containing the Base64-encoded diagram string. The sendBroadcastMessage function now injects this updated format into outgoing messages, while the rest of the messaging and event-handling logic remains intact.
+
+This transition to model-based synchronization ensures consistency across clients.
+
 
 == SVG Renderer
 
