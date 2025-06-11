@@ -2,13 +2,36 @@
 
 = Apollon Reengineering
 
-In this section, we explain the reengineering of the Apollon library. We begin by describing the new system design and the monorepo structure, which brings together the standalone version, library, and web application. Then, we detail the new node and edge structure that improves rendering and usability. Afterwards, we explain the newly introduced state management with Zustand and the updated collaboration mode powered by Yjs.
+In this section, we explain the reengineering of the Apollon. We begin by describing the new system design and the monorepo structure, which brings together the library, the web application and the server. Then we detail reengineering of library and continue with standalone and lastly mobile application and mobile browsers
 
 
 == System Design
 
 
-  We restructured the Apollon project into a monorepo that includes three main subsystems: the Apollon library, the web application, and a backend server for persistent data storage and collaboration. This architecture improves modularity and makes development, testing, and deployment easier.
+The Apollon project was restructured into a unified monorepo architecture that consolidates three core subsystems: the Apollon library, the web application, and the backend server. This redesign enhances modularity, simplifies development and testing workflows, and streamlines deployment processes across the entire system.
+
+- *Monorepo Structure*:
+The new monorepo structure organizes the codebase into three primary packages:
+
+*Apollon-Library*: Contains the core logic for Apollon, including UML data models, rendering with React Flow, and collaborative functionality.
+
+*Standalone-Webapp*: Implements the user-facing web application that integrates the Apollon library to deliver a complete modeling interface.
+
+*Standalone-Server*: Hosts the backend server that facilitates real-time collaboration via WebSockets and provides RESTful endpoints for model persistence.
+
+This unified structure simplifies development by centralizing related components, making it easier to apply changes across packages and maintain consistency throughout the system.
+
+To support a consistent and maintainable development workflow across all packages, the monorepo integrates several tooling and configuration standards:
+
+-- TypeScript is used throughout the project to enforce type safety across package boundaries. This reduces integration errors, improves code readability, and enhances developer experience with features like autocompletion and static analysis.
+
+-- npm Workspaces enable coordinated dependency management and script execution across packages. This allows common tasks—such as building, testing, or linting—to be run from the root, reducing manual overhead and ensuring synchronized behavior across the system.
+
+-- Prettier is configured to enforce consistent code formatting, ensuring that the codebase remains clean and readable regardless of which package is being modified.
+
+-- Husky is used to define Git hooks that enforce code quality at the commit level. Pre-commit hooks automatically run linters and formatters to catch issues early, while a commit-msg hook ensures that all commit messages follow the Conventional Commits standard. This improves the clarity of the project's history and supports automation in releases and changelogs.
+
+These tools contribute to a modular, scalable, and developer-friendly system design and helping maintain high code quality and consistency across a growing, multi-package architecture.
 
 - *Apollon Library*:
   This is the core module that encapsulates all modeling-related functionalities. It handles rendering and layout using React Flow, defines UML data structures, manages interaction logic such as selection and editing, and provides utilities like export and import.
@@ -16,19 +39,28 @@ In this section, we explain the reengineering of the Apollon library. We begin b
   To connect the application state with the Yjs document, the library also includes a Yjs sync component that links the store and collaborative state updates.
   The Apollon Library exposes its full functionality through the `ApollonEditor` interface. This allows external applications, like the webapp or Artemis, to easily embed and interact with the editor instance without needing to access internal logic directly.
 
-- *Apollon Webapp (Standalone)*:
+- *Apollon Standalone Webapp*:
   This is the user-facing subsystem that builds upon the Apollon library. It provides the interface where students and instructors can create, edit, and manage UML diagrams.
-  The webapp uses the `ApollonEditor` interface to embed and control the editor. It also includes a *Model Provider* component responsible for fetching models from and saving them to the backend server.
-  For collaboration, the webapp connects to the backend using a *Message Provider*, which handles WebSocket connections and dispatches events. This keeps the editor state synchronized between clients during collaborative sessions.
+  The webapp uses the `ApollonEditor` interface to embed and control the editor. It also includes a *DiagramAPIManager* service responsible for fetching models from and saving them to the backend server.
+  For collaboration, the webapp connects to the backend using a *WebSocketManager* service, which handles WebSocket connections and dispatches events. This keeps the editor state synchronized between clients during collaborative sessions.
 
-- *Apollon Server*:
-  This is a minimal backend service built to support WebSocket-based collaboration. It acts as a *relay server*, meaning it does not interpret the data but simply forwards the binary CRDT messages between clients.
-  It includes a *Message Broadcast* module to handle message forwarding between connected clients on the same document.
-  In addition to real-time collaboration, the server also supports model persistence. The *Diagram Router* exposes REST endpoints (PUT, POST, GET) to read and write diagram models from a *persistent database*. This enables users to save and resume their work seamlessly across sessions.
+  Global state management in the webapp is handled using Zustand, which allows for efficient updates and reactivity.
 
+
+
+- *Apollon Standalone Server*:
+  This is a backend service designed to support persistence diagrams and enable WebSocket-based real-time collaboration. Acting as a relay server, it forwards messages between clients without interpreting them.
+
+  A key feature is the room-based message broadcasting system, implemented in the WebSocket server. Each collaborative session corresponds to a distinct "room" identified by a diagramId, and any message received from one client is automatically relayed to all other connected clients in the same room. This allows for efficient and low-latency collaboration without centralized state processing.
+
+  Beyond real-time communication, the server provides model persistence via RESTful API endpoints exposed by the Diagram Router (PUT, POST, GET), enabling users to save diagrams to a persistent database and seamlessly resume work across sessions.
+
+  Diagram data is stored in a MongoDB database, with Mongoose used to define schemas, validate data, and perform CRUD operations—ensuring consistency and simplifying integration with the rest of the system.
+
+  To maintain performance and storage efficiency, a scheduled cron job runs nightly at 00:00 to automatically delete diagrams not updated more than 60 days, keeping the database focused on recent and relevant models.
 
 #figure(
-  image("../figures/ApollonOverviewDetailed.png", width: 90%),
+  image("../figures/ApollonOverviewDetailed.jpg", width: 90%),
   caption: [System overview of the new Apollon architecture.]
 )
 
