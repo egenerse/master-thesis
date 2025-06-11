@@ -73,14 +73,14 @@ In this section, we describe the redesigned architecture and key features of the
   #text(size: 10pt)[Ege Nerse]
 ]
 
+The internal data model for UML elements in Apollon has been redesigned to align with React Flow’s architecture. Each UML element is now represented using a custom React Flow node component that encapsulates both rendering and interaction logic. This modular approach enables the creation of interactive and visually consistent UML diagrams while maintaining a clean separation of concerns.
 
-The internal data model for UML elements in Apollon has been redesigned to make it simpler, faster, and easier to maintain. This change affects how classes, methods, and attributes are stored and rendered in the application.
+To support intuitive diagramming, each node includes custom handler and resizer components. These allow users to resize UML elements and create connections by dragging from source to target handles, resulting in a more flexible modeling experience.
 
+In the previous system, the data model followed a flat structure: all elements were stored as separate top-level objects. For example Class elements referenced their attributes and methods using ID arrays. Additionally, different class stereotypes like abstract classes, interfaces, and enumerations were modeled as entirely different node types (AbstractClass, Interface, Enumeration), each with its own structure and behavior.
 
+Example of the class data structure is shown below:
 
-In the older version of Apollon, every concept—like a class, an attribute, or a method—was treated as a separate UML element. These elements had a shared structure with a `type` field such as `"Class"`, `"ClassAttribute"`, or `"ClassMethod"`.
-
-A class element stored its method and attribute IDs:
 ```json
 {
   "id": "0e87...",
@@ -96,20 +96,24 @@ Each method and attribute also existed as a separate object with a reference to 
   "owner": "0e87..."
 }
 ```
-This model gave developers flexibility but introduced complexity. Managing updates across multiple related nodes was difficult and error-prone.
+
 
 #figure(
   image("../figures/OldNodeType.png", width: 90%),
-  caption: [Node types in Old Apollon]
+  caption: [Class Element types in Old Apollon]
 )
 
+This structure proved incompatible with React Flow, which treats each node as a unified, self-contained component. In response, the new system adopts a nested structure: attributes and methods are now embedded directly within the parent class node’s data field. Moreover, the previously separate types for abstract classes, interfaces, and enumerations have been unified under a single Class node type, distinguished by a stereotype field.
 
-In the redesigned version, Apollon uses a flat node structure inspired by React Flow. Each class node stores its attributes and methods inside its own data field. Stereotypes are also introduced in another field:
+This stereotype field can be one of: null (plain class), abstract, interface, or enumeration. This approach simplifies the model, reduces redundancy, and allows for more flexible and expressive rendering in React Flow.
+
 
 #figure(
   image("../figures/NewNodeType.png", width: 90%),
-  caption: [New Node structure in Apollon Reengineering]
+  caption: [New Class Node structure in Apollon Reengineering]
 )
+
+This nested and stereotype-aware design simplifies the model, reduces redundancy, and enables more flexible node rendering within React Flow. Most UML elements—such as Packages, Components, Subsystems, Interfaces, Use Cases, and Actors—fit naturally into this new structure, as they do not contain nested elements. The Class element remains the main exception due to its need to internally encapsulate attributes, methods, and stereotype metadata.
 
 === Edge Structure
 
