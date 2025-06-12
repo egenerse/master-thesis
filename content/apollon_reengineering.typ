@@ -287,9 +287,19 @@ To avoid infinite update loops, all incoming changes are tagged with their origi
 
 The standalone application provides a complete modeling environment built on top of the Apollon core library. It allows users to create and edit diagrams directly in the browser without requiring authentication or a user account. This lightweight interface makes it ideal for quick prototyping, experimentation, or educational use outside of larger systems like Artemis.
 
+The standalone version provides local storage for saving diagrams, allowing users to resume work on their models even after closing the browser. This feature is useful to quickly sketch out ideas or create simple diagrams. Also we provide load diagram feature that allows users to load their previously saved diagrams from the browser's local storage. 
+
+The standalone web applciation also has a dedicated playground url for testing and experimenting Apollon features as seen in the @apollonWebappPlayground .
+
+#figure(
+  image("../figures/ApollonWebappPlayground.png", width: 90%),
+  caption: [Apollon Standalone Web Application Playground]
+) <apollonWebappPlayground>
+
+
 In the following sections, we explain the usability improvements introduced in the new standalone version, describe the deployment setup using Caddy and reverse proxying, and summarize the feedback and recommendations collected from user testing sessions.
 
-=== Usability Improvements
+
 
 === Apollon Standalone Deployment Setup
 #align(left)[
