@@ -213,11 +213,11 @@ Incoming updates from other collaborators are observed by YjsSyncClass, which li
 This feedback loop is carefully managed to prevent infinite update cycles: the use of transaction origins (like "store" and "remote") allows each side to distinguish between local and remote changes and act accordingly.
 
 #figure(
-  image("../figures/ZustandYjsSyncAvticityDiagram.png", width: 90%),
+  image("../figures/ZustandandYsSyncSendBroadcast.png", width: 90%),
   caption: [Zustnad and Yjs Synchronization Activity Diagram]
 )
 
-This layered design ensures: Real-time collaboration, safe and atomic updates, consistent state across all clients.
+This design ensures: Real-time collaboration, safe updates, consistent state across all clients.
 
 
 
