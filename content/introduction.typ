@@ -154,11 +154,10 @@ Chapter 6, *Summary and Future Work*, concludes the thesis by reflecting on the 
 
 This is a team thesis by Belemir Kürün and Ege Nerse. Reengineering tasks in Chapter 4 were divided between the authors, while integration tasks in Chapter 5 were completed collaboratively. Author responsibilities are highlighted in each relevant section, with a summary shown below.
 
-#table(
+#figure(
+table(
   columns: 2,
   align: (left, center),
-
-
 [*Thesis Chapter*], [*Responsible*],
 [Chapter 1: Introduction], [Belemir Kürün, Ege Nerse],
 table.cell(colspan: 2)[Chapter 2: Background],
@@ -179,8 +178,8 @@ table.cell(colspan: 2)[Chapter 5: Apollon Reengineering],
 [5.2.2 Deployment of Apollon Standalone], [Belemir Kürün],
 [5.2.3 Testing Session], [Belemir Kürün & Ege Nerse],
 [Chapter 6: Artemis Integration], [Belemir Kürün & Ege Nerse],
-[Chapter 7: Summary], [Belemir Kürün & Ege Nerse],
-
+[Chapter 7: Summary], [Belemir Kürün & Ege Nerse],),
+  caption: [*Thesis Chapter Responsibilities*],
 )
 
 

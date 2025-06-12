@@ -308,6 +308,54 @@ The entire system is hosted on a managed virtual machine. Docker Compose manages
 
 === Testing Session
 
+We conducted testing sessions for the Apollon2 Web App and its new library integration to assess usability, uncover bugs, collect enhancement ideas, and validate key interactions. Test participants from various backgrounds interacted with the application in realistic scenarios and provided actionable feedback.
+
+We prioritized the found bugs and summarized them in categorized tables below with their status. 
+
+
+#figure(
+  table(
+    columns: 2,
+    align: (left, center),
+  [*Found Bug*], [*Status*],
+  [Cursor changes to hand icon during resize instead of arrow], [✅ Fixed],
+  [Cannot unselect relations after rotation], [✅ Fixed],
+  [Import fails with invalid diagram type], [✅ Fixed],
+  ["Create from Template" does not work], [✅ Fixed],
+  [Icon next to lock is not informative or clickable], [✅ Fixed],
+  [Attributes not rendering properly in collaboration mode], [✅ Fixed],
+  [Double-click does not open editing mode], [✅ Fixed],
+  [Input fields create new elements on unfocus], [✅ Fixed],
+  [Local diagram disappears after reload], [✅ Fixed],
+  [Hide selection highlights in PNG export], [✅ Fixed],
+  [Class diagram height is not adjustable], [Not a Bug],
+  [Canvas gestures unintuitive (should match Lucidchart)], [Not a Bug],
+  [Lock mode does not disable node selection], [✅ Fixed],
+  ),
+  caption: [Bug feedbacks from Apollon2 Web App testing sessions.]
+)
+
+
+User feedback played a crucial role in shaping the direction of improvements. Beyond identifying bugs, testers also proposed valuable enhancement ideas that could significantly improve the usability and intuitiveness of the application. We reviewed, evaluated, and prioritized these suggestions based on user impact and implementation feasibility. The table below highlights the most relevant enhancement ideas along with their current status.
+
+
+#figure(
+  table(
+    columns: 2,
+    align: (left, center),
+  [*Enhancement Idea*], [*Status*],
+  [Make minimap icon more intuitive], [✅ Improved],
+  [Adjusting relations is hard due to offset UI], [⏳ In Backlog],
+  [Too many connection dots on small rectangles], [⏳ In Backlog],
+  [Allow deleting elements with Delete key], [✅ Improved],
+  [Add tooltips and improve icon intuitiveness], [⏳ In Backlog],
+  [Clarify "Edit" mode text in Share section], [⏳ In Backlog],
+  [Improve minimap toggle interaction], [✅ Improved],
+  ),
+  caption: [Enhancement feedbacks from Apollon2 Web App testing sessions.]
+)
+
+
 == Mobile Application
 
 
@@ -354,3 +402,46 @@ Touch interaction was overhauled to ensure compatibility with both fingers and s
 These improvements make the mobile version of Apollon not only functional, but also practical for real-world usage. Students can now comfortably create, edit, and submit diagrams on their phones or tablets, whether during lab sessions, on the move, or during last-minute revisions.
 
 === Testing Session
+
+We conducted a dedicated testing session for the Apollon2 Mobile App, focusing on tablet and phone interactions, including Apple Pencil usage and mobile-specific UI behavior. The goal was to evaluate touch and gesture usability, detect mobile-only bugs, and gather platform-specific enhancement ideas.
+
+Participants explored a range of interactions such as node creation, edge manipulation, and UI navigation. Their feedback uncovered a number of platform-specific issues, which are listed below.
+
+We categorized the bugs reported and included their current development status in the table that follows:
+
+#figure(
+table(
+columns: 2,
+align: (left, center),
+[Found Bug], [Status],
+[Edge popover icon renders in wrong position], [⏳ In Backlog],
+[Node toolbar/popup not clickable with Apple Pencil], [⏳ In Backlog],
+[Bottom icon padding too low], [⏳ In Backlog],
+[Node outline gets bigger after stacking/moving], [⏳ In Backlog],
+[Selection with Apple Pencil not possible], [⏳ In Backlog],
+[Node outlier expands incorrectly when changing type], [⏳ In Backlog],
+[Package resizing too small to interact], [⏳ In Backlog],
+[Gaps between nodes and edges], [⏳ In Backlog],
+[Package resizes in wrong direction when dragged], [⏳ In Backlog],
+[Cannot unselect edges], [⏳ In Backlog],
+[Cannot select edges], [⏳ In Backlog],
+[Clicking edge multiple times distorts path], [⏳ In Backlog],
+[Edge markers don’t update after type change], [⏳ In Backlog],
+),
+caption: [Bug feedbacks from Apollon2 Mobile App testing sessions.]
+)
+
+In addition to the bugs, participants suggested mobile-specific enhancements to improve the user experience on smaller screens and stylus-based interaction. These ideas are listed in the table below along with their current status:
+
+#figure(
+table(
+columns: 2,
+align: (left, center),
+[Enhancement Idea], [Status],
+[Keyboard should auto-focus when editing attribute], [⏳ In Backlog],
+[Make minimap open/close behavior intuitive], [⏳ In Backlog],
+[Popover should close on "Done" or return key], [⏳ In Backlog],
+[Make edge creation easier and more natural], [⏳ In Backlog],
+),
+caption: [Enhancement feedbacks from Apollon2 Mobile App testing sessions.]
+)
