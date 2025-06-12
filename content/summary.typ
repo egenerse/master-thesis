@@ -18,14 +18,11 @@ HI: half-implmented
 N: not implemented
 
 All requirements defined in Section 4.2 and their status are listed in table 5.1.
-
-
-#table(
-  columns: 3,
-  align: (left, center),
-
-
-table.cell(colspan: 2)[*Requirements*], [*Status*],
+#figure(
+  table(
+    columns: 3,
+    align: (left, center, center),
+    table.cell(colspan: 2)[*Requirements*], [*Status*],
 [FR1], [Artemis Compatibility], [HI],
 [FR2], [Unified Monorepo Structure], [I],
 [FR3], [Mobile Application Support], [I],
@@ -37,9 +34,10 @@ ing], [I],
 
 [QA1], [Usability], [HI],
 [QA2], [Maintainability], [I],
-[QA3], [Scalability], [I],
-[QA4], [Performance], [I],
-[QA5], [Accessibility], [I],
+[QA3], [Performance], [I],
+[QA4], [Accessibility], [I],
+  ),
+  caption: [Bug feedbacks from Apollon2 Web App testing sessions.]
 )<statusTable>
 
 
@@ -56,11 +54,11 @@ The Webapp and Server together enable users to model diagrams without requiring 
 
 We also completed the initial integration with Artemis. Core workflows such as diagram creation, submission, collaboration, feedback, and review are fully supported. However, features like selecting or highlighting individual methods or attributes are still missing. Therefore, FR3 is partially fulfilled.
 
-Additionally, we integrated Capacitor into the mono-repo, enabling us to deploy the latest changes directly to native iOS and Android apps. Touch-based events and gestures were handled carefully to improve the mobile experience across both apps and browsers. These improvements fulfill FR4 and also improves Acesibility which was the QA5.
+Additionally, we integrated Capacitor into the mono-repo, enabling us to deploy the latest changes directly to native iOS and Android apps. Touch-based events and gestures were handled carefully to improve the mobile experience across both apps and browsers. These improvements fulfill FR4 and also improves Acesibility which was the QA4.
 
 All previously available modeling features remain intact, successfully fulfilling FR5. Moreover, we began extending support for additional diagram types. While not all types are supported yet, this partially meets the requirement of FR6.
 
-We reintroduced collaboration mode using the same WebSocket-based infrastructure, fulfilling FR7. To meet scalability requirements, we ensured the collaboration traffic stays well below the 200 KB threshold—currently under 100 KB. This demonstrates that the system can support larger collaboration sessions, fulfilling both QA3 (Performance) and QA4 (Scalability).
+We reintroduced collaboration mode using the same WebSocket-based infrastructure, fulfilling FR7. We ensured the collaboration traffic stays well below the 200 KB threshold currently under 100 KB. This demonstrates that the system can support larger collaboration sessions which fulfills QA3 (Performance)
 
 Finally, based on feedback gathered during testing, we implemented several usability improvements—such as a minimap, zoom controls, and refined UI icons. These enhancements contribute toward meeting QA1 (Usability) and ensure a more intuitive user experience.
 
@@ -71,15 +69,17 @@ Finally, based on feedback gathered during testing, we implemented several usabi
 
 Despite successfully implementing many of the planned features, several requirements remain partially or fully open.
 
+Event though most of the features are kept in the new version we are still missing some features like shortcuts and diagram history. These issues are open in the backlog.
+
 Artemis Integration (FR1) has not yet reached full completion. The drag-and-drop feedback functionality is still missing, primarily because the system lacks proper support for tracking highlighted elements. In order to assign feedback to individual diagram elements, especially attributes or methods within class diagrams, we need to implement a mechanism that tracks which parts of the diagram users select or highlight.
 
 Similarly, selection tracking for attributes and methods is also missing. This feature is crucial for interactive modeling quizzes in Artemis, where instructors exclude or include specific diagram parts when generating questions. Currently, our SVG rendering mechanism lacks the ability to exclude selected areas, which prevents the creation of white-space placeholders during quiz generation. These missing functionalities block full support for the modeling quiz workflow and must be addressed to satisfy FR1.
 
 We also identified additional usability issues based on the feedback collected from testing sessions. While we introduced improvements such as a minimap, zoom controls, and mobile compatibility, we have not yet implemented critical UI features like a more intuitive navigation bar or helper lines to assist with alignment and layout. These missing components limit our ability to fully satisfy QA1 (Usability).
 
-In terms of accessibility, we still need to address multiple areas. We need to make sidebar smaller to give more space that people who uses phones to check the diagram. Also we need to make edge creation better for mobile users.
+In terms of accessibility, we still need to address multiple areas. We we need to make edge creation better and easier for mobile users while making icons and handles bigger.
 
-By addressing these accessibility improvements, we will make the tool more inclusive and bring us closer to meeting QA5 (Accessibility) in future iterations.
+By addressing these accessibility improvements, we will make the tool more inclusive and bring us closer to meeting QA4 (Accessibility) in future iterations.
 
 In summary, while the current version of Apollon meets many of its functional goals, we still need to complete important integration and usability features to fully realize the tool’s potential in an educational context.
 
@@ -105,7 +105,7 @@ Overall, this thesis contributes a fully modernized and platform-consistent diag
 
 While this thesis introduced a reengineered version of Apollon with a modern architecture and improved user experience, several areas offer promising directions for future work to further expand its capabilities, accessibility, and usability.
 
-One of the most impactful areas of future development lies in enhancing real-time collaboration. Adding support for live mouse movement tracking, each with individual colors and user labels, would allow users to see who is working on what part of the diagram in real time. This would improve awareness, reduce conflicts, and encourage better teamwork. Furthermore, supporting features like live cursors, presence indicators, and user activity trails could make group modeling sessions more interactive and organized.
+One of the most impactful areas of future development lies in enhancing real time collaboration. Adding support for live mouse movement tracking, each with individual colors and user labels, would allow users to see who is working on what part of the diagram in real time. This would improve awareness, reduce conflicts, and encourage better teamwork. Furthermore, supporting features like live cursors, presence indicators, and user activity trails could make group modeling sessions more interactive and organized.
 
 We could also extend the diagramming experience by introducing contextual assistance features. For example, providing ghost previews of elements or edges before placement could help guide users toward more logical or aesthetically pleasing layouts. Intelligent placement suggestions—based on diagram structure, conventions, or common patterns—could assist beginners and accelerate diagram creation for all users.
 

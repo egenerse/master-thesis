@@ -45,13 +45,10 @@ To maintain performance and avoid WebSocket overload, updates sent during collab
 The application must follow established usability principles such as Nielsen’s heuristics @nielsen1995usability. Features must be easy to find and use, especially for students new to UML modeling.
 
 *QA2. Maintainability*
-The system should be easy to extend and refactor. The new codebase must use modular, function-based components with clearly separated logic to reduce developer onboarding time.
+The system should be easy to  add new features and easy to bugfix. The new codebase must improve developer experience, should use function-based components. It should reduce developer onboarding time.
 
-*QA3. Scalability*
-The system must support multiple large diagrams in collaboration mode without noticeable slowdowns. Diagram rendering and update propagation must remain responsive even in group settings.
-
-*QA4. Performance*
+*QA3. Performance*
 The app must open diagrams and render elements quickly. Actions like dragging, zooming, and editing must feel responsive on both web and mobile platforms.
 
-*QA5. Accessibility*
+*QA4. Accessibility*
 The mobile version must support gesture navigation, drag-and-drop interactions, and optimized layouts for smaller screens which would make tool Apollon available for both mobile and web users.
