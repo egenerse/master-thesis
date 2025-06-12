@@ -47,7 +47,6 @@ ing], [I],
 #TODO[
   Summarize the achieved goals by repeating the realized requirements or use cases stating how you realized them.
 ]
-=== Realized Goals
 
 This section summarizes the current status of implemented requirements and achieved goals.
 
