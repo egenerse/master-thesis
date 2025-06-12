@@ -39,7 +39,7 @@ ing], [I],
 [QA2], [Maintainability], [I],
 [QA3], [Scalability], [I],
 [QA4], [Performance], [I],
-[QA5], [Accessibility], [N],
+[QA5], [Accessibility], [I],
 )<statusTable>
 
 
@@ -56,7 +56,7 @@ The Webapp and Server together enable users to model diagrams without requiring 
 
 We also completed the initial integration with Artemis. Core workflows such as diagram creation, submission, collaboration, feedback, and review are fully supported. However, features like selecting or highlighting individual methods or attributes are still missing. Therefore, FR3 is partially fulfilled.
 
-Additionally, we integrated Capacitor into the mono-repo, enabling us to deploy the latest changes directly to native iOS and Android apps. Touch-based events and gestures were handled carefully to improve the mobile experience across both apps and browsers. These improvements fulfill FR4.
+Additionally, we integrated Capacitor into the mono-repo, enabling us to deploy the latest changes directly to native iOS and Android apps. Touch-based events and gestures were handled carefully to improve the mobile experience across both apps and browsers. These improvements fulfill FR4 and also improves Acesibility which was the QA5.
 
 All previously available modeling features remain intact, successfully fulfilling FR5. Moreover, we began extending support for additional diagram types. While not all types are supported yet, this partially meets the requirement of FR6.
 
@@ -77,10 +77,7 @@ Similarly, selection tracking for attributes and methods is also missing. This f
 
 We also identified additional usability issues based on the feedback collected from testing sessions. While we introduced improvements such as a minimap, zoom controls, and mobile compatibility, we have not yet implemented critical UI features like a more intuitive navigation bar or helper lines to assist with alignment and layout. These missing components limit our ability to fully satisfy QA1 (Usability).
 
-In terms of accessibility, we still need to address multiple areas. For instance, we need to:
-
-- Improve keyboard navigation, allowing users to operate the interface without a mouse.
-- Enhance screen reader support for visually impaired users.
+In terms of accessibility, we still need to address multiple areas. We need to make sidebar smaller to give more space that people who uses phones to check the diagram. Also we need to make edge creation better for mobile users.
 
 By addressing these accessibility improvements, we will make the tool more inclusive and bring us closer to meeting QA5 (Accessibility) in future iterations.
 

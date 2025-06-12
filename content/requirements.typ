@@ -54,4 +54,4 @@ The system must support multiple large diagrams in collaboration mode without no
 The app must open diagrams and render elements quickly. Actions like dragging, zooming, and editing must feel responsive on both web and mobile platforms.
 
 *QA5. Accessibility*
-The mobile version must support gesture navigation, drag-and-drop interactions, and optimized layouts for smaller screens. Keyboard navigation and screen reader support are recommended for inclusivity.
+The mobile version must support gesture navigation, drag-and-drop interactions, and optimized layouts for smaller screens which would make tool Apollon available for both mobile and web users.
