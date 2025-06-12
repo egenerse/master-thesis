@@ -29,9 +29,7 @@ We focused on integrating these components first, as they form the backbone of A
 
 One of the most critical integration points was the *Modeling Editor* component. This component is invoked both in standard exercises and exams, meaning that any change here would impact a large part of Artemis.
 
-We replaced the old editor instance with the new Apollon Editor implementation from the reengineered library. Then we updated the exercise creation and exam setup pages accordingly.
-
-Since the exam flow also relies on the same modeling editor when instructors create modeling exercises within exams, this allowed us to streamline the migration. One special case was the *Solution Model* feature used in instructor workflows, which relied on the old SVG rendering logic. We replaced this with the updated SVG export method from the new Apollon library.
+We replaced the old editor instance with the new Apollon Editor implementation from the reengineered library. Then we updated the exercise creation and exam setup pages accordingly. Since the exam flow also relies on the same modeling editor when instructors create modeling exercises within exams, this allowed us to streamline the migration.
 
 == Integration of Quiz Mode
 
@@ -39,7 +37,7 @@ Quiz creation in Artemis introduced a unique challenge. Instructors can define i
 
 To support this workflow, we implemented the *interactive mode* in the new Apollon. This required specialized handling of SVG rendering with an *exclude* functionality to remove selected elements from the main diagram view and render them in the sidebar.
 
-In the reengineered system, we introduced this feature by tracking mouse `enter` events on the individual SVG elements of the node (method or attribute). While the previous version treated methods and attributes as standalone UML elements, our new node structure embeds them within the class node. As a result, we rely on SVG regions and `id` detection to distinguish and selectively render the appropriate elements.
+In the reengineered system, we introduced a new feature that tracks a separate list, ExportingSelectedItems, instead of using selectedElementsList. This change enables users to select child elements of custom nodes—such as attributes and methods within a class node. While the previous version treated methods and attributes as standalone UML elements, the updated node structure embeds them directly within their parent class node. Consequently, we now use SVG regions and id detection to accurately identify and selectively render the appropriate elements.
 
 This change allows for cleaner internal data models while still supporting the flexible interaction features needed for quiz workflows.
 
@@ -47,7 +45,7 @@ This change allows for cleaner internal data models while still supporting the f
 
 In team exercises, collaboration is essential, and the underlying system must ensure that all team members can work on the same diagram in real-time.
 
-Previously, collaborative editing in Artemis was implemented using a patch-based mechanism. Each change in the Apollon diagram was captured as a "patch," which was then broadcast to other clients for incremental updates. While functional, this approach introduced complexity in managing and applying patches, especially when handling synchronization for newly connected users.
+Previously, collaborative editing in Artemis was implemented using a patch-based mechanism. Each change in the Apollon diagram was captured as a "patch," which was then broadcast to other clients for incremental updates. 
 
 In the updated system, we adopted a simplified collaboration mechanism that leverages Apollon's new capability to serialize the entire diagram model. Instead of sending incremental patch messages, the updated system transmits the complete diagram as a Base64-encoded string. This change significantly reduces the complexity of synchronization logic while preserving the core collaboration flow.
 
@@ -55,11 +53,6 @@ The TeamSubmissionSyncComponent remains the central piece for handling real-time
 
 To maintain compatibility with existing collaboration infrastructure, the communication flow remains unchanged: clients send messages to a broadcast server, and the server distributes these to other participants. Newly connected clients initiate a synchronization request, prompting peers to send them the current model — a mechanism aligned with the standalone web app's collaboration flow.
 
-From an implementation perspective, the patch message structure was updated by replacing the patches field with a model field containing the Base64-encoded diagram string. The sendBroadcastMessage function now injects this updated format into outgoing messages, while the rest of the messaging and event-handling logic remains intact.
+From an implementation perspective, the patch message structure was updated by replacing the patches field with a model field containing the Base64-encoded diagram string. Keeping structure similar to the previous implementation allows us to maintain compatibility with existing Artemis features that expect a certain message format. The TeamSubmissionSyncComponent was also updated to handle this new model field, ensuring that it can process incoming messages correctly.
 
 This transition to model-based synchronization ensures consistency across clients.
-
-
-== SVG Renderer
-
-*To be completed later.*
