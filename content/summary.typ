@@ -5,7 +5,7 @@
   This chapter includes the status of your thesis, a conclusion and an outlook about future work.
 ]
 
-This chapter summarizes what goals have been implemented as part of this thesis. We will discuss which goals have not or only been partially fulfilled and what is required to complete them. Furthermore we will mention future work which will improve the UI test suite and its integration into the development workflow.
+This chapter summarizes what goals have been implemented as part of this thesis. We will discuss which goals have not or only been partially fulfilled and what is required to complete them. Furthermore we will mention future work which will improve the Apollon and Artemis Modelling Exercises in the future.
 
 == Status
 #TODO[
