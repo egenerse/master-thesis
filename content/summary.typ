@@ -99,13 +99,13 @@ Beyond architectural improvements, we focused on enhancing usability. We introdu
 Overall, this thesis contributes a fully modernized and platform-consistent diagramming solution that addresses long-standing limitations in Apollon and prepares it for continued use within educational platforms like Artemis and beyond.
 
 == Future Work
-#TODO[
-  Tell us the next steps (that you would do if you have more time). Be creative, visionary and open-minded here.
-]
+
 
 While this thesis introduced a reengineered version of Apollon with a modern architecture and improved user experience, several areas offer promising directions for future work to further expand its capabilities, accessibility, and usability.
 
 One of the most impactful areas of future development lies in enhancing real time collaboration. Adding support for live mouse movement tracking, each with individual colors and user labels, would allow users to see who is working on what part of the diagram in real time. This would improve awareness, reduce conflicts, and encourage better teamwork. Furthermore, supporting features like live cursors, presence indicators, and user activity trails could make group modeling sessions more interactive and organized.
 
-We could also extend the diagramming experience by introducing contextual assistance features. For example, providing ghost previews of elements or edges before placement could help guide users toward more logical or aesthetically pleasing layouts. Intelligent placement suggestions—based on diagram structure, conventions, or common patterns—could assist beginners and accelerate diagram creation for all users.
+Aligning elements with same height and same gap would also be a valuable addition. This feature would allow users to quickly align multiple elements, improving the overall aesthetics and readability of diagrams. Implementing smart guides or snapping features could further enhance this functionality, making it easier to create professional-looking diagrams.
+
+Adding suggestion when user hover handle to create fast edge and a new diagram element would also improve usability. This feature would provide users with quick access to commonly used actions, reducing the number of clicks required to perform tasks and making the modeling process more efficient.
 
