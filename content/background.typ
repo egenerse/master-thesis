@@ -1,18 +1,11 @@
 #import "/utils/todo.typ": TODO
 
 = Background
-// Describe each proven technology / concept shortly that is important to understand your thesis.
-// Point out why it is interesting for your thesis.
 
-This chapter describes the technical context and early steps that led to the reengineering of Apollon. We explain initial efforts to update the current system and then detail how technology decisions were made through proof-of-concept experiments.
+This chapter describes the technical context and early steps that led to the reengineering of Apollon. We explain initial efforts to update the current system and then detail how technology decisions were made through proof of concept experiments.
 
-// == Initial Attempts to Refactor the Existing Standalone and iOS Application
-
-// At the beginning of this work, we focused on improving the existing Apollon standalone web app and mobile iOS repository. We attempted to modernize the old codebase, which relied heavily on class-based React components, legacy Redux, and custom observable side-effect handling. These technologies made the system difficult to maintain and debug. Our initial approach involved gradually introducing functional React components and React Hooks while replacing outdated Redux logic with the more maintainable Redux Toolkit.
-
-// During this process, we resolved several persistent bugs in the standalone version. At the same time, we investigated the iOS application, which existed in a separate repository. That mobile version had critical rendering issues, such as misaligned text and unstable drag behavior, making it nearly unusable on iOS devices. Maintaining two separate repositories — one for web and one for mobile — led to significant duplication and friction in development. Despite our efforts to update and synchronize the platforms, the architectural limitations of the existing code made continued patching unsustainable.
 == Refactoring the Standalone Web Application
-At the start of this project, we focused on modernizing the standalone Apollon web application. The existing codebase was built using class-based React components, legacy Redux, and custom observable logic for managing side effects. These outdated technologies contributed to a brittle architecture that was hard to maintain, extend, and debug. Our strategy involved incrementally refactoring components using functional React patterns and introducing React Hooks to simplify state and lifecycle management.
+At the start of this project, we focused on modernizing the standalone Apollon web application. The existing codebase was built using class-based React components, legacy Redux, and custom observable logic for managing side effects. These outdated technologies makes the architecture hard to maintain, extend, and debug. Our strategy involved incrementally refactoring components using functional React patterns and introducing React Hooks to simplify state and lifecycle management.
 
 We also began replacing the legacy Redux logic with Redux Toolkit to reduce boilerplate and improve maintainability. These updates led to clearer code and helped resolve several persistent bugs, marking a meaningful improvement to the standalone application. However, as we progressed, it became clear that a significant portion of the deeper challenges comes from the shared library, where outdated state management patterns and tightly coupled logic were still in place. To build a more reliable and adaptable system, we recognized that improvements to the web app alone were insufficient.
 
@@ -21,9 +14,9 @@ Parallel to our work on the web app, we investigated the separate iOS version of
 
 Additionally, maintaining the iOS app as a separate codebase introduced substantial development overhead. Features and fixes had to be implemented twice, once for web and once for mobile, leading to inconsistencies and duplicated effort. While we made attempts to patch specific issues, it became clear that the architecture was not designed for long-term maintainability or cross-platform development. These challenges strongly influenced our decision to unify the application under a single, modern codebase.
 
-== Evaluating Technologies through Proof-of-Concept Experiments
+== Evaluating Technologies through Proof of Concept Experiments
 
-To determine a suitable long-term solution, we conducted a series of proof-of-concept (PoC) experiments. These prototypes compared different frontend frameworks, including Angular and modern React. The experiments explored various technical needs such as implementing a sidebar, enabling drag-and-drop elements, supporting infinite canvas behavior, and providing responsive design for mobile devices.
+To determine a suitable long-term solution, we conducted a series of proof of concept experiments. These prototypes compared different frontend frameworks, including Angular and modern React. The experiments explored various technical needs such as implementing a sidebar, enabling drag-and-drop elements, supporting infinite canvas behavior, and providing responsive design for mobile devices.
 
 Since Artemis is written in Angular, we first developed an Angular-based PoC to evaluate alignment with the existing codebase. We implemented basic node interactions such as dragging, selecting, and dynamic creation from sidebar that you can see from the @angularpoc. This helped us understand the limitations of Angular in terms of performance and developer experience.
 

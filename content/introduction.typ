@@ -27,8 +27,8 @@ The rendering logic is another major issue. For example, attempting to add eleme
 
 The situation worsens on mobile devices. The app does not support drag-and-drop interactions, in order to create new element user clicks the plus button and it is randomly put in the canvas. Afterwards user needs to click  left bottom icon for moving the element like it is shown in @componentDiagramiOS. Moving and Resizing elements are not very flexible.
 #figure(
-  image("../figures/ComponentDiagramIOS.png", width: 90%),
-  caption: [Translation bug of moving the class element in Apollon iOS App]
+  image("../figures/ComponentDiagramIOS.png", width: 50%),
+  caption: [Showing the features of a selected class element in Apollon iOS App]
 ) <componentDiagramiOS>
 
 Also moving elements causes bugs that texts are completely go somewhere else as we can see from @translationBugInIOSApp. Mobile browsers have totally different issues, sidebar consumes a lot of space that it gives few space to work on.
@@ -46,9 +46,9 @@ Initial attempts to address these problems through refactoring showed limited re
 == Motivation
 
 
-Clear and reliable diagramming tools help students express their understanding of software systems in exercises, exams, and projects. When the tool works smoothly, students can focus on the actual content—like designing class structures or modeling system behavior—without getting distracted by usability issues. By improving Apollon’s responsiveness and user experience through complete reengineering, students can complete modeling tasks faster and with fewer errors.
+Clear and reliable diagramming tools help students express their understanding of software systems in exercises, exams, and projects. When the tool works smoothly, students can focus on the actual content like designing class structures or modeling system behavior without getting distracted by usability issues. By improving Apollon’s responsiveness and user experience through complete reengineering, students can complete modeling tasks faster and with fewer errors.
 
-We first attempted to fix bugs in the existing iOS application and update the standalone web app. However, we quickly realized that the legacy architecture—built with class-based React components, outdated state management, and tightly coupled logic—made even small improvements hard to maintain. Each update required duplicate work across repositories and often introduced new bugs. These limitations revealed the need for a more sustainable solution and led us to reengineer the entire system from scratch.
+We first attempted to fix bugs in the existing iOS application and update the standalone web app. However, we quickly realized that the legacy architecture built with class-based React components, outdated state management, and tightly coupled logic—made even small improvements hard to maintain. Each update required duplicate work across repositories and often introduced new bugs. These limitations revealed the need for a more sustainable solution and led us to reengineer the entire system from scratch.
 
 This thesis is motivated not only by usability issues but also by the opportunity to apply modern software engineering practices that better reflect how students learn and how real-world tools operate. We rebuilt the system using functional React components, Zustand for state management, and React Flow for rendering interactive diagrams. These technologies reduce architectural complexity, improve maintainability, and enable faster feature development.
 
