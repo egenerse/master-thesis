@@ -35,7 +35,7 @@ These tools contribute to a modular, scalable, and developer-friendly system des
   The webapp uses the `ApollonEditor` interface to embed and control the editor. It also includes a *DiagramAPIManager* service responsible for fetching models from and saving them to the backend server.
   For collaboration, the webapp connects to the backend using a *WebSocketManager* service, which handles WebSocket connections and dispatches events. This keeps the editor state synchronized between clients during collaborative sessions.
 
-  Global state management in the webapp is handled using Zustand, which allows for efficient updates and reactivity.
+  Global state management in the webapp is handled using persistent Zustand, which allows keeping the diagrams data in sync with the browser's local storage. This ensures that users can resume their work even after closing the browser through load diagram feature in the web application.
 
 
 === Apollon Standalone Server:
