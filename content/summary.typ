@@ -13,11 +13,11 @@ This chapter summarizes what goals have been implemented as part of this thesis.
 ]
 This section explains the current status of the Apollon Reengineering and Artemis Integration. To evaluate which goals have been fulfilled and what still needs to be improved we assign the goals one of the following letters.
 
-I : implemented
-HI: half-implmented
-N: not implemented
+I : Implemented
+HI: Half Implemented
+N: Not Implemented
 
-All requirements defined in Section 4.2 and their status are listed in table 5.1.
+All requirements defined in Section 4.2 and their status are listed in @statusTable.
 #figure(
   table(
     columns: 3,
@@ -28,8 +28,7 @@ All requirements defined in Section 4.2 and their status are listed in table 5.1
 [FR3], [Mobile Application Support], [I],
 [FR4], [Diagram Functionality], [I],
 [FR5], [Full Diagram Type Support], [HI],
-[FR6], [Client-Side WebSocket Management for Collaborative Edit-
-ing], [I],
+[FR6], [Client-Side WebSocket Management for Collaborative Editing], [I],
 [FR7], [Collaboration Traﬃc Limit], [I],
 
 [QA1], [Usability], [HI],
@@ -37,7 +36,7 @@ ing], [I],
 [QA3], [Performance], [I],
 [QA4], [Accessibility], [I],
   ),
-  caption: [Bug feedbacks from Apollon2 Web App testing sessions.]
+  caption: [Requirements Status Table]
 )<statusTable>
 
 

@@ -10,15 +10,6 @@ In this section, we explain the reengineering of the Apollon. We begin by descri
 
 The Apollon project was restructured into a unified monorepo architecture that consolidates three core subsystems: the Apollon library, the web application, and the backend server. This redesign enhances modularity, simplifies development and testing workflows, and streamlines deployment processes across the entire system.
 
-- *Monorepo Structure*:
-The new monorepo structure organizes the codebase into three primary packages:
-
-*Apollon-Library*: Contains the core logic for Apollon, including UML data models, rendering with React Flow, and collaborative functionality.
-
-*Standalone-Webapp*: Implements the user-facing web application that integrates the Apollon library to deliver a complete modeling interface.
-
-*Standalone-Server*: Hosts the backend server that facilitates real-time collaboration via WebSockets and provides RESTful endpoints for model persistence.
-
 This unified structure simplifies development by centralizing related components, making it easier to apply changes across packages and maintain consistency throughout the system.
 
 To support a consistent and maintainable development workflow across all packages, the monorepo integrates several tooling and configuration standards:
@@ -33,13 +24,13 @@ To support a consistent and maintainable development workflow across all package
 
 These tools contribute to a modular, scalable, and developer-friendly system design and helping maintain high code quality and consistency across a growing, multi-package architecture.
 
-- *Apollon Library*:
+=== Apollon Library:
   This is the core module that encapsulates all modeling-related functionalities. It handles rendering and layout using React Flow, defines UML data structures, manages interaction logic such as selection and editing, and provides utilities like export and import.
   The library uses *Zustand* for centralized and scalable state management and integrates *Yjs*, a CRDT-based framework, for real-time collaboration. Yjs works through a shared *Y.Doc* object that synchronizes state across multiple clients. We will describe this mechanism in more detail in Section 5.5.
   To connect the application state with the Yjs document, the library also includes a Yjs sync component that links the store and collaborative state updates.
   The Apollon Library exposes its full functionality through the `ApollonEditor` interface. This allows external applications, like the webapp or Artemis, to easily embed and interact with the editor instance without needing to access internal logic directly.
 
-- *Apollon Standalone Webapp*:
+=== Apollon Standalone Webapp:
   This is the user-facing subsystem that builds upon the Apollon library. It provides the interface where students and instructors can create, edit, and manage UML diagrams.
   The webapp uses the `ApollonEditor` interface to embed and control the editor. It also includes a *DiagramAPIManager* service responsible for fetching models from and saving them to the backend server.
   For collaboration, the webapp connects to the backend using a *WebSocketManager* service, which handles WebSocket connections and dispatches events. This keeps the editor state synchronized between clients during collaborative sessions.
@@ -47,8 +38,7 @@ These tools contribute to a modular, scalable, and developer-friendly system des
   Global state management in the webapp is handled using Zustand, which allows for efficient updates and reactivity.
 
 
-
-- *Apollon Standalone Server*:
+=== Apollon Standalone Server:
   This is a backend service designed to support persistence diagrams and enable WebSocket-based real-time collaboration. Acting as a relay server, it forwards messages between clients without interpreting them.
 
   A key feature is the room-based message broadcasting system, implemented in the WebSocket server. Each collaborative session corresponds to a distinct "room" identified by a diagramId, and any message received from one client is automatically relayed to all other connected clients in the same room. This allows for efficient and low-latency collaboration without centralized state processing.
@@ -134,6 +124,9 @@ This hybrid method avoids the creation of awkward diagonal lines and improves th
   image("../figures/DiagonalEdge.png", width: 90%),
   caption: [Diagonal Edge between two class nodes in Old Apollon version]
 )
+
+Another significant usability addition is the introduction of ghost edge previews. As users begin drawing an edge, the system displays a transparent preview of the potential connection. This helps users understand where the edge will connect before finalizing the action.
+
 We also increased the number of ports per node to allow finer control over where edges connect. This gives users more layout flexibility and helps avoid overlapping edges in dense diagrams.
 
 #figure(
@@ -149,6 +142,7 @@ We also increased the number of ports per node to allow finer control over where
 
 
 === Zustand State Management in Apollon Editor
+
 State management is handled using *Zustand* in the new Apollon Editor. The application maintains three distinct Zustand stores: `DiagramStore`, `MetadataStore`, and `PopoverStore`. Each store encapsulates a specific subset of the editor's state and provides manipulation functions (setters and updaters) accordingly.
 
 *The DiagramStore* is the primary store and manages the core structural and collaborative data of a diagram. It maintains the following state variables:
@@ -281,13 +275,21 @@ To avoid infinite update loops, all incoming changes are tagged with their origi
   #text(size: 10pt)[Belemir Kürün and Ege Nerse]
 ]
 
-*Mention canvas, shortcuts, new sidebar, and maybe lines for checking the allignment however it is a future work.*
+We introduced several enhancements to improve the overall modeling experience, particularly focusing on clarity, control, and ease of use.
+
+One major addition is the minimap, which helps users navigate large diagrams more effectively. The canvas now supports infinite scrolling, dynamically expanding as users drag elements toward the edges. This allows for more flexible and intuitive diagram creation without arbitrary spatial constraints.
+
+To improve control over the viewing experience, we added a zoom control panel in the bottom-left corner. This panel allows users to quickly zoom in, zoom out, reset the canvas to the center, or return to 100% zoom. These tools give users better orientation when working on large or detailed diagrams.
+
+Edge creation has also been improved. As users begin drawing an edge, a ghost connection preview now appears, clearly indicating where the edge will connect. This reduces confusion and improves accuracy during the modeling process. We also expanded the number of edge handles (ports) available on diagram nodes, giving users more flexibility in where to attach edges.
+
+To avoid layout issues, we removed support for diagonal edge paths, which were previously difficult to place and visually inconsistent. The new edge system ensures cleaner, more predictable connections, reducing user frustration and improving the overall visual quality of diagrams.
 
 == Standalone
 
 The standalone application provides a complete modeling environment built on top of the Apollon core library. It allows users to create and edit diagrams directly in the browser without requiring authentication or a user account. This lightweight interface makes it ideal for quick prototyping, experimentation, or educational use outside of larger systems like Artemis.
 
-The standalone version provides local storage for saving diagrams, allowing users to resume work on their models even after closing the browser. This feature is useful to quickly sketch out ideas or create simple diagrams. Also we provide load diagram feature that allows users to load their previously saved diagrams from the browser's local storage. 
+The standalone version provides local storage for saving diagrams, allowing users to resume work on their models even after closing the browser. This feature is useful to quickly sketch out ideas or create simple diagrams. Also we provide load diagram feature that allows users to load their previously saved diagrams from the browser's local storage.
 
 The standalone web applciation also has a dedicated playground url for testing and experimenting Apollon features as seen in the @apollonWebappPlayground .
 
@@ -300,6 +302,7 @@ The standalone web applciation also has a dedicated playground url for testing a
 In the following sections, we explain the usability improvements introduced in the new standalone version, describe the deployment setup using Caddy and reverse proxying, and summarize the feedback and recommendations collected from user testing sessions.
 
 
+In the following sections, we explain the new standalone version, describe the deployment setup using Caddy and reverse proxying, and summarize the feedback and recommendations collected from user testing sessions.
 
 === Apollon Standalone Deployment Setup
 #align(left)[
