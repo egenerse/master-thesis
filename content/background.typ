@@ -19,7 +19,7 @@ We also began replacing the legacy Redux logic with Redux Toolkit to reduce boil
 == Solving the iOS Application Issues
 Parallel to our work on the web app, we investigated the separate iOS version of Apollon, which lived in its own repository. This version suffered from major rendering issues on Apple devices, including misaligned text elements and unstable drag-and-drop behavior. These problems significantly impaired usability on mobile platforms and made the app nearly unusable in real-world student workflows.
 
-Additionally, maintaining the iOS app as a separate codebase introduced substantial development overhead. Features and fixes had to be implemented twice—once for web and once for mobile—leading to inconsistencies and duplicated effort. While we made attempts to patch specific issues, it became clear that the architecture was not designed for long-term maintainability or cross-platform development. These challenges strongly influenced our decision to unify the application under a single, modern codebase.
+Additionally, maintaining the iOS app as a separate codebase introduced substantial development overhead. Features and fixes had to be implemented twice, once for web and once for mobile, leading to inconsistencies and duplicated effort. While we made attempts to patch specific issues, it became clear that the architecture was not designed for long-term maintainability or cross-platform development. These challenges strongly influenced our decision to unify the application under a single, modern codebase.
 
 == Evaluating Technologies through Proof-of-Concept Experiments
 

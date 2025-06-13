@@ -369,7 +369,7 @@ User feedback played a crucial role in shaping the direction of improvements. Be
 )
 
 
-== Mobile Application
+== Mobile Browser and Application
 
 
 In recent years, mobile devices have become essential tools for both formal education and self-directed learning. Students frequently use smartphones and tablets to complete tasks, review materials, and collaborate with peers, especially in remote or hybrid learning contexts. Studies have shown that mobile learning increases flexibility and accessibility, improving engagement and learning outcomes across diverse student groups [@denoyelles2023evolving].

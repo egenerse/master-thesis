@@ -143,15 +143,17 @@ We enhanced navigation by integrating a minimap that reflects the full diagram l
 
 This thesis begins with an overview of related modeling tools and collaboration approaches, followed by the identification of requirements based on the limitations of the previous Apollon system.
 
-Chapter 2, *Related Work*, briefly discusses existing diagramming tools and previous research related to collaborative modeling.
+Chapter 2, *Background*, we describe our initial efforts to understand the existing system, including our attempts to improve the library, web application, and mobile application. We then explain the challenges we encountered and the reasons why we ultimately chose to pursue a reengineering approach instead of continuing with incremental improvements.
 
-Chapter 3, *Requirements*, outlines the core functional and non-functional requirements derived from our analysis.
+Chapter 3, *Related Work*, briefly discusses existing diagramming tools and previous research related to collaborative modeling.
 
-Chapter 4, *Apollon Reengineering*, presents the restructuring of Apollon into a unified monorepo that includes the core library, standalone webapp, and collaboration server. It covers design updates such as a new node and edge structure, state management using Zustand, collaboration via Yjs, and improvements to mobile usability through Capacitor. Testing feedback and deployment aspects are also described.
+Chapter 4, *Requirements*, outlines the core functional and non-functional requirements derived from our analysis.
 
-Chapter 5, *Artemis Integration*, details the integration process of the reengineered Apollon library into Artemis. It includes how we preserved compatibility with existing workflows in exercises, exams, and quizzes, while migrating to the new system.
+Chapter 5, *Apollon Reengineering*, presents the restructuring of Apollon into a unified monorepo that includes the core library, standalone webapp, and collaboration server. It covers design updates such as a new node and edge structure, state management using Zustand, collaboration via Yjs, and improvements to mobile usability through Capacitor. Testing feedback and deployment aspects are also described.
 
-Chapter 6, *Summary and Future Work*, concludes the thesis by reflecting on the project outcomes and outlining possible directions for future development.
+Chapter 6, *Artemis Integration*, details the integration process of the reengineered Apollon library into Artemis. It includes how we preserved compatibility with existing workflows in exercises, exams, and quizzes, while migrating to the new system.
+
+Chapter 7, *Summary and Future Work*, concludes the thesis by reflecting on the project outcomes and outlining possible directions for future development.
 
 This is a team thesis by Belemir Kürün and Ege Nerse. Reengineering tasks in Chapter 4 were divided between the authors, while integration tasks in Chapter 5 were completed collaboratively. Author responsibilities are highlighted in each relevant section, with a summary shown below.
 
@@ -163,21 +165,25 @@ table(
 [Chapter 1: Introduction], [Belemir Kürün, Ege Nerse],
 table.cell(colspan: 2)[Chapter 2: Background],
 [Section 2.1: Refactoring the Standalone Web Application], [Ege Nerse],
-[Section 2.2: Solving the iOS Application Issues], [Belemir Kürün],
-[Section 2.3: Framework and Library Evaluation], [Ege Nerse],
+[Section 2.2: Understanding the iOS Application Issues], [Belemir Kürün],
+[Section 2.3: Evaluating Technologies through Proof-of-Concept Experiments], [Ege Nerse],
 [Chapter 3: Related Work], [Belemir Kürün, Ege Nerse],
 [Chapter 4: Requirements], [Belemir Kürün, Ege Nerse],
 table.cell(colspan: 2)[Chapter 5: Apollon Reengineering],
-[5.1.1 System Design], [Ege Nerse],
-[5.1.2 Node Structure in Library], [Ege Nerse],
-[5.1.3 Edge Structure in Library], [Belemir Kürün],
-[5.1.4 New State Management], [Ege Nerse],
-[5.1.5 New Collaboration Mode], [Ege Nerse],
-[5.1.6 Usability Improvements Canvas and Minimap], [Ege Nerse],
-[5.1.6 Usability Improvements Shortcuts Implementation], [Belemir Kürün],
-[5.2.1 Usability Improvements], [Belemir Kürün & Ege Nerse],
-[5.2.2 Deployment of Apollon Standalone], [Belemir Kürün],
-[5.2.3 Testing Session], [Belemir Kürün & Ege Nerse],
+[5.1 System Design], [Ege Nerse],
+table.cell(colspan: 2)[5.2 Library],
+[5.2.1 Node Structure in Library], [Ege Nerse],
+[5.2.2 Edge Structure in Library], [Belemir Kürün],
+[5.2.3 New State Management], [Ege Nerse],
+[5.2.4 New Collaboration Mode], [Ege Nerse],
+[5.2.5 Usability Improvements Canvas and Minimap], [Ege Nerse],
+table.cell(colspan: 2)[5.3 Standalone],
+[5.3.1 Deployment of Apollon Standalone], [Belemir Kürün],
+[5.3.2 Testing Session], [Belemir Kürün & Ege Nerse],
+table.cell(colspan: 2)[5.4 Mobile Browser and Application],
+[5.4.1 Capacitor-Based Mobile Integration ], [Belemir Kürün],
+[5.4.2 Mobile Usability Improvements], [Belemir Kürün & Ege Nerse],
+[5.4.3 Testing Session], [Belemir Kürün & Ege Nerse],
 [Chapter 6: Artemis Integration], [Belemir Kürün & Ege Nerse],
 [Chapter 7: Summary], [Belemir Kürün & Ege Nerse],),
   caption: [*Thesis Chapter Responsibilities*],
