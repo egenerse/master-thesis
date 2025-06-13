@@ -56,7 +56,7 @@ Improved interaction design directly enhances learning. Features like a simplifi
 
 We also prioritized mobile accessibility. Many students rely on tablets in their daily routines and often need to make quick updates to their diagrams while on the move. Instead of just improving the mobile browser experience, we adopted Capacitor to create native iOS and Android applications from a single codebase. This approach ensures consistent behavior across platforms. Studies confirm that mobile accessibility improves engagement and flexibility in education [@tre2023mobile].
 
-We also enhanced developer experience by integrating Zustand’s devtool plugin, complementing existing tools like Redux DevTools. Developers can now observe state transitions, identify the functions triggering updates, and track resulting changes in real time—making the development process more transparent and efficient.
+We also enhanced developer experience by integrating Zustand’s devtool plugin, complementing existing tools like Redux DevTools. Developers can observe state transitions, identify the functions triggering updates, and track resulting changes in real time—making the development process more transparent and efficient.
 
 Finally, we improved real-time collaboration by integrating Yjs, a CRDT-based synchronization framework. CRDTs (Conflict-free Replicated Data Types) allow distributed systems to synchronize changes without conflicts, even in offline scenarios. Yjs enables students to collaboratively edit diagrams in real time, ensuring consistent state and low latency, which enhances teamwork and productivity.
 
@@ -87,9 +87,6 @@ The first objective is to replace the outdated class-based React architecture wi
 - *Creation of the `ApollonEditor` Interface Class*  
   Similar to the original Apollon, our implementation includes a core class—`ApollonEditor`—that serves as the main integration layer between the library and external consumers (e.g., the standalone web app or Artemis). It follows the same pattern of injecting the React application into a target HTML element. The class exposes a stable API for consuming applications, including methods such as `subscribeToModelChange`, `getModel`, `setModel`, `exportAsSVG`, and `sendBroadcastMessage`. While users can interact directly with the canvas to modify diagrams through touch or mouse events, the `ApollonEditor` class enables external systems to programmatically control, observe, or synchronize diagram state—providing a clean interface for embedding and extending the tool.
 
-- *Collaboration Mode with Yjs*  
-  We implement real-time collaborative editing using Yjs, synchronized with the local Zustand state. Zustand maintains the latest diagram state for rendering, while Yjs handles document synchronization across users through WebSocket-driven updates. Changes in the diagram trigger applyUpdate to propagate edits, ensuring consistency between local and shared states.
-
 - *State Management with Zustand*  
   We replace Redux and Saga with Zustand for simpler, modular, and more performant global state handling.
 
@@ -99,8 +96,12 @@ The first objective is to replace the outdated class-based React architecture wi
 - *New Edge Structure*  
   We replace legacy edge rendering with clean, straight, UML-compliant connectors that eliminate awkward diagonals and improve diagram readability.
 
+- *Collaboration Mode with Yjs*  
+  We implement real-time collaborative editing using Yjs, synchronized with the local Zustand state. Zustand maintains the latest diagram state for rendering, while Yjs handles document synchronization across users through WebSocket-driven updates. Changes in the diagram trigger applyUpdate to propagate edits, ensuring consistency between local and shared states.
+
+
 - *Artemis Integration*  
-  We aim to maintain a high level of compatibility with Artemis by preserving most API endpoints and aligning the new Apollon version closely with the original. While the JSON format has been updated, efforts were made to minimize integration friction and ensure a smooth transition within the LMS.
+  We aim to maintain a high level of compatibility with Artemis by preserving most API endpoints and aligning the new Apollon version closely with the original. While the JSON format has been updated, efforts were made to minimize integration friction and ensure a smooth transition.
 
 === Enhance Accessibility for Web and Mobile Users
 
