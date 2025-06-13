@@ -160,8 +160,8 @@
 
   // Appendix.
   pagebreak()
-  heading(numbering: none)[Appendix A: Supplementary Material]
-  include("/layout/appendix.typ")
+  heading(numbering: none)[Accronym List]
+  include("/layout/accronym.typ")
 
   pagebreak()
   bibliography("/thesis.bib")
