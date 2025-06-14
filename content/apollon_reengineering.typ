@@ -25,17 +25,20 @@ To support a consistent and maintainable development workflow across all package
 These tools contribute to a modular, scalable, and developer-friendly system design and helping maintain high code quality and consistency across a growing, multi-package architecture.
 
 === Apollon Library:
-  This is the core module that encapsulates all modeling-related functionalities. It handles rendering and layout using React Flow, defines UML data structures, manages interaction logic such as selection and editing, and provides utilities like export and import.
+  This is the core module that encapsulates all modeling-related functionalities. It handles rendering and layout using React Flow, defines UML data structures, manages interaction logic such as selection and editing, and provides utilities like export and import diagrams 
+
   The library uses *Zustand* for centralized and scalable state management and integrates *Yjs*, a CRDT-based framework, for real-time collaboration. Yjs works through a shared *Y.Doc* object that synchronizes state across multiple clients. We will describe this mechanism in more detail in Section 5.5.
+
   To connect the application state with the Yjs document, the library also includes a Yjs sync component that links the store and collaborative state updates.
-  The Apollon Library exposes its full functionality through the `ApollonEditor` interface. This allows external applications, like the webapp or Artemis, to easily embed and interact with the editor instance without needing to access internal logic directly.
+
+  The Apollon Library exposes its full functionality through the ApollonEditor interface. This allows external applications, like the webapp or Artemis, to easily embed and interact with the editor instance without needing to access internal logic directly.
 
 === Apollon Standalone Webapp:
-  This is the user-facing subsystem that builds upon the Apollon library. It provides the interface where students and instructors can create, edit, and manage UML diagrams.
-  The webapp uses the `ApollonEditor` interface to embed and control the editor. It also includes a *DiagramAPIManager* service responsible for fetching models from and saving them to the backend server.
+  This is the user-facing subsystem that builds upon the Apollon library. It provides the interface where students and instructors can create, edit, and manage UML diagrams using exposesd functionalities of the Apollon library. 
+  The webapp uses the ApollonEditor interface to embed and control the editor. It also includes a *DiagramAPIManager* service responsible for fetching models from and saving them to the backend server.
   For collaboration, the webapp connects to the backend using a *WebSocketManager* service, which handles WebSocket connections and dispatches events. This keeps the editor state synchronized between clients during collaborative sessions.
 
-  Global state management in the webapp is handled using persistent Zustand, which allows keeping the diagrams data in sync with the browser's local storage. This ensures that users can resume their work even after closing the browser through load diagram feature in the web application.
+  Global state management in the webapp is also handled using persistent Zustand same as library, which allows keeping the diagrams data in sync with the browser's local storage. This ensures that users can resume their work even after closing the browser through load diagram feature in the web application.
 
 
 === Apollon Standalone Server:
@@ -230,7 +233,7 @@ An *unsubscribe* callback function is also provided to detach listeners when sub
 
 === New Collaboration Mode
 
-The collaboration architecture has undergone a significant transformation in the new system. Previously, state synchronization across clients was achieved by dispatching Redux actions and propagating the resulting patches to peers. Although this approach followed CRDT(Conflict-free Replicated Data Type) principles, it was tightly coupled with Redux’s action-reducer lifecycle and middleware. This design depended heavily on discrete and continuous action types, making it difficult to adapt to newer, more flexible state management tools like Zustand, and challenging to maintain as application complexity increased. 
+The collaboration architecture has undergone a significant transformation in the new system. Previously, state synchronization across clients was achieved by dispatching Redux actions and propagating the resulting patches to peers. Although this approach followed CRDT principles, it was tightly coupled with Redux’s action-reducer lifecycle and middleware. This design depended heavily on discrete and continuous action types, making it difficult to adapt to newer, more flexible state management tools like Zustand, and challenging to maintain as application complexity increased. 
 
 In the new design, we replaced old Redux and its patch-based propagation mechanism with a more cohesive and robust solution based on Yjs, a CRDT library, and Zustand for local state management. The key idea is to maintain a fully synchronized state between the local client’s Zustand store and a shared Yjs document (ydoc), even in the absence of a network connection or other active collaborators. If a user reconnects after being offline, the local state is automatically reconciled with the Yjs document, ensuring that all changes are captured and propagated correctly.
 

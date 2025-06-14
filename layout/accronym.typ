@@ -3,6 +3,7 @@
 *App* Application
 *UML* Unified Modeling Language
 *CRDT* Conflict-free Replicated Data Type
+*UX* User Experience
 *SVG* Scalable Vector Graphics
 *JSON* JavaScript Object Notation
 *REST* Representational State Transfer
