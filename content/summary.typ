@@ -93,18 +93,18 @@ In this thesis, we reengineered the entire Apollon diagramming library, transfor
 
 We updated the entire codebase to align with current React standards by replacing legacy class-based components with functional components and adopting modern tools like Zustand for state management. We also integrated React Flow, a powerful diagramming library, which enabled us to handle complex node and edge interactions with less effort and cleaner abstractions.
 
-Beyond architectural improvements, we focused on enhancing usability. We introduced features such as infinite canvas navigation, cleaner UI elements, and more intuitive interactions. However, the most substantial improvements came in mobile support. The previous version of Apollon was nearly unusable on mobile devices due to severe bugs in both the standalone web app and the iOS application. With the reengineered version—now powered by Capacitor for native deployment we offer a consistent, touch-friendly experience across iOS, Android, and mobile browsers. Students can now create, edit, and share diagrams directly from their mobile devices, which greatly improves accessibility and flexibility.
+Beyond architectural improvements, we also focused on enhancing usability. We introduced features such as infinite canvas navigation and more intuitive interactions such as ghost edge connection. However, the most substantial improvements came in mobile support. The previous version of Apollon was nearly unusable on mobile devices due to severe bugs in both the standalone web app and the iOS application. With the reengineered version now powered by Capacitor for native deployment we offer a consistent, touch-friendly experience across iOS, Android, and mobile browsers. Students can now create and edit diagrams directly from their mobile devices, which greatly improves accessibility and flexibility.
 
-Overall, this thesis contributes a fully modernized and platform-consistent diagramming solution that addresses long-standing limitations in Apollon and prepares it for continued use within educational platforms like Artemis and beyond.
+Overall, this thesis contributes a fully modernized and platform consistent diagramming solution that addresses long standing limitations in Apollon and prepares it for continued use within educational platforms like Artemis and beyond.
 
 == Future Work
 
 
 While this thesis introduced a reengineered version of Apollon with a modern architecture and improved user experience, several areas offer promising directions for future work to further expand its capabilities, accessibility, and usability.
 
-One of the most impactful areas of future development lies in enhancing real time collaboration. Adding support for live mouse movement tracking, each with individual colors and user labels, would allow users to see who is working on what part of the diagram in real time. This would improve awareness, reduce conflicts, and encourage better teamwork. Furthermore, supporting features like live cursors, presence indicators, and user activity trails could make group modeling sessions more interactive and organized.
+One of the most impactful areas of future development lies in enhancing real time collaboration. Adding support for live mouse movement tracking, each with individual colors and user labels, would allow users to see who is working on what part of the diagram in real time. This would improve awareness, reduce conflicts, and encourage better teamwork. Furthermore, supporting features like live cursors name labels could make group modeling sessions more interactive and organized.
 
-Aligning elements with same height and same gap would also be a valuable addition. This feature would allow users to quickly align multiple elements, improving the overall aesthetics and readability of diagrams. Implementing smart guides or snapping features could further enhance this functionality, making it easier to create professional-looking diagrams.
+Aligning elements with equal height and consistent spacing would also be a valuable addition, as alignment becomes challenging when working with many elements. Implementing helper lines could further enhance this functionality, making it easier to create professional looking diagrams.
 
 Adding suggestion when user hover handle to create fast edge and a new diagram element would also improve usability. This feature would provide users with quick access to commonly used actions, reducing the number of clicks required to perform tasks and making the modeling process more efficient.
 
