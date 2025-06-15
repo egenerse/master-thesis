@@ -40,7 +40,7 @@ Also moving elements causes bugs that texts are completely go somewhere else as 
 
 Additionally, diagram aesthetics suffer due to the way edges are rendered. Instead of clean lines, some connections appear with awkward diagonal shapes, distorting UML diagrams and reducing their readability and professionalism. These visual inconsistencies negatively affect the quality of diagrams submitted for exercises and assessments.
 
-Initial attempts to address these problems through refactoring showed limited results. Although improvements were made such as replacing class components in the standalone web app with functional ones and introducing Redux Toolkit many structural issues persisted, especially in the core diagramming library. The growing complexity, legacy design, and fragile architecture of the codebase made it progressively harder to implement improvements.
+Initial attempts to address these problems through refactoring showed limited results. Although improvements were made such as replacing class components in the standalone web app with functional ones and introducing Redux Toolkit many structural issues persisted, especially in the core diagramming library. The growing complexity, legacy design, and architecture of the codebase made it progressively harder to implement improvements.
 
 
 == Motivation
@@ -52,7 +52,7 @@ We first attempted to fix bugs in the existing iOS application and update the st
 
 This thesis is motivated not only by usability issues but also by the opportunity to apply modern software engineering practices that better reflect how students learn and how real-world tools operate. We rebuilt the system using functional React components, Zustand for state management, and React Flow #footnote[https://reactflow.dev/] for rendering interactive diagrams. These technologies reduce architectural complexity, improve maintainability, and enable faster feature development.
 
-Improved interaction design directly enhances learning. Features like a simplified sidebar, UML-compliant edge rendering, infinite canvas, and minimap improve clarity and navigation. Students can now access features more easily, build diagrams more confidently, and experience less frustration during assessments. Following usability principles such as Nielsen’s heuristics on visibility, flexibility, and efficiency, makes the tool more intuitive and user-friendly [@nielsen1995usability].
+Improved interaction design directly enhances learning. Features like a simplified sidebar, UML-compliant edge rendering, infinite canvas, and minimap improve clarity and usability. Students can now access features more easily, build diagrams more confidently, and experience less frustration during assessments. Following usability principles such as Nielsen’s heuristics on visibility, flexibility, and efficiency, makes the tool more intuitive and user-friendly [@nielsen1995usability].
 
 We also prioritized mobile accessibility. Many students rely on tablets in their daily routines and often need to make quick updates to their diagrams while on the move. Instead of just improving the mobile browser experience, we adopted Capacitor to create native iOS and Android applications from a single codebase. This approach ensures consistent behavior across platforms. Studies confirm that mobile accessibility improves engagement and flexibility in education [@tre2023mobile].
 
@@ -125,7 +125,7 @@ In the new implementation, users can freely choose which handle on a node to con
 
 
 - *Mobile Touch Support and Canvas Interactions*  
-In the previous system, support for mobile browsers was limited. Although elements could be placed on the canvas, repositioning or editing them was cumbersome and often unreliable on touch devices. The new implementation introduces full touch gesture support, allowing users to drag, reposition, and interact with elements seamlessly after placing them. Paired with an infinite canvas, this greatly enhances usability—users can now freely navigate and model diagrams on mobile devices with a more intuitive and responsive experience.
+In the previous system, support for mobile browsers was limited. Although elements could be placed on the canvas, repositioning or editing them was cumbersome and often unreliable on touch devices. The new implementation introduces full touch gesture support, allowing users to drag, reposition, and interact with elements seamlessly after placing them. Paired with an infinite canvas, this greatly enhances usability users can now freely navigate and model diagrams on mobile devices with a more intuitive and responsive experience.
 
 - *Infinite Canvas*
 The original Apollon used a finite canvas that only expanded when elements were dropped at the edges, which often led to frustrating layout limitations. In the new system, we use React Flow’s infinite canvas, allowing users to pan and zoom freely across a much larger working area. This gives users more freedom in how they lay out their diagrams and contributes to a smoother modeling experience.
@@ -147,7 +147,7 @@ Chapter 2, *Background*, we describe our initial efforts to understand the exist
 
 Chapter 3, *Related Work*, briefly discusses existing diagramming tools and previous research related to collaborative modeling.
 
-Chapter 4, *Requirements*, outlines the core functional and non-functional requirements derived from our analysis.
+Chapter 4, *Requirements*, outlines the core functional requirements and quality attributes derived from our analysis.
 
 Chapter 5, *Apollon Reengineering*, presents the restructuring of Apollon into a unified monorepo that includes the core library, standalone webapp, and collaboration server. It covers design updates such as a new node and edge structure, state management using Zustand, collaboration via Yjs, and improvements to mobile usability through Capacitor. Testing feedback and deployment aspects are also described.
 

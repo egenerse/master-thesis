@@ -25,17 +25,17 @@ Since Artemis is written in Angular, we first developed an Angular-based PoC to 
   caption: [Initial Angular PoC with basic node dragging and selecting functionalities]
 ) <angularpoc>
 
-We then explored React as an alternative and created a PoC with React which can be seen from @reactpoc. During this process, we discovered React Flow which is a powerful and flexible diagramming library designed specifically for React applications. It provides a modular API that supports custom node and edge rendering, canvas zooming and panning, and seamless user interaction through callbacks like `onNodesChange`, `onEdgesChange`, and `onNodeClick`. These abstractions significantly simplified the development effort and increased flexibility.
+We then explored React as an alternative and created a PoC with React which can be seen from @reactpoc. During this process, we discovered React Flow which is a powerful and flexible diagramming library designed specifically for React applications. It provides a modular API that supports custom node and edge rendering, canvas zooming and panning, and seamless user interaction through callbacks like onNodesChange, onEdgesChange, and onNodeClick. These abstractions significantly simplified the development effort and increased flexibility.
 
 #figure(
   image("../figures/reactFlowPoc.png", width: 90%),
   caption: [React PoC using React Flow with enhanced diagram interactions]
 )<reactpoc>
 
-We also tested *Capacitor* as a method to generate native mobile applications from a single shared React codebase. This trial assessed whether we could maintain feature parity across platforms while deploying the app to both iOS and Android stores. The results were promising, Capacitor successfully wrapped the React-based Apollon application, preserving its functionality on mobile devices. @reactPhone shows the first trial of Capacitor with plain React PoC.
+We also tested Capacitor as a method to generate native mobile applications from a single shared React codebase. This trial assessed whether we could maintain feature parity across platforms while deploying the app to both iOS and Android stores. The results were promising, Capacitor successfully wrapped the React-based Apollon application, preserving its functionality on mobile devices. @reactPhone shows the first trial of Capacitor with plain React PoC.
 
 #figure(
-  image("../figures/reactphone.jpeg", width: 90%),
+  image("../figures/reactphone.jpeg", width: 50%),
   caption: [Plain React PoC tested with Capacitor for mobile platform support]
 )<reactPhone>
 

@@ -23,7 +23,7 @@ The new Apollon must support Artemis integration and minimize the changes needed
 Apollon will use an npm workspace monorepo containing the core library, standalone web editor, and standalone server. Mobile apps will be built by wrapping the web editor with Capacitor, and all packages will share code and follow consistent design principles.
 
 *FR3. Mobile Application Support*
-Apollon must support deployment to both iOS and Android devices using Capacitor. Mobile interactions such as touch-based drag-and-drop, tap-to-edit, and resizing must be smooth and responsive.
+Apollon must support deployment to both iOS and Android devices using Capacitor. Mobile interactions such as touch-based drag-and-drop, double-tap-to-edit, and resizing must be smooth and responsive.
 
 *FR4. Diagram Functionality*
 The system must allow users to create, delete, move and modify diagram elements and created connections between elements. All existing functionality in Apollon must be preserved in the new version.

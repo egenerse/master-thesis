@@ -59,7 +59,7 @@ All previously available modeling features remain intact, successfully fulfillin
 
 We reintroduced collaboration mode using the same WebSocket-based infrastructure, fulfilling FR7. We ensured the collaboration traffic stays well below the 200 KB threshold currently under 100 KB. This demonstrates that the system can support larger collaboration sessions which fulfills QA3 (Performance)
 
-Finally, based on feedback gathered during testing, we implemented several usability improvements—such as a minimap, zoom controls, and refined UI icons. These enhancements contribute toward meeting QA1 (Usability) and ensure a more intuitive user experience.
+Finally, based on feedback gathered during testing, we implemented several usability improvements such as a minimap, zoom controls, and refined UI icons. These enhancements contribute toward meeting QA1 (Usability) and ensure a more intuitive user experience.
 
 === Open Goals
 #TODO[
@@ -89,11 +89,11 @@ In summary, while the current version of Apollon meets many of its functional go
   Recap shortly which problem you solved in your thesis and discuss your *contributions* here.
 ]
 
-In this thesis, we reengineered the entire Apollon diagramming library, transforming it into a modern, maintainable, and scalable mono-repo architecture. We simplified the internal structure to make future development—such as debugging, feature expansion, and usability testing—significantly easier.
+In this thesis, we reengineered the entire Apollon diagramming library, transforming it into a modern, maintainable, and scalable mono-repo architecture. We simplified the internal structure to make future development such as debugging, feature expansion, and usability testing easier.
 
 We updated the entire codebase to align with current React standards by replacing legacy class-based components with functional components and adopting modern tools like Zustand for state management. We also integrated React Flow, a powerful diagramming library, which enabled us to handle complex node and edge interactions with less effort and cleaner abstractions.
 
-Beyond architectural improvements, we focused on enhancing usability. We introduced features such as better canvas navigation, cleaner UI elements, and more intuitive interactions. However, the most substantial improvements came in mobile support. The previous version of Apollon was nearly unusable on mobile devices due to severe bugs in both the standalone web app and the iOS application. With the reengineered version—now powered by Capacitor for native deployment—we offer a consistent, touch-friendly experience across iOS, Android, and mobile browsers. Students can now create, edit, and share diagrams directly from their mobile devices, which greatly improves accessibility and flexibility.
+Beyond architectural improvements, we focused on enhancing usability. We introduced features such as infinite canvas navigation, cleaner UI elements, and more intuitive interactions. However, the most substantial improvements came in mobile support. The previous version of Apollon was nearly unusable on mobile devices due to severe bugs in both the standalone web app and the iOS application. With the reengineered version—now powered by Capacitor for native deployment we offer a consistent, touch-friendly experience across iOS, Android, and mobile browsers. Students can now create, edit, and share diagrams directly from their mobile devices, which greatly improves accessibility and flexibility.
 
 Overall, this thesis contributes a fully modernized and platform-consistent diagramming solution that addresses long-standing limitations in Apollon and prepares it for continued use within educational platforms like Artemis and beyond.
 
