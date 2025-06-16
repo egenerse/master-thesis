@@ -370,9 +370,9 @@ User feedback played a crucial role in shaping the direction of improvements. Be
 == Mobile Browser and Application
 
 
-In recent years, mobile devices have become essential tools for both formal education and self-directed learning. Students frequently use smartphones and tablets to complete tasks, review materials, and collaborate with peers, especially in remote or hybrid learning contexts. Studies have shown that mobile learning increases flexibility and accessibility, improving engagement and learning outcomes across diverse student groups [@denoyelles2023evolving].
+In recent years, mobile devices have become essential tools for both formal education and self-directed learning. Students frequently use smartphones and tablets to complete tasks, review materials, and collaborate with peers, especially in remote or hybrid learning contexts. Studies have shown that mobile learning increases flexibility and accessibility, improving engagement and learning outcomes across diverse student groups @denoyelles2023evolving.
 
-Ensuring that educational tools like Apollon work seamlessly across all platforms including desktops, tablets, and phones enhances their usability and relevance. Platform consistency allows students to switch between devices without facing different interfaces, behaviors, or limitations. This consistency improves productivity and reduces the cognitive load associated with context switching, especially when learning complex modeling tasks [@mendel2009interface].
+Ensuring that educational tools like Apollon work seamlessly across all platforms including desktops, tablets, and phones enhances their usability and relevance. Platform consistency allows students to switch between devices without facing different interfaces, behaviors, or limitations. This consistency improves productivity and reduces the cognitive load associated with context switching, especially when learning complex modeling tasks @mendel2009interface.
 
 Furthermore, mobile support benefits instructors and developers by making the application available in a wider range of usage scenarios from classroom demonstrations to on the go corrections and feedback. Enabling cross-platform access is not just a matter of convenience but a requirement for inclusive and future proof educational software.
 
