@@ -25,7 +25,7 @@ Apollon has several technical and usability problems that affect both students a
 
 The rendering logic is another major issue. For example, attempting to add elements such as a package lead to infinite render loops in development environment and freezes the application. These bugs create an unreliable experience, causing frustration for developers.
 
-The situation worsens on mobile devices. The app does not support drag-and-drop interactions, in order to create new element user clicks the plus button and it is randomly put in the canvas. Afterwards user needs to click  left bottom icon for moving the element like it is shown in @componentDiagramiOS. Moving and Resizing elements are not very flexible.
+The situation worsens on mobile devices. The app does not support drag-and-drop interactions, in order to create new element user clicks the plus button and it is randomly put in the canvas. Afterwards user needs to click  left bottom icon for moving the element like it is shown in @componentDiagramiOS. Moving and resizing elements are not very flexible.
 #figure(
   image("../figures/ComponentDiagramIOS.png", width: 50%),
   caption: [Showing the features of a selected class element in Apollon iOS App]

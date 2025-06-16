@@ -25,7 +25,7 @@ Since Artemis is written in Angular, we first developed an Angular-based PoC to 
   caption: [Initial Angular PoC with basic node dragging and selecting functionalities]
 ) <angularpoc>
 
-We then explored React as an alternative and created a PoC with React which can be seen from @reactpoc. During this process, we discovered React Flow which is a powerful and flexible diagramming library designed specifically for React applications. It provides a modular API that supports custom node and edge rendering, canvas zooming and panning, and seamless user interaction through callbacks like onNodesChange, onEdgesChange, and onNodeClick. These abstractions significantly simplified the development effort and increased flexibility.
+We then explored React as an alternative and created a PoC with React which can be seen from @reactpoc. During this process, we discovered React Flow which is a powerful and flexible diagramming library designed specifically for React applications. It provides a modular API that supports custom node and edge rendering, canvas zooming and panning, and seamless user interaction through callbacks like `onNodesChange`, `onEdgesChange`, and `onNodeClick`. These abstractions significantly simplified the development effort and increased flexibility.
 
 #figure(
   image("../figures/reactFlowPoc.png", width: 90%),

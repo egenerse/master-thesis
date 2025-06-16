@@ -12,3 +12,4 @@
 - *FR* Functional Requirement
 - *QA* Quality Attribute
 - *CRUD* Create Read Update Delete
+- *APK* Android Package Kit

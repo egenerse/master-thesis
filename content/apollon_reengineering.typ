@@ -25,11 +25,11 @@ These tools contribute to a modular, scalable, and developer-friendly system des
 === Apollon Library
   This is the core module that encapsulates all modeling-related functionalities. It handles rendering and layout using React Flow, defines UML data structures, manages interaction logic such as selection and editing, and provides utilities like export and import diagrams 
 
-  The library uses Zustand for centralized and scalable state management and integrates Yjs, a CRDT-based framework, for real-time collaboration. Yjs works through a shared Y.Doc object that synchronizes state across multiple clients. We will describe this mechanism in more detail in Section 5.5.
+  The library uses Zustand for centralized and scalable state management and integrates Yjs, a CRDT-based framework, for real-time collaboration. Yjs works through a shared `Y.Doc` object that synchronizes state across multiple clients. We will describe this mechanism in more detail in Section 5.5.
 
-  To connect the application state with the Yjs document, the library also includes a Yjs sync component that links the store and collaborative state updates.
+  To connect the application state with the Yjs document (ydoc), the library also includes a Yjs sync component that links the store and collaborative state updates.
 
-  The Apollon Library exposes its full functionality through the ApollonEditor interface. This allows external applications, like the webapp or Artemis, to easily embed and interact with the editor instance without needing to access internal logic directly.
+  The Apollon Library exposes its full functionality through the `ApollonEditor` interface. This allows external applications, like the webapp or Artemis, to easily embed and interact with the editor instance without needing to access internal logic directly.
 
 === Apollon Standalone Webapp
 
@@ -146,7 +146,7 @@ Another significant usability addition is the introduction of ghost edge preview
 
 === Zustand State Management in Apollon Editor
 
-State management is handled using Zustand in the new Apollon Editor. The application maintains three distinct Zustand stores: DiagramStore, MetadataStore, and PopoverStore. Each store encapsulates a specific subset of the editor's state and exposes dedicated methods to update and manipulate that state.
+State management is handled using Zustand in the new Apollon Editor. The application maintains three distinct Zustand stores: `DiagramStore`, `MetadataStore`, and `PopoverStore`. Each store encapsulates a specific subset of the editor's state and exposes dedicated methods to update and manipulate that state.
 
 *The DiagramStore:* is the primary store and manages the core structural and collaborative data of a diagram. It maintains the following state variables:
 
@@ -161,7 +161,7 @@ export type DiagramStore = {
 }
 ```
 
-React Flow expects each parent node to appear before any of its children in the node array. To ensure this ordering, we use the sortNodesTopologically function, which arranges the nodes according to their hierarchical relationships. This is especially important in UML diagrams, where maintaining the correct visual and logical structure of parent-child relationships is essential.
+React Flow expects each parent node to appear before any of its children in the node array. To ensure this ordering, we use the `sortNodesTopologically` function, which arranges the nodes according to their hierarchical relationships. This is especially important in UML diagrams, where maintaining the correct visual and logical structure of parent-child relationships is essential.
 
 *The MetadataStore:* holds metadata related to the current diagram and editor context:
 
@@ -196,15 +196,15 @@ export type PopoverStore = {
 
 This separation of popover-related state ensures a clear boundary between UI control logic and the structural data of the diagram.
 
-*Zustand Integration with Yjs:* Each instance of ApollonEditor is backed by its own Yjs document, enabling real-time collaborative editing. To manage local state, a dedicated set of Zustand stores is created and bound directly to the Yjs document. This tight coupling ensures that all local and remote state changes remain consistent across multiple clients.
+*Zustand Integration with Yjs:* Each instance of ApollonEditor is backed by its own ydoc, enabling real-time collaborative editing. To manage local state, a dedicated set of Zustand stores is created and bound directly to the ydoc. This tight coupling ensures that all local and remote state changes remain consistent across multiple clients.
 
 At the core of this integration is a bidirectional sync mechanism:
 
 From Zustand to Yjs:
-Many state-updating functions in the editor such as onNodesChange update the Zustand store first, and then explicitly perform a Yjs transaction via ydoc.transact(...). This ensures that changes such as adding, updating, or deleting nodes are propagated to the Yjs document in a controlled and observable way. For example, in onNodesChange, position or structural changes to nodes are wrapped in a Yjs transaction with the origin "store", ensuring both correctness and traceability across clients.
+Many state-updating functions in the editor such as `onNodesChange` update the Zustand store first, and then explicitly perform a Yjs transaction via `ydoc.transact(...)`. This ensures that changes such as adding, updating, or deleting nodes are propagated to the ydoc in a controlled and observable way. For example, in `onNodesChange`, position or structural changes to nodes are wrapped in a Yjs transaction with the origin "store", ensuring both correctness and traceability across clients.
 
 From Yjs to Zustand:
- Incoming updates from other collaborators are observed by YjsSyncClass, which listens for changes on the Yjs document. When a Yjs transaction originates from a remote source (i.e., not from the local store), the update is consumed and applied to the local Zustand state. To prevent infinite update cycles between users, these externally received changes bypass the sendBroadcast function. Instead, the state is updated using a dedicated method, updateNodesFromYjs, which specifically applies updates without triggering broadcasts. This approach ensures that the internal node state is synchronized, user selections are preserved, and stale data is correctly removed.
+ Incoming updates from other collaborators are observed by YjsSyncClass, which listens for changes on the ydoc. When a Yjs transaction originates from a remote source (i.e., not from the local store), the update is consumed and applied to the local Zustand state. To prevent infinite update cycles between users, these externally received changes bypass the sendBroadcast function. Instead, the state is updated using a dedicated method, `updateNodesFromYjs`, which specifically applies updates without triggering broadcasts. This approach ensures that the internal node state is synchronized, user selections are preserved, and stale data is correctly removed.
 
 @ZustandSync Activity Diagram shows how Zustand and Ydoc communication is carefully managed to prevent infinite update cycles: the use of transaction origins (like "store" and "remote") allows each side to distinguish between local and remote changes and act accordingly.
 
@@ -215,9 +215,9 @@ From Yjs to Zustand:
 
 This design ensures: Real-time collaboration, safe updates, consistent state across all clients.
 
-*Zustand Integration with ReactFlow*: ReactFlow the library responsible for diagram rendering, directly consumes the nodes and edges data from the DiagramStore. As a result, the Zustand store becomes the central hub for application state.
+*Zustand Integration with ReactFlow*: ReactFlow the library responsible for diagram rendering, directly consumes the nodes and edges data from the `DiagramStore`. As a result, the Zustand store becomes the central hub for application state.
 
-Selector middlewares and Subscribers are used to monitor and react to state changes. For example, a subscriber can be attached to DiagramStore using an onModelChange listener. This function is typically passed from the web application’s consumer layer and allows it to respond to updates in the underlying data model.
+Selector middlewares and subscribers are used to monitor and react to state changes. For example, a subscriber can be attached to `DiagramStore` using an `onModelChange` listener. This function is typically passed from the web application’s consumer layer and allows it to respond to updates in the underlying data model.
 
 Such updates can duplicates library diagram data into webapp diagram data via scheduled HTTP PUT requests to persist the latest diagram state to a backend server. In local development, these subscriptions are also used to synchronize state with the browser's local storage, ensuring persistence across sessions. This enables users to resume work on previously edited diagrams even after closing and reopening the browser.
 
@@ -230,16 +230,19 @@ Zustand devtools is also used to enhance the development experience. Zustand pro
 
 The collaboration architecture has been significantly redesigned to be simpler, more maintainable, and better aligned with modern state management practices. In the previous system, client state synchronization was handled by dispatching Redux actions and propagating the resulting patches to peers. Although this followed CRDT principles, it was deeply tied to Redux’s action-reducer lifecycle and middleware, which introduced unnecessary complexity and made it difficult to transition to newer, more flexible tools.
 
-In the new system, Redux and its patch-based synchronization have been fully replaced with a streamlined solution built on Yjs, a CRDT library, and Zustand for local state management. This architecture maintains a synchronized state between each client’s local Zustand store and a shared Yjs document. Each client holds its own Yjs document (ydoc), which is kept in sync with the local store in both directions. Changes to the store are immediately reflected in ydoc, and updates from ydoc are applied back to the local store. This bidirectional synchronization ensures consistency and supports offline editing.
+In the new system, Redux and its patch-based synchronization have been fully replaced with a streamlined solution built on Yjs, a CRDT library, and Zustand for local state management. This architecture maintains a synchronized state between each client’s local Zustand store and a shared ydoc. Each client holds its own ydoc, which is kept in sync with the local store in both directions. Changes to the store are immediately reflected in ydoc, and updates from ydoc are applied back to the local store. This bidirectional synchronization ensures consistency and supports offline editing.
 
-The core of this system is the YjsSyncClass, which manages the synchronization between the Zustand store and the Yjs document. The class allows injection of a sendBroadcastMessage function, typically provided when the client establishes a WebSocket connection. This injected function is responsible for sending local updates originating from Zustand, marked as Yjs transactions with the "store" origin to other connected clients. This design ensures that local changes, including fast interactions like drag movements, are reliably broadcasted without throttling or data loss. Since React Flow’s snapToGrid feature discretizes movements and resizes, no additional throttling is required, resulting in a highly responsive synchronization process.
+The core of this system is the `YjsSyncClass`, which manages the synchronization between the Zustand store and the ydoc. The class allows injection of a `sendBroadcastMessage` function, typically provided when the client establishes a WebSocket connection. This injected function is responsible for sending local updates originating from Zustand, marked as Yjs transactions with the "store" origin to other connected clients. This design ensures that local changes, including fast interactions like drag movements, are reliably broadcasted without throttling or data loss. Since React Flow’s `snapToGrid` feature discretizes movements and resizes, no additional throttling is required, resulting in a highly responsive synchronization process.
 
 The system provides two key functions to manage state propagation:
 
   ```ts
-  sendBroadcastMessage(data: string): sends serialized local updates to other clients. ```
+  sendBroadcastMessage(data: string): sends serialized local updates to other clients. 
+  ```
 
-  ```ts receiveBroadcastedMessage(data: string): processes incoming updates from other clients.  ```
+  ```ts 
+  receiveBroadcastedMessage(data: string): processes incoming updates from other clients.  
+  ```
 
 These functions form the communication bridge between clients in a collaborative session.
 
@@ -248,19 +251,19 @@ These functions form the communication bridge between clients in a collaborative
 
 + The new client sends a synchronization request to the server.
 
-+ Existing clients respond by broadcasting their latest Yjs document state.
++ Existing clients respond by broadcasting their latest ydoc state.
 
-+ The new client receives and merges these updates into its local Yjs document.
++ The new client receives and merges these updates into its local ydoc.
 
 This bootstrapping ensures that the new client receives the most recent state from all participants.
 
 After initial synchronization, collaboration continues:
 
-+ When a client makes a local change, it updates its Yjs document.
++ When a client makes a local change, it updates its ydoc.
 
 + If sendBroadcastMessage is configured, the update is serialized and broadcasted to other clients over the WebSocket connection.
 
-+ Other clients receive the message, decode it, and apply the update to their local Yjs document using syncManager.handleReceivedData.
++ Other clients receive the message, decode it, and apply the update to their local ydoc using syncManager.handleReceivedData.
 
 
 *Message Format and Handling*: All broadcast messages are transmitted as Base64-encoded strings, making them easily serializable in JSON. Upon receiving a message:
@@ -269,11 +272,11 @@ After initial synchronization, collaboration continues:
 
 +The first byte of the array indicates the message type: either SYNC or UPDATE.
 
-+*SYNC* messages trigger the creation and broadcast of an UPDATE message containing the full Yjs document state.
++*SYNC* messages trigger the creation and broadcast of an UPDATE message containing the full ydoc state.
 
 +*UPDATE* messages apply received full ydoc states to the local ydoc state.
 
-To prevent infinite update loops, every Yjs transaction is tagged with its origin. Clients listen for changes in their Yjs document and apply updates to the Zustand store only when the change originates from a remote source. This ensures that locally generated changes are not redundantly re-applied and keeps internal and external update flows separated.
+To prevent infinite update loops, every Yjs transaction is tagged with its origin. Clients listen for changes in their ydoc and apply updates to the Zustand store only when the change originates from a remote source. This ensures that locally generated changes are not redundantly re-applied and keeps internal and external update flows separated.
 
 
 === Usability Improvements
@@ -310,7 +313,7 @@ The standalone web application also has a dedicated playground url for testing a
 
 To ensure that the reengineered version of Apollon is available reliably in production environments, we deployed the system using a reverse proxy configuration centered around modular services. The application consists of three subsystems: the Apollon webapp, a backend server responsible for WebSocket-based collaboration and RESTful API endpoints, and a persistent database for storing models. These components are containerized and managed using Docker Compose.
 
-At the core of the deployment infrastructure is Caddy #footnote[https://caddyserver.com], a modern web server and reverse proxy that simplifies configuration, particularly for projects that rely heavily on secure WebSocket connections. All incoming HTTP and HTTPS traffic is routed through Caddy, which acts as a single entry point into the system. When a request arrives, Caddy evaluates the path. If the path begins with /ws or /api, the request is proxied to the Apollon server, which handles WebSocket communication for real-time collaboration or API requests for loading and storing diagrams. All other requests, including the base path, are directed to the Apollon webapp, which serves the frontend application.
+At the core of the deployment infrastructure is Caddy #footnote[https://caddyserver.com], a modern web server and reverse proxy that simplifies configuration, particularly for projects that rely heavily on secure WebSocket connections. All incoming HTTP and HTTPS traffic is routed through Caddy, which acts as a single entry point into the system. When a request arrives, Caddy evaluates the path. If the path begins with `/ws` or `/api`, the request is proxied to the Apollon server, which handles WebSocket communication for real-time collaboration or API requests for loading and storing diagrams. All other requests, including the base path, are directed to the Apollon webapp, which serves the frontend application.
 
 We selected Caddy over alternatives such as Nginx because of its simplified setup and built-in support for automatic HTTPS via Let’s Encrypt. Traeffic was also handling automatic encryption however Caddy provides easier configuration with Caddyfile especially for websocket connections. This eliminated the need for manual TLS certificate configuration and allowed us to maintain a clean and concise reverse proxy setup with native WebSocket support. The flexibility of Caddy made it especially well-suited for our use case, which requires consistent handling of real-time data streams across devices.
 
@@ -387,7 +390,7 @@ To resolve these issues, we introduced Capacitor #footnote[https://capacitorjs.c
 
 Research on hybrid mobile applications supports these benefits, showing that developers are able to reduce both time-to-market and maintenance effort by reusing web technologies within native shells @Malavolta15. Industry practices also reflect this trend, as modern frameworks like Capacitor have emerged specifically to bridge the gap between web and native, allowing teams to focus on a single stack without sacrificing access to platform-specific capabilities @Wargo20. For projects like Apollon, where interface logic and collaborative modeling features are shared across devices, maintaining a single codebase was essential to delivering a consistent user experience without incurring the overhead of managing multiple codebases.
 
-Using Capacitor, we wrapped the Apollon Standalone web app and deployed it to test users via both Apple TestFlight and an Android APK. Capacitor acts as a bridge between the web and native environments, enabling direct access to native APIs while preserving the core modeling functionalities implemented in React. This approach ensured consistent behavior across platforms and eliminated the need for fragmented implementations.
+Using Capacitor, we wrapped the Apollon Standalone web app and deployed it to test users via both Apple TestFlight and an Android Package Kit (APK) for android. Capacitor acts as a bridge between the web and native environments, enabling direct access to native APIs while preserving the core modeling functionalities implemented in React. This approach ensured consistent behavior across platforms and eliminated the need for fragmented implementations.
 
 === Mobile Usability Improvements
 
