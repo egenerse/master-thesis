@@ -376,13 +376,6 @@ Ensuring that educational tools like Apollon work seamlessly across all platform
 
 Furthermore, mobile support benefits instructors and developers by making the application available in a wider range of usage scenarios from classroom demonstrations to on the go corrections and feedback. Enabling cross-platform access is not just a matter of convenience but a requirement for inclusive and future proof educational software.
 
-The earlier version of Apollon attempted to support mobile platforms by maintaining a separate iOS application in a different repository. However, this approach came with multiple limitations. @iosbug shows how the iOS app suffered from severe rendering issues when users moved nodes on the canvas, text such as class names, attributes, or methods often shifted away from their designated positions. This was caused by inconsistencies in how coordinate translations were handled during drag interactions on iOS devices, especially in combination with scaling and zooming.
-
-#figure(
-  image("../figures/classDiagramBug.jpeg", width: 90%),
-  caption: [Node Translation Bug in current iOS Apollon Application]
-) <iosbug>
-
 Maintaining a separate codebase also became a burden. Every update made to the web version had to be mirrored manually in the iOS repository, leading to duplicated efforts and a growing risk of divergence between the two platforms. Additionally, this approach completely excluded Android users, leaving a significant portion of the student base unsupported.
 
 Even mobile web browsers, which seemed like a fallback, posed major usability problems. Touch-based interactions, such as dragging nodes or creating edges, were unreliable. Often, attempts to create edges would result in accidental scrolling, breaking the modeling flow. The large sidebar occupying a substantial portion of the screen further reduced the usable diagram space, making it impractical to perform meaningful tasks on a phone or tablet. Collectively, these issues made the mobile experience inconsistent, buggy, and largely unusable for students and instructors who needed quick access to modeling tasks outside a desktop environment.
