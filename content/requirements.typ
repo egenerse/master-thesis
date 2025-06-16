@@ -17,38 +17,37 @@ This thesis proposes a reengineering of Apollon using modern functional React, R
 === Functional Requirements
 
 *FR1. Artemis Compatibility*
-The new Apollon must support Artemis integration and minimize the changes needed in Artemis. Updates in the library side should be reflected to Artemis side if needed, and feature loss should be minimal.
+The new Apollon must support Artemis integration and minimize the changes needed in Artemis. Updates in the library should be reflected on the Artemis side if required, and feature loss should be minimal.
 
-*FR2. Unified Monorepo Structure*
-Apollon will use an npm workspace monorepo containing the core library, standalone web editor, and standalone server. Mobile apps will be built by wrapping the web editor with Capacitor, and all packages will share code and follow consistent design principles.
+*FR2. Diagram Functionality*
+The system must allow users to create, delete, move, and modify diagram elements and create connections between elements. All existing functionality in Apollon must be preserved in the new version.
 
-*FR3. Mobile Application Support*
-Apollon must support deployment to both iOS and Android devices using Capacitor. Mobile interactions such as touch-based drag-and-drop, double-tap-to-edit, and resizing must be smooth and responsive.
+*FR3. Full Diagram Type Support*
+All UML and modeling diagram types currently supported by Apollon (e.g., Class Diagrams, Activity Diagrams, Use Case Diagrams, Component Diagrams, etc.) must be available in the new system without feature loss.
 
-*FR4. Diagram Functionality*
-The system must allow users to create, delete, move and modify diagram elements and created connections between elements. All existing functionality in Apollon must be preserved in the new version.
-
-*FR5. Full Diagram Type Support*
-All UML and modeling diagram types currently supported by Apollon (e.g., Class Diagrams, Activity Diagrams, Use Case Diagrams, Component Diagrams, etc.) must be available in the new system without loss of features.
-
-*FR6. Client-Side WebSocket Management for Collaborative Editing*
-The web application layer must handle WebSocket connections for real-time collaborative editing. The library should remain agnostic to WebSocket logic and instead provide simple, abstracted functions such as sendBroadcastMessage and receiveBroadcastedMessage. These functions enable the upper application layer to send and receive updates, ensuring seamless integration with the library's collaborative features.
-
-*FR7. Collaboration Traffic Limit*
-To maintain performance and avoid WebSocket overload, updates sent during collaborative sessions must not exceed 200KB per transmission.
-
-
+*FR4. Client-Side WebSocket Management for Collaborative Editing*
+The web application layer must handle WebSocket connections for real-time collaborative editing. The library should remain agnostic to WebSocket logic and instead provide simple, abstracted functions such as sendBroadcastMessage and receiveBroadcastedMessage. These functions enable the application layer to manage collaborative updates while keeping the library decoupled from WebSocket implementation.
 
 === Quality Attributes
 
-*QA1. Usability*
+*QA1. Unified Monorepo Structure*
+The system should use an npm workspace monorepo containing the core library, standalone web editor, and standalone server. This structure should improve maintainability, code sharing, and cross-platform development.
+
+*QA2. Usability*
 The application must follow established usability principles such as Nielsen’s heuristics @nielsen1995usability. Features must be easy to find and use, especially for students new to UML modeling.
 
-*QA2. Maintainability*
+*QA3. Maintainability*
 The system should be easy to  add new features and easy to bugfix. The new codebase must improve developer experience, should use function-based components. It should reduce developer onboarding time.
 
-*QA3. Performance*
+*QA4. Performance*
 The app must open diagrams and render elements quickly. Actions like dragging, zooming, and editing must feel responsive on both web and mobile platforms.
 
-*QA4. Accessibility*
+*QA5. Accessibility*
 The mobile version must support gesture navigation, drag-and-drop interactions, and optimized layouts for smaller screens which would make tool Apollon available for both mobile and web users.
+
+*QA6. Mobile Application Support*
+The system should support deployment to both iOS and Android using Capacitor. Mobile interactions (touch-based drag-and-drop, double-tap-to-edit, resizing) must feel smooth and responsive, ensuring cross-platform usability.
+
+*QA7. Collaboration Traffic Limit*
+To maintain performance and avoid WebSocket overload, updates sent during collaborative sessions must not exceed 200 KB per transmission.
+

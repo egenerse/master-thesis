@@ -14,7 +14,7 @@ To support a consistent and maintainable development workflow across all package
 
 *TypeScript*: is used throughout the project to enforce type safety across package boundaries. This reduces integration errors, improves code readability, and enhances developer experience with features like autocompletion and static analysis.
 
-*npm*: Workspaces enable coordinated dependency management and script execution across packages. This allows common tasks such as building, testing, or linting to be run from the root, reducing manual overhead and ensuring synchronized behavior across the system.
+*npm Workspaces*: enable coordinated dependency management and script execution across packages. This allows common tasks such as building, testing, or linting to be run from the root, reducing manual overhead and ensuring synchronized behavior across the system.
 
 *Prettier*: is configured to enforce consistent code formatting, ensuring that the codebase remains clean and readable regardless of which package is being modified.
 
@@ -34,8 +34,8 @@ These tools contribute to a modular, scalable, and developer-friendly system des
 === Apollon Standalone Webapp
 
   This is the user-facing subsystem that builds upon the Apollon library. It provides the interface where students and instructors can create, edit, and manage UML diagrams using exposesd functionalities of the Apollon library. 
-  The webapp uses the ApollonEditor interface to embed and control the editor. It also includes a DiagramAPIManager service responsible for fetching models from and saving them to the backend server.
-  For collaboration, the webapp connects to the backend using a WebSocketManager service, which handles WebSocket connections and dispatches events. This keeps the editor state synchronized between clients during collaborative sessions.
+  The webapp uses the `ApollonEditor` interface to embed and control the editor. It also includes a `DiagramAPIManager` service responsible for fetching models from and saving them to the backend server.
+  For collaboration, the webapp connects to the backend using a `WebSocketManager` service, which handles WebSocket connections and dispatches events. This keeps the editor state synchronized between clients during collaborative sessions.
 
   Global state management in the webapp is also handled using persistent Zustand same as library, which allows keeping the diagrams data in sync with the browser's local storage. This ensures that users can resume their work even after closing the browser through load diagram feature in the web application.
 
