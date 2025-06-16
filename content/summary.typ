@@ -76,16 +76,15 @@ Despite successfully implementing many of the planned features, several requirem
 
 Most features from the old version of the library are included in the new one, but we are still missing some, such as dark mode, German language support, and diagram history. Also, diagram types like BPMN, Flow Chart, and Syntax Tree, which existed in the old Apollon, are no longer supported. These can be added in the future, but due to limited time, we focused on core UML diagrams, and left the others in the backlog.
 
-Artemis Integration (FR1) has not yet reached full completion. The drag-and-drop feedback functionality is still missing, primarily because the system lacks proper support for tracking highlighted elements. In order to assign feedback to individual diagram elements, especially attributes or methods within class diagrams, we need to implement a mechanism that tracks which parts of the diagram users highlight.
+FR1 (Artemis Integration) has not yet reached full completion. The drag-and-drop feedback functionality is still missing, primarily because the system lacks proper support for tracking highlighted elements. In order to assign feedback to individual diagram elements, especially attributes or methods within class diagrams, we need to implement a mechanism that tracks which parts of the diagram users highlight.
 
-Similarly, tracking selected elements is missing too. This is important for Drag and Drop Apollon Modeling quizzes in Artemis, where instructors can include or exclude specific elements or their details (like methods or attributes) when creating quizzes. At the moment, our SVG rendering system can not include or exclude selected parts in interactive mode. However, this does not block the drag and drop quiz feature completely. Instructors can still create quiz boxes by cropping the PNG image of the correct solution model.
+Similarly, tracking selected elements is missing too. This is important for Drag and Drop Apollon Modeling quizzes in Artemis, where instructors can include or exclude specific elements or their details (like methods or attributes) when creating quizzes. At the moment, our export as SVG function does not include or exclude selected parts in interactive mode. However, this does not block the drag and drop quiz feature completely. Instructors can still create quiz boxes by cropping the PNG image of the correct solution model.
 
-We also identified additional usability issues based on the feedback collected from testing sessions. While we introduced improvements such as a minimap, zoom controls, and mobile compatibility, we have not yet implemented critical UI features like a more intuitive navigation bar or helper lines to assist with alignment and layout. These missing components limit our ability to fully satisfy QA1 (Usability).
+We have not yet implemented all planned usability features such as simplified sidebar and navigation bar. These missing components limit our ability to fully satisfy QA1 (Usability).
 
 In terms of accessibility, we still need to address multiple areas. We we need to make edge creation better and easier for mobile users while making icons and handles bigger.By addressing these accessibility improvements, we will make the tool more inclusive and bring us closer to meeting QA4 (Accessibility) in future iterations.
 
-In summary, while the current version of Apollon meets many of its functional goals, we still need to complete important integration and usability features to fully realize the tool’s potential in an educational context.
-
+In summary, while the current version of Apollon meets many of its functional goals, we still need to complete these important integrations and usability features to fully realize the tool’s potential in an educational context.
 
 
 == Conclusion
@@ -95,7 +94,7 @@ In summary, while the current version of Apollon meets many of its functional go
 
 In this thesis, we reengineered the entire Apollon diagramming library, transforming it into a modern, maintainable, and scalable monorepo architecture. We simplified the internal structure to make future development such as debugging, feature expansion, and usability testing easier.
 
-We updated the entire codebase to align with current React standards by replacing legacy class based components with functional components and adopting modern tools like Zustand for state management. We also integrated React Flow, a powerful diagramming library, which enabled us to handle complex node and edge interactions with less effort and cleaner abstractions.
+We updated the entire codebase to align with current React standards by replacing legacy class-based components with functional components and adopting modern tools like Zustand for state management. We also integrated React Flow, which enabled us to handle complex node and edge interactions with less effort and cleaner abstractions.
 
 Beyond architectural improvements, we also focused on enhancing usability. We introduced features such as infinite canvas navigation and more intuitive interactions such as ghost edge display. However, the most substantial improvements came in mobile support. The previous version of Apollon was nearly unusable on mobile devices due to severe bugs in both the standalone web app and the iOS application. With the reengineered version now powered by Capacitor for native deployment we offer a consistent, touch-friendly experience across iOS, Android, and mobile browsers. Students can now create and edit diagrams directly from their mobile devices, which greatly improves accessibility and flexibility.
 
@@ -112,3 +111,4 @@ Aligning elements with equal height and consistent spacing would also be a valua
 
 Adding suggestion when user hover handle to create fast edge and a new diagram element would also improve usability. This feature would provide users with quick access to commonly used actions, reducing the number of clicks required to perform tasks and making the modeling process more efficient.
 
+An important improvement would be adding WebSocket reconnect support to make the system more resilient during temporary network interruptions. Combined with Yjs’s timestamp-based offline editing, this would allow users to continue working while disconnected and automatically sync changes when they reconnect. Yjs ensures that both offline edits and updates from other collaborators are safely merged without conflicts, enabling a reliable collaboration experience.
