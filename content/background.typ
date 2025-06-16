@@ -9,7 +9,7 @@ At the start of this project, we focused on modernizing the standalone Apollon w
 
 We also began replacing the legacy Redux logic with Redux Toolkit to reduce boilerplate and improve maintainability. These updates led to clearer code and helped resolve several persistent bugs, marking a meaningful improvement to the standalone application. However, as we progressed, it became clear that a significant portion of the deeper challenges comes from the shared library, where outdated state management patterns and tightly coupled logic were still in place. To build a more reliable and adaptable system, we recognized that improvements to the web app alone were insufficient.
 
-== Solving the iOS Application Issues
+== Investigating the iOS Application Issues
 Parallel to our work on the web app, we investigated the separate iOS version of Apollon, which lived in its own repository. This version suffered from major rendering issues on Apple devices, including misaligned text elements and unstable drag-and-drop behavior. These problems significantly impaired usability on mobile platforms and made the app nearly unusable in real-world student workflows.
 
 Additionally, maintaining the iOS app as a separate codebase introduced substantial development overhead. Features and fixes had to be implemented twice, once for web and once for mobile, leading to inconsistencies and duplicated effort. While we made attempts to patch specific issues, it became clear that the architecture was not designed for long-term maintainability or cross-platform development. These challenges strongly influenced our decision to unify the application under a single, modern codebase.

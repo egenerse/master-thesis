@@ -68,17 +68,15 @@ Finally, based on feedback gathered during testing, we implemented several usabi
 
 Despite successfully implementing many of the planned features, several requirements remain partially or fully open.
 
-Event though most of the features are kept in the new version we are still missing some features like shortcuts and diagram history. These issues are open in the backlog.
+Most features from the old version of the library are included in the new one, but we are still missing some, such as dark mode, German language support, and diagram history. Also, diagram types like BPMN, Flow Chart, and Syntax Tree, which existed in the old Apollon, are no longer supported. These can be added in the future, but due to limited time, we focused on core UML diagrams, and left the others in the backlog.
 
-Artemis Integration (FR1) has not yet reached full completion. The drag-and-drop feedback functionality is still missing, primarily because the system lacks proper support for tracking highlighted elements. In order to assign feedback to individual diagram elements, especially attributes or methods within class diagrams, we need to implement a mechanism that tracks which parts of the diagram users select or highlight.
+Artemis Integration (FR1) has not yet reached full completion. The drag-and-drop feedback functionality is still missing, primarily because the system lacks proper support for tracking highlighted elements. In order to assign feedback to individual diagram elements, especially attributes or methods within class diagrams, we need to implement a mechanism that tracks which parts of the diagram users highlight.
 
-Similarly, selection tracking for attributes and methods is also missing. This feature is crucial for interactive modeling quizzes in Artemis, where instructors exclude or include specific diagram parts when generating questions. Currently, our SVG rendering mechanism lacks the ability to exclude selected areas, which prevents the creation of white-space placeholders during quiz generation. These missing functionalities block full support for the modeling quiz workflow and must be addressed to satisfy FR1.
+Similarly, tracking selected elements is missing too. This is important for Drag and Drop Apollon Modeling quizzes in Artemis, where instructors can include or exclude specific elements or their details (like methods or attributes) when creating quizzes. At the moment, our SVG rendering system can not include or exclude selected parts in interactive mode. However, this does not block the drag and drop quiz feature completely. Instructors can still create quiz boxes by cropping the PNG image of the correct solution model.
 
 We also identified additional usability issues based on the feedback collected from testing sessions. While we introduced improvements such as a minimap, zoom controls, and mobile compatibility, we have not yet implemented critical UI features like a more intuitive navigation bar or helper lines to assist with alignment and layout. These missing components limit our ability to fully satisfy QA1 (Usability).
 
-In terms of accessibility, we still need to address multiple areas. We we need to make edge creation better and easier for mobile users while making icons and handles bigger.
-
-By addressing these accessibility improvements, we will make the tool more inclusive and bring us closer to meeting QA4 (Accessibility) in future iterations.
+In terms of accessibility, we still need to address multiple areas. We we need to make edge creation better and easier for mobile users while making icons and handles bigger.By addressing these accessibility improvements, we will make the tool more inclusive and bring us closer to meeting QA4 (Accessibility) in future iterations.
 
 In summary, while the current version of Apollon meets many of its functional goals, we still need to complete important integration and usability features to fully realize the tool’s potential in an educational context.
 
