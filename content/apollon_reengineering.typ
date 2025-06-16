@@ -12,17 +12,17 @@ The Apollon project is restructured into a unified monorepo architecture that co
 
 To support a consistent and maintainable development workflow across all packages, the monorepo integrates several tooling and configuration standards:
 
--- TypeScript is used throughout the project to enforce type safety across package boundaries. This reduces integration errors, improves code readability, and enhances developer experience with features like autocompletion and static analysis.
+*TypeScript*: is used throughout the project to enforce type safety across package boundaries. This reduces integration errors, improves code readability, and enhances developer experience with features like autocompletion and static analysis.
 
--- npm Workspaces enable coordinated dependency management and script execution across packages. This allows common tasks such as building, testing, or linting to be run from the root, reducing manual overhead and ensuring synchronized behavior across the system.
+*npm*: Workspaces enable coordinated dependency management and script execution across packages. This allows common tasks such as building, testing, or linting to be run from the root, reducing manual overhead and ensuring synchronized behavior across the system.
 
--- Prettier is configured to enforce consistent code formatting, ensuring that the codebase remains clean and readable regardless of which package is being modified.
+*Prettier*: is configured to enforce consistent code formatting, ensuring that the codebase remains clean and readable regardless of which package is being modified.
 
--- Husky is used to define Git hooks that enforce code quality at the commit level. Pre-commit hooks automatically run linters and formatters to catch issues early, while a commit-msg hook ensures that all commit messages follow the Conventional Commits standard. This improves the clarity of the project's history and supports automation in releases and changelogs.
+*Husky*: is used to define Git hooks that enforce code quality at the commit level. Pre-commit hooks automatically run linters and formatters to catch issues early, while a commit-msg hook ensures that all commit messages follow the Conventional Commits standard. This improves the clarity of the project's history and supports automation in releases and changelogs.
 
 These tools contribute to a modular, scalable, and developer-friendly system design and helping maintain high code quality and consistency across a growing, multi-package architecture.
 
-=== Apollon Library:
+=== Apollon Library
   This is the core module that encapsulates all modeling-related functionalities. It handles rendering and layout using React Flow, defines UML data structures, manages interaction logic such as selection and editing, and provides utilities like export and import diagrams 
 
   The library uses Zustand for centralized and scalable state management and integrates Yjs, a CRDT-based framework, for real-time collaboration. Yjs works through a shared Y.Doc object that synchronizes state across multiple clients. We will describe this mechanism in more detail in Section 5.5.
@@ -31,7 +31,8 @@ These tools contribute to a modular, scalable, and developer-friendly system des
 
   The Apollon Library exposes its full functionality through the ApollonEditor interface. This allows external applications, like the webapp or Artemis, to easily embed and interact with the editor instance without needing to access internal logic directly.
 
-=== Apollon Standalone Webapp:
+=== Apollon Standalone Webapp
+
   This is the user-facing subsystem that builds upon the Apollon library. It provides the interface where students and instructors can create, edit, and manage UML diagrams using exposesd functionalities of the Apollon library. 
   The webapp uses the ApollonEditor interface to embed and control the editor. It also includes a DiagramAPIManager service responsible for fetching models from and saving them to the backend server.
   For collaboration, the webapp connects to the backend using a WebSocketManager service, which handles WebSocket connections and dispatches events. This keeps the editor state synchronized between clients during collaborative sessions.
@@ -39,7 +40,8 @@ These tools contribute to a modular, scalable, and developer-friendly system des
   Global state management in the webapp is also handled using persistent Zustand same as library, which allows keeping the diagrams data in sync with the browser's local storage. This ensures that users can resume their work even after closing the browser through load diagram feature in the web application.
 
 
-=== Apollon Standalone Server:
+=== Apollon Standalone Server
+
   This is a backend service designed to support persistence diagrams and enable WebSocket-based real-time collaboration. Acting as a relay server, it forwards messages between clients without interpreting them.
 
   A key feature is the room-based message broadcasting system, implemented in the WebSocket server. Each collaborative session corresponds to a distinct "room" identified by a diagramId, and any message received from one client is automatically relayed to all other connected clients in the same room. This allows for efficient and low-latency collaboration without centralized state processing.
@@ -56,6 +58,7 @@ These tools contribute to a modular, scalable, and developer-friendly system des
 )
 
 == Library
+
 In this section, we describe the redesigned architecture and key features of the new Apollon core library. This includes the updated node structure, enhanced edge logic, state management using Zustand, and real-time collaboration powered by Yjs. We also highlight several usability improvements made during the reengineering process.
 
 === Node Structure
@@ -64,7 +67,7 @@ The internal data model for UML elements in Apollon has been redesigned to align
 
 To support intuitive diagramming, each node includes custom handler and resizer components. These allow users to resize UML elements and create connections by dragging from source to target handles, resulting in a more flexible modeling experience.
 
-In the previous system, the data model followed a flat structure: all elements were stored as separate top-level objects. For example Class elements referenced their attributes and methods using ID arrays. Additionally, different class stereotypes like abstract classes, interfaces, and enumerations were modeled as entirely different node types (AbstractClass, Interface, Enumeration), each with its own structure and behavior.
+@oldNodeStructureDiagram shows the previous node structure: all elements were stored as separate top level objects. For example Class elements referenced their attributes and methods using ID arrays. Additionally, different class stereotypes like abstract classes, interfaces, and enumerations were modeled as entirely different node types (AbstractClass, Interface, Enumeration), each with its own structure and behavior.
 
 Example of the class data structure is shown below:
 
@@ -75,7 +78,9 @@ Example of the class data structure is shown below:
   "attributes": ["e0c4..."],
   "methods": ["1804..."]
 }```
+
 Each method and attribute also existed as a separate object with a reference to its parent:
+
 ```json
 {
   "id": "e0c4...",
@@ -88,9 +93,9 @@ Each method and attribute also existed as a separate object with a reference to 
 #figure(
   image("../figures/OldNodeType.png", width: 90%),
   caption: [Class Element types in Old Apollon]
-)
+)<oldNodeStructureDiagram>
 
-This structure proved incompatible with React Flow, which treats each node as a unified, self-contained component. In response, the new system adopts a nested structure: attributes and methods are now embedded directly within the parent class node’s data field. Moreover, the previously separate types for abstract classes, interfaces, and enumerations have been unified under a single Class node type, distinguished by a stereotype field.
+This structure proved incompatible with React Flow, which treats each node as a unified, self-contained component. In response, @newNodeStructureDiagram shows the new node structure which adopts a nested structure: attributes and methods are now embedded directly within the parent class node’s data field. Moreover, the previously separate types for abstract classes, interfaces, and enumerations have been unified under a single Class node type, distinguished by a stereotype field.
 
 This stereotype field can be one of: null (plain class), abstract, interface, or enumeration. This approach simplifies the model, reduces redundancy, and allows for more flexible and expressive rendering in React Flow.
 
@@ -98,37 +103,38 @@ This stereotype field can be one of: null (plain class), abstract, interface, or
 #figure(
   image("../figures/NewNodeType.png", width: 90%),
   caption: [New Class Node structure in Apollon Reengineering]
-)
+)<newNodeStructureDiagram>
 
 This nested and stereotype-aware design simplifies the model, reduces redundancy, and enables more flexible node rendering within React Flow. Most UML elements such as Packages, Components, Subsystems, Interfaces, Use Cases, and Actors, fit naturally into this new structure as they do not contain nested elements. The Class element remains the main exception due to its need to internally encapsulate attributes, methods, and stereotype data.
 
 === Edge Structure
 
-In the previous version of Apollon, edge rendering was stable and functional, but it had limitations in terms of visual clarity. The main issue was the presence of diagonal edges between elements, which made UML diagrams harder to read and deviated from typical modeling standards. Additionally, the older system supported only four connection ports (top, bottom, left, right) on each node, which restricted flexibility in edge routing.
-
-In the reengineered Apollon, we adopted a hybrid edge rendering approach that combines techniques from both the old system and modern features of React Flow. Specifically:
-
-- We use Step Edges from React Flow to generate clean, orthogonal paths between distant nodes.
-- When nodes are positioned closer than a defined threshold, we fall back to rendering a Straight Edge using logic adapted from the old Apollon implementation.
+In the previous version of Apollon, edge rendering was stable and functional, but it had limitations in terms of visual clarity. For example, @oldDiagonalEdge shows the diagonal edge creation between two class components. The diagonal edges make UML diagrams harder to read and deviated from typical modeling standards. Additionally, the older system supported only four connection ports (top, bottom, left, right) on each node, which restricted flexibility in edge routing.
 
 This hybrid method avoids the creation of awkward diagonal lines and improves the visual clarity of the diagrams.
 #figure(
   image("../figures/DiagonalEdge.png", width: 50%),
   caption: [Diagonal Edge between two class nodes in Old Apollon version]
-)
+)<oldDiagonalEdge>
+
+In the reengineered Apollon, we adopted a hybrid edge rendering approach that combines techniques from both the old system and modern features of React Flow. Specifically:
+
+We use Step Edges from React Flow to generate clean, orthogonal paths between distant nodes.
+
+When nodes are positioned closer than a defined threshold, we fall back to rendering a Straight Edge using logic adapted from the old Apollon implementation.
 
 
-We also increased the number of ports per node to allow finer control over where edges connect. This gives users more layout flexibility and helps avoid overlapping edges in dense diagrams.
+We also increased the number of ports per node to allow finer control over where edges connect. This gives users more layout flexibility and helps avoid overlapping edges in dense diagrams. @edgeHandlersOld displays the old edge handles and @edgehandlersNew shows the new edge handles, where we can easily see that user has more flexibility.
 
 #figure(
   image("../figures/OldEdgePort.png", width: 50%),
   caption: [Edge handlers in Old Apollon version]
-)
+)<edgeHandlersOld>
 
 #figure(
   image("../figures/NewEdgePort.png", width: 50%),
   caption: [Edge handlers in New Apollon version which is increased]
-)
+)<edgehandlersNew>
 
 Another significant usability addition is the introduction of ghost edge previews. As users begin drawing an edge, the system displays a transparent preview of the potential connection. This helps users understand where the edge will connect before finalizing the action as seen in @newEdgeCreationGhostEdge.
 
@@ -142,7 +148,7 @@ Another significant usability addition is the introduction of ghost edge preview
 
 State management is handled using Zustand in the new Apollon Editor. The application maintains three distinct Zustand stores: DiagramStore, MetadataStore, and PopoverStore. Each store encapsulates a specific subset of the editor's state and exposes dedicated methods to update and manipulate that state.
 
-*The DiagramStore* is the primary store and manages the core structural and collaborative data of a diagram. It maintains the following state variables:
+*The DiagramStore:* is the primary store and manages the core structural and collaborative data of a diagram. It maintains the following state variables:
 
 ```ts
 export type DiagramStore = {
@@ -157,7 +163,7 @@ export type DiagramStore = {
 
 React Flow expects each parent node to appear before any of its children in the node array. To ensure this ordering, we use the sortNodesTopologically function, which arranges the nodes according to their hierarchical relationships. This is especially important in UML diagrams, where maintaining the correct visual and logical structure of parent-child relationships is essential.
 
-*The MetadataStore* holds metadata related to the current diagram and editor context:
+*The MetadataStore:* holds metadata related to the current diagram and editor context:
 
 ```ts
 export type MetadataStore = {
@@ -178,7 +184,7 @@ mode = "Assessment" and readonly = true → SEE_FEEDBACK mode: students can view
 ```
 This logic is particularly useful in assessment scenarios where control over editability and feedback visibility is essential.
 
-*The PopoverStore* manages UI popover elements that assist users in editing, providing feedback, or seeing functionalities:
+*The PopoverStore:* manages UI popover elements that assist users in editing, providing feedback, or seeing functionalities:
 
 ```ts
 export type PopoverStore = {
@@ -190,29 +196,26 @@ export type PopoverStore = {
 
 This separation of popover-related state ensures a clear boundary between UI control logic and the structural data of the diagram.
 
-*Zustand Integration with Yjs* Each instance of ApollonEditor is backed by its own Yjs document, enabling real-time collaborative editing. To manage local state, a dedicated set of Zustand stores is created and bound directly to the Yjs document. This tight coupling ensures that all local and remote state changes remain consistent across multiple clients.
+*Zustand Integration with Yjs:* Each instance of ApollonEditor is backed by its own Yjs document, enabling real-time collaborative editing. To manage local state, a dedicated set of Zustand stores is created and bound directly to the Yjs document. This tight coupling ensures that all local and remote state changes remain consistent across multiple clients.
 
 At the core of this integration is a bidirectional sync mechanism:
+
 From Zustand to Yjs:
 Many state-updating functions in the editor such as onNodesChange update the Zustand store first, and then explicitly perform a Yjs transaction via ydoc.transact(...). This ensures that changes such as adding, updating, or deleting nodes are propagated to the Yjs document in a controlled and observable way. For example, in onNodesChange, position or structural changes to nodes are wrapped in a Yjs transaction with the origin "store", ensuring both correctness and traceability across clients.
 
 From Yjs to Zustand:
-Incoming updates from other collaborators are observed by YjsSyncClass, which listens for changes on the Yjs document. When a Yjs transaction originates from a remote source (i.e., not from the local store), the update is consumed and applied to the local Zustand state. To prevent infinite update cycles between users, these externally received changes bypass the sendBroadcast function. Instead, the state is updated using a dedicated method, updateNodesFromYjs, which specifically applies updates without triggering broadcasts. This approach ensures that the internal node state is synchronized, user selections are preserved, and stale data is correctly removed.
+ Incoming updates from other collaborators are observed by YjsSyncClass, which listens for changes on the Yjs document. When a Yjs transaction originates from a remote source (i.e., not from the local store), the update is consumed and applied to the local Zustand state. To prevent infinite update cycles between users, these externally received changes bypass the sendBroadcast function. Instead, the state is updated using a dedicated method, updateNodesFromYjs, which specifically applies updates without triggering broadcasts. This approach ensures that the internal node state is synchronized, user selections are preserved, and stale data is correctly removed.
 
-This zustand and ydoc communication is carefully managed to prevent infinite update cycles: the use of transaction origins (like "store" and "remote") allows each side to distinguish between local and remote changes and act accordingly.
+@ZustandSync Activity Diagram shows how Zustand and Ydoc communication is carefully managed to prevent infinite update cycles: the use of transaction origins (like "store" and "remote") allows each side to distinguish between local and remote changes and act accordingly.
 
 #figure(
   image("../figures/ZustandandYsSyncSendBroadcast.png", width: 90%),
-  caption: [Zustnad and Yjs Synchronization Activity Diagram]
-)
+  caption: [Zustand and Yjs Synchronization Activity Diagram]
+)<ZustandSync>
 
 This design ensures: Real-time collaboration, safe updates, consistent state across all clients.
 
-
-
-*Zustand Integration with ReactFlow*
-
-ReactFlow the library responsible for diagram rendering, directly consumes the nodes and edges data from the DiagramStore. As a result, the Zustand store becomes the central hub for application state.
+*Zustand Integration with ReactFlow*: ReactFlow the library responsible for diagram rendering, directly consumes the nodes and edges data from the DiagramStore. As a result, the Zustand store becomes the central hub for application state.
 
 Selector middlewares and Subscribers are used to monitor and react to state changes. For example, a subscriber can be attached to DiagramStore using an onModelChange listener. This function is typically passed from the web application’s consumer layer and allows it to respond to updates in the underlying data model.
 
@@ -233,43 +236,42 @@ The core of this system is the YjsSyncClass, which manages the synchronization b
 
 The system provides two key functions to manage state propagation:
 
-  sendBroadcastMessage(data: string) — sends serialized local updates to other clients.
+  ```ts
+  sendBroadcastMessage(data: string): sends serialized local updates to other clients. ```
 
-  receiveBroadcastedMessage(data: string) — processes incoming updates from other clients.
+  ```ts receiveBroadcastedMessage(data: string): processes incoming updates from other clients.  ```
 
 These functions form the communication bridge between clients in a collaborative session.
 
 
-*Synchronization Protocol*
+*Synchronization Protocol*: When a new client joins an active session, the following process occurs:
 
-When a new client joins an active session, the following process occurs:
++ The new client sends a synchronization request to the server.
 
-- The new client sends a synchronization request to the server.
++ Existing clients respond by broadcasting their latest Yjs document state.
 
-- Existing clients respond by broadcasting their latest Yjs document state.
-
-- The new client receives and merges these updates into its local Yjs document.
++ The new client receives and merges these updates into its local Yjs document.
 
 This bootstrapping ensures that the new client receives the most recent state from all participants.
 
 After initial synchronization, collaboration continues:
-- When a client makes a local change, it updates its Yjs document.
 
-- If sendBroadcastMessage is configured, the update is serialized and broadcasted to other clients over the WebSocket connection.
++ When a client makes a local change, it updates its Yjs document.
 
-- Other clients receive the message, decode it, and apply the update to their local Yjs document using syncManager.handleReceivedData. 
++ If sendBroadcastMessage is configured, the update is serialized and broadcasted to other clients over the WebSocket connection.
+
++ Other clients receive the message, decode it, and apply the update to their local Yjs document using syncManager.handleReceivedData.
 
 
-*Message Format and Handling*
-All broadcast messages are transmitted as Base64-encoded strings, making them easily serializable in JSON. Upon receiving a message:
-- The Base64 string is decoded into a Uint8Array.
+*Message Format and Handling*: All broadcast messages are transmitted as Base64-encoded strings, making them easily serializable in JSON. Upon receiving a message:
 
-- The first byte of the array indicates the message type: either SYNC or UPDATE.
++The Base64 string is decoded into a Uint8Array.
 
-- SYNC messages trigger the creation and broadcast of an UPDATE message containing the full Yjs document state.
++The first byte of the array indicates the message type: either SYNC or UPDATE.
 
-- UPDATE messages apply recevied full ydoc states to the local ydoc state.
++*SYNC* messages trigger the creation and broadcast of an UPDATE message containing the full Yjs document state.
 
++*UPDATE* messages apply received full ydoc states to the local ydoc state.
 
 To prevent infinite update loops, every Yjs transaction is tagged with its origin. Clients listen for changes in their Yjs document and apply updates to the Zustand store only when the change originates from a remote source. This ensures that locally generated changes are not redundantly re-applied and keeps internal and external update flows separated.
 
@@ -296,7 +298,7 @@ The standalone application provides a complete modeling environment built on top
 
 The standalone version provides local storage for saving diagrams, allowing users to resume work on their models even after closing the browser. This feature is useful to quickly sketch out ideas or create simple diagrams. Also we provide load diagram feature that allows users to load their previously saved diagrams from the browser's local storage.
 
-The standalone web applciation also has a dedicated playground url for testing and experimenting Apollon features as seen in the @apollonWebappPlayground .
+The standalone web application also has a dedicated playground url for testing and experimenting Apollon features as seen in the @apollonWebappPlayground .
 
 #figure(
   image("../figures/ApollonWebappPlayground.png", width: 90%),
@@ -319,7 +321,7 @@ The entire system is hosted on a managed virtual machine. Docker Compose manages
 
 We conducted testing sessions for the Apollon2 Web App and its new library integration to assess usability, uncover bugs, collect enhancement ideas, and validate key interactions. Test participants from various backgrounds interacted with the application in realistic scenarios and provided actionable feedback.
 
-We prioritized the found bugs and summarized them in categorized tables below with their status. 
+Testers found bugs during manual testing session and then we prioritized the found bugs and summarized them into @BugTableWeb with their status.
 
 
 #figure(
@@ -342,10 +344,10 @@ We prioritized the found bugs and summarized them in categorized tables below wi
   [Lock mode does not disable node selection], [✅ Fixed],
   ),
   caption: [Bug feedbacks from Apollon2 Web App testing sessions.]
-)
+)<BugTableWeb>
 
 
-User feedback played a crucial role in shaping the direction of improvements. Beyond identifying bugs, testers also proposed valuable enhancement ideas that could significantly improve the usability and intuitiveness of the application. We reviewed, evaluated, and prioritized these suggestions based on user impact and implementation feasibility. The table below highlights the most relevant enhancement ideas along with their current status.
+User feedback played a crucial role in shaping the direction of improvements. Beyond identifying bugs, testers also proposed valuable enhancement ideas that could significantly improve the usability and intuitiveness of the application. We reviewed, evaluated, and prioritized these suggestions based on user impact and implementation feasibility. The @EnhancementWeb below highlights the most relevant enhancement ideas along with their current status.
 
 
 #figure(
@@ -362,7 +364,7 @@ User feedback played a crucial role in shaping the direction of improvements. Be
   [Improve minimap toggle interaction], [✅ Improved],
   ),
   caption: [Enhancement feedbacks from Apollon2 Web App testing sessions.]
-)
+)<EnhancementWeb>
 
 
 == Mobile Browser and Application
@@ -408,31 +410,30 @@ We conducted a dedicated testing session for the Apollon2 Mobile App, focusing o
 
 Participants explored a range of interactions such as node creation, edge manipulation, and UI navigation. Their feedback uncovered a number of platform-specific issues, which are listed below.
 
-We categorized the bugs reported and included their current development status in the table that follows:
+We categorized the bugs reported and included their current development status in the @bugTableIOS:
 
 #figure(
 table(
 columns: 2,
 align: (left, center),
 [Found Bug], [Status],
-[Edge popover icon renders in wrong position], [⏳ In Backlog],
+[Edge popover icon renders in wrong position], [✅ Fixed],
 [Node toolbar/popup not clickable with Apple Pencil], [⏳ In Backlog],
-[Bottom icon padding too low], [⏳ In Backlog],
 [Node outline gets bigger after stacking/moving], [⏳ In Backlog],
 [Selection with Apple Pencil not possible], [⏳ In Backlog],
 [Node outlier expands incorrectly when changing type], [⏳ In Backlog],
-[Package resizing too small to interact], [⏳ In Backlog],
-[Gaps between nodes and edges], [⏳ In Backlog],
+[Package resizing too small to interact], [✅ Fixed],
+[Gaps between nodes and edges], [✅ Fixed],
 [Package resizes in wrong direction when dragged], [⏳ In Backlog],
-[Cannot unselect edges], [⏳ In Backlog],
-[Cannot select edges], [⏳ In Backlog],
-[Clicking edge multiple times distorts path], [⏳ In Backlog],
-[Edge markers don’t update after type change], [⏳ In Backlog],
+[Cannot unselect edges], [✅ Fixed],
+[Cannot select edges], [✅ Fixed],
+[Clicking edge multiple times distorts path], [✅ Fixed],
+[Edge markers don’t update after type change], [✅ Fixed],
 ),
 caption: [Bug feedbacks from Apollon2 Mobile App testing sessions.]
-)
+)<bugTableIOS>
 
-In addition to the bugs, participants suggested mobile-specific enhancements to improve the user experience on smaller screens and stylus-based interaction. These ideas are listed in the table below along with their current status:
+In addition to the bugs, participants suggested mobile specific enhancements to improve the user experience on smaller screens. These ideas are listed in the @enhancementMobile below along with their current status:
 
 #figure(
 table(
@@ -440,9 +441,9 @@ columns: 2,
 align: (left, center),
 [Enhancement Idea], [Status],
 [Keyboard should auto-focus when editing attribute], [⏳ In Backlog],
-[Make minimap open/close behavior intuitive], [⏳ In Backlog],
+[Make minimap open/close behavior intuitive], [✅ Improved],
 [Popover should close on "Done" or return key], [⏳ In Backlog],
-[Make edge creation easier and more natural], [⏳ In Backlog],
+[Make edge creation easier and more natural], [✅ Improved],
 ),
 caption: [Enhancement feedbacks from Apollon2 Mobile App testing sessions.]
-)
+)<enhancementMobile>

@@ -11,3 +11,4 @@
 - *API* Application Programming Interface
 - *FR* Functional Requirement
 - *QA* Quality Attribute
+- *CRUD* Create Read Update Delete

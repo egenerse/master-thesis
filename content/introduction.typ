@@ -7,7 +7,7 @@
 ]
 
 
-Designing and understanding software systems supports both education and the development of real-world solutions. UML tools help students and developers structure, explain, and refine complex systems. Apollon offers an open-source UML diagram editor that enables users to model systems clearly and effectively. Students and instructors actively use Apollon within Artemis a learning platform that delivers interactive education on programming exercises, quizzes, modeling tasks, and more.
+Designing and understanding software systems supports both education and the development of real-world solutions. UML tools help students and developers structure, explain, and refine complex systems. Apollon offers an open-source UML diagram editor that enables users to model systems clearly and effectively. Students and instructors actively use Apollon within Artemis #footnote[https://artemis.tum.de/]  a learning platform that delivers interactive education on programming exercises, quizzes, modeling tasks, and more.
 
 Apollon, however, includes several limitations. Its codebase relies on outdated React class components, which complicates maintenance and feature development. The interface hides key functionalities and creates a steep learning curve for new users. Mobile support remains limited. The old iOS app contained rendering bugs and lacked proper touch handling. No native Android app existed, and the mobile browser version failed to support intuitive interactions.
 
@@ -58,7 +58,7 @@ We also prioritized mobile accessibility. Many students rely on tablets in their
 
 We also enhanced developer experience by integrating Zustand’s devtool plugin, complementing existing tools like Redux DevTools. Developers can observe state transitions, identify the functions triggering updates, and track resulting changes in real time making the development process more transparent and efficient.
 
-Finally, we improved real-time collaboration by integrating Yjs #footnote[https://docs.yjs.dev/], a high-performance CRDT(Conflict-free Replicated Data Type)-based synchronization that allows distributed systems to synchronize changes without conflicts, even in offline scenarios. Yjs enables students to collaboratively edit diagrams in real time, ensuring consistent state and low latency, which enhances teamwork and productivity.
+Finally, we improved real-time collaboration by integrating Yjs #footnote[https://docs.yjs.dev/], a high-performance CRDT (Conflict-free Replicated Data Type)-based synchronization that allows distributed systems to synchronize changes without conflicts, even in offline scenarios. Yjs enables students to collaboratively edit diagrams in real time, ensuring consistent state and low latency, which enhances teamwork and productivity.
 
 In short, we reengineered Apollon to help students create better diagrams, collaborate effectively, and work seamlessly across devices all within a modern, maintainable architecture.
 
@@ -81,58 +81,41 @@ Based on these findings, the project defines the following three main objectives
 
 The first objective is to replace the outdated class-based React architecture with modern functional components, using React Flow as the core rendering and layout engine. This transformation improves maintainability, supports modular development, and creates a solid foundation for future extensions. While modernizing the internals, we preserved a key architectural idea from the original Apollon: exposing the diagram editor through a central class interface that can be embedded into any host application.
 
-- *Proofs of Concept and Technology Evaluation*  
-  We explored alternative approaches with Angular and evaluated diagramming libraries. The final design is based on React Flow and functional React after testing custom node rendering, edge handling, and drag/drop behavior.
+*Proofs of Concept and Technology Evaluation*: We explored alternative approaches with Angular and evaluated diagramming libraries. The final design is based on React Flow and functional React after testing custom node rendering, edge handling, and drag/drop behavior.
 
-- *Creation of the ApollonEditor Interface Class*  
-  Similar to the original Apollon, our implementation includes a core class ApollonEditor that serves as the main integration layer between the library and external consumers (e.g., the standalone web app or Artemis). It follows the same pattern of injecting the React application into a target HTML element. The class exposes a stable API for consuming applications, including methods such as subscribeToModelChange, getModel, setModel, exportAsSVG, and sendBroadcastMessage. While users can interact directly with the canvas to modify diagrams through touch or mouse events, the ApollonEditor class enables external systems to programmatically control, observe, or synchronize diagram state providing a clean interface for embedding and extending the tool.
+*Creation of the ApollonEditor Interface Class*: Similar to the original Apollon, our implementation includes a core class ApollonEditor that serves as the main integration layer between the library and external consumers (e.g., the standalone web app or Artemis). It follows the same pattern of injecting the React application into a target HTML element. The class exposes a stable API for consuming applications, including methods such as subscribeToModelChange, getModel, setModel, exportAsSVG, and sendBroadcastMessage. While users can interact directly with the canvas to modify diagrams through touch or mouse events, the ApollonEditor class enables external systems to programmatically control, observe, or synchronize diagram state providing a clean interface for embedding and extending the tool.
 
-- *State Management with Zustand*  
-  We replace Redux and Saga with Zustand for simpler, modular, and more performant global state handling.
+*State Management with Zustand*: We replace Redux and Saga with Zustand for simpler, modular, and more performant global state handling.
 
-- *New Node Structure*  
-  We redesigned diagram nodes using React Flow’s custom node feature, enabling a clear separation of rendering logic, metadata, and interaction behavior. Each node is rendered with custom SVG elements for precise visual control. We also use React Flow’s custom handles to define and style connection points, along with built-in support for resizing.
+*New Node Structure*: We redesigned diagram nodes using React Flow’s custom node feature, enabling a clear separation of rendering logic, metadata, and interaction behavior. Each node is rendered with custom SVG elements for precise visual control. We also use React Flow’s custom handles to define and style connection points, along with built-in support for resizing.
 
-- *New Edge Structure*  
-  We replace legacy edge rendering with clean, straight, UML-compliant connectors that eliminate awkward diagonals and improve diagram readability.
+*New Edge Structure*: We replace legacy edge rendering with clean, straight, UML-compliant connectors that eliminate awkward diagonals and improve diagram readability.
 
-- *Collaboration Mode with Yjs*  
-  We implement real-time collaborative editing using Yjs, synchronized with the local Zustand state. Zustand maintains the latest diagram state for rendering, while Yjs handles document synchronization across users through WebSocket-driven updates. Changes in the diagram trigger applyUpdate to propagate edits, ensuring consistency between local and shared states.
+*Collaboration Mode with Yjs*: We implement real-time collaborative editing using Yjs, synchronized with the local Zustand state. Zustand maintains the latest diagram state for rendering, while Yjs handles document synchronization across users through WebSocket-driven updates. Changes in the diagram trigger applyUpdate to propagate edits, ensuring consistency between local and shared states.
 
-
-- *Artemis Integration*  
-  We aim to maintain a high level of compatibility with Artemis by preserving most API endpoints and aligning the new Apollon version closely with the original. While the JSON format has been updated, efforts were made to minimize integration friction and ensure a smooth transition.
+*Artemis Integration*: We aim to maintain a high level of compatibility with Artemis by preserving most API endpoints and aligning the new Apollon version closely with the original. While the JSON format has been updated, efforts were made to minimize integration friction and ensure a smooth transition.
 
 === Enhance Accessibility for Web and Mobile Users
 
 The second objective is to ensure Apollon works seamlessly across major platforms by using Capacitor to package the React app into native applications and optimizing the interface for touch-based interactions.
 
-- *Capacitor Integration and Distribution*  
-  We generate native iOS and Android apps from the web-based codebase using Capacitor, enabling unified development and consistent UX.
+*Capacitor Integration and Distribution*: We generate native iOS and Android apps from the web-based codebase using Capacitor, enabling unified development and consistent UX.
 
-- *Mobile Touch and Drag Support*  
-  We improve drag-and-drop interaction on mobile devices and optimize the layout to provide a better touch experience, including gesture handling and layout adjustments.  
+*Mobile Touch and Drag Support*: We improve drag-and-drop interaction on mobile devices and optimize the layout to provide a better touch experience, including gesture handling and layout adjustments.
 
-- *Deployment*  
-  We prepare production builds for both web and mobile platforms, including Docker-based deployment for the web and packaging for the App Store and Google Play.  
+*Deployment*: We prepare production builds for both web and mobile platforms, including Docker-based deployment for the web and packaging for the App Store and Google Play.
 
 === Improve the Usability and Visibility of the Application
 
 The third objective focuses on creating a clean, intuitive interface that supports students with minimal prior experience in UML modeling. This involves simplifying layout, improving canvas interactions, and reducing friction during usage.
 
-- *Flexible Edge Connections*  
-In the new implementation, users can freely choose which handle on a node to connect from or to without being constrained to the center of the edge. Handles appear as small circles on hover, allowing more intuitive and flexible edge creation. Unlike the previous approach, which required anchoring one end to the node’s center during creation (with extra steps needed to adjust it later). 
+*Flexible Edge Connections*: In the new implementation, users can freely choose which handle on a node to connect from or to without being constrained to the center of the edge. Handles appear as small circles on hover, allowing more intuitive and flexible edge creation. Unlike the previous approach, which required anchoring one end to the node’s center during creation (with extra steps needed to adjust it later).
 
+*Mobile Touch Support and Canvas Interactions*: In the previous system, support for mobile browsers was limited. Although elements could be placed on the canvas, repositioning or editing them was cumbersome and often unreliable on touch devices. The new implementation introduces full touch gesture support, allowing users to drag, reposition, and interact with elements seamlessly after placing them. Paired with an infinite canvas, this greatly enhances usability users can now freely navigate and model diagrams on mobile devices with a more intuitive and responsive experience.
 
-- *Mobile Touch Support and Canvas Interactions*  
-In the previous system, support for mobile browsers was limited. Although elements could be placed on the canvas, repositioning or editing them was cumbersome and often unreliable on touch devices. The new implementation introduces full touch gesture support, allowing users to drag, reposition, and interact with elements seamlessly after placing them. Paired with an infinite canvas, this greatly enhances usability users can now freely navigate and model diagrams on mobile devices with a more intuitive and responsive experience.
+*Infinite Canvas*: The original Apollon used a finite canvas that only expanded when elements were dropped at the edges, which often led to frustrating layout limitations. In the new system, we use React Flow’s infinite canvas, allowing users to pan and zoom freely across a much larger working area. This gives users more freedom in how they lay out their diagrams and contributes to a smoother modeling experience.
 
-- *Infinite Canvas*
-The original Apollon used a finite canvas that only expanded when elements were dropped at the edges, which often led to frustrating layout limitations. In the new system, we use React Flow’s infinite canvas, allowing users to pan and zoom freely across a much larger working area. This gives users more freedom in how they lay out their diagrams and contributes to a smoother modeling experience.
-
-- *Customizable Minimap*  
-We enhanced navigation by integrating a minimap that reflects the full diagram layout. Unlike the original implementation, the new minimap uses simplified versions of the same SVG elements used on the canvas, maintaining visual consistency. This helps users understand the overall structure of their diagrams at a glance and navigate more efficiently.
-
+*Customizable Minimap*: We enhanced navigation by integrating a minimap that reflects the full diagram layout. Unlike the original implementation, the new minimap uses simplified versions of the same SVG elements used on the canvas, maintaining visual consistency. This helps users understand the overall structure of their diagrams at a glance and navigate more efficiently.
 
 
 
