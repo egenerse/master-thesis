@@ -190,9 +190,7 @@ export type PopoverStore = {
 
 This separation of popover-related state ensures a clear boundary between UI control logic and the structural data of the diagram.
 
-*Zustand Integration with Yjs*
-
-Each instance of ApollonEditor is backed by its own Yjs document, enabling real-time collaborative editing. To manage local state, a dedicated set of Zustand stores is created and bound directly to the Yjs document. This tight coupling ensures that all local and remote state changes remain consistent across multiple clients.
+*Zustand Integration with Yjs* Each instance of ApollonEditor is backed by its own Yjs document, enabling real-time collaborative editing. To manage local state, a dedicated set of Zustand stores is created and bound directly to the Yjs document. This tight coupling ensures that all local and remote state changes remain consistent across multiple clients.
 
 At the core of this integration is a bidirectional sync mechanism:
 From Zustand to Yjs:
