@@ -26,7 +26,7 @@ All requirements defined in Section 4.2 and their status are listed in @statusTa
 [FR1], [Artemis Compatibility], [HI],
 [FR2], [Unified Monorepo Structure], [I],
 [FR3], [Mobile Application Support], [I],
-[FR4], [Diagram Functionality], [I],
+[FR4], [Diagram Functionality], [HI],
 [FR5], [Full Diagram Type Support], [HI],
 [FR6], [Client-Side WebSocket Management for Collaborative Editing], [I],
 [FR7], [Collaboration Traﬃc Limit], [I],
@@ -47,17 +47,23 @@ All requirements defined in Section 4.2 and their status are listed in @statusTa
 
 This section summarizes the current status of implemented requirements and achieved goals.
 
-We successfully implemented the Apollon Reengineering Library, along with the Webapp and Server components of the Apollon Standalone. This satisfies FR1 and FR2. The reengineered library maintains the full feature set of the previous version while introducing a cleaner mono-repo structure, where both the library and standalone application coexist in a shared repository. The new architecture follows modern React development practices, significantly improving maintainability and thereby fulfilling QA2.
+We successfully implemented the Apollon Reengineering Library along with the Webapp and Server components of Apollon Standalone. This fully satisfies FR2 (Unified Monorepo Structure) and partially fulfills FR1 (Artemis Compatibility).
+
+The reengineered library offers comprehensive modeling features, including the ability to add, remove, and edit nodes and edges. Nodes can be moved and resized, while edges support reconnection. The library currently supports several diagram types, such as class, object, activity, component, and use case diagrams, but it does not yet cover all available types. As a result, FR5 (Full Diagram Type Support) is only partially satisfied.
+
+The modeling experience is further enhanced by an infinite canvas, smoother and more intuitive zooming and panning, and the ability to navigate the canvas while dragging elements. These improvements contribute to a significantly better and more user-friendly interaction overall satisfies QA1 (Usability). Additionally, the library provides undo/redo functionality, which is essential for a smooth and flexible modeling workflow.
+
+The library exposes a consistent API for importing diagrams in JSON format and exporting them as JSON, SVG, PNG, and PDF files, partially satisfying FR4 (Diagram Functionality).
+
+The Webapp automatically stores the most recently edited diagram in local storage and includes a "load diagram" feature, allowing users to easily resume work on previously saved diagrams to attribute QA1 (Usability).
 
 The Webapp and Server together enable users to model diagrams without requiring registration. Users can share links and collaborate in real time. This streamlined setup ensures a frictionless modeling experience while preserving collaboration functionality.
 
-We also completed the initial integration with Artemis. Core workflows such as diagram creation, submission, collaboration, feedback, and review are fully supported. However, features like selecting or highlighting individual methods or attributes are still missing. Therefore, FR3 is partially fulfilled.
+We also completed the initial integration with Artemis. Core workflows such as diagram creation, submission, collaboration, feedback, and review are fully supported. However, features like selecting or highlighting individual methods or attributes are still missing. Therefore, FR1 (Artemis Compatibility) is partially fulfilled.
 
-Additionally, we integrated Capacitor into the mono-repo, enabling us to deploy the latest changes directly to native iOS and Android apps. Touch-based events and gestures were handled carefully to improve the mobile experience across both apps and browsers. These improvements fulfill FR4 and also improves Acesibility which was the QA4.
+Additionally, we integrated Capacitor into the mono-repo, enabling us to deploy the latest changes directly to native iOS and Android apps. Touch-based events and gestures were handled carefully to improve the mobile experience across both apps and browsers. These improves QA4 (Acesibility).
 
-All previously available modeling features remain intact, successfully fulfilling FR5. Moreover, we began extending support for additional diagram types. While not all types are supported yet, this partially meets the requirement of FR6.
-
-We reintroduced collaboration mode using the same WebSocket-based infrastructure, fulfilling FR7. We ensured the collaboration traffic stays well below the 200 KB threshold currently under 100 KB. This demonstrates that the system can support larger collaboration sessions which fulfills QA3 (Performance)
+We reintroduced collaboration mode using the same WebSocket-based infrastructure, fulfilling FR7 (Collaboration Traﬃc Limit). We ensured the collaboration traffic stays well below the 200 KB threshold currently under 100 KB. This demonstrates that the system can support larger collaboration sessions which fulfills QA3 (Performance)
 
 Finally, based on feedback gathered during testing, we implemented several usability improvements such as a minimap, zoom controls, and refined UI icons. These enhancements contribute toward meeting QA1 (Usability) and ensure a more intuitive user experience.
 
